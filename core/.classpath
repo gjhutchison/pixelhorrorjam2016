@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" exported="true"/>
+	<classpathentry sourcepath="C:/Users/Owner/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.7.1/a1fd092a4cdeb029ddb205805143a26545de1e6b/gdx-1.7.1-sources.jar" kind="lib" path="C:/Users/Owner/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.7.1/2179cc613447c297623a4a6d2ba6692c3aaff804/gdx-1.7.1.jar" exported="true"/>
+	<classpathentry sourcepath="C:/Users/Owner/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d/1.7.1/13f2241b3ab821dbad64292ad7180d5d14a32ed1/gdx-box2d-1.7.1-sources.jar" kind="lib" path="C:/Users/Owner/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d/1.7.1/fd23897393900f8f888222795e3229eff600fb3d/gdx-box2d-1.7.1.jar" exported="true"/>
+	<classpathentry sourcepath="C:/Users/Owner/.gradle/caches/modules-2/files-2.1/com.badlogicgames.box2dlights/box2dlights/1.4/57a1f15112328706c648a430bd19574118e2d8f4/box2dlights-1.4-sources.jar" kind="lib" path="C:/Users/Owner/.gradle/caches/modules-2/files-2.1/com.badlogicgames.box2dlights/box2dlights/1.4/3d77ad5b4164fb32fc67e2446e35911bb0aaf0bd/box2dlights-1.4.jar" exported="true"/>
+	<classpathentry sourcepath="C:/Users/Owner/.gradle/caches/modules-2/files-2.1/net.dermetfan.libgdx-utils/libgdx-utils-box2d/0.13.2/bd2de7de45bd0fd0f638257895be9285b805a878/libgdx-utils-box2d-0.13.2-sources.jar" kind="lib" path="C:/Users/Owner/.gradle/caches/modules-2/files-2.1/net.dermetfan.libgdx-utils/libgdx-utils-box2d/0.13.2/cb22af5b48e5dbe82a4f0704e5ddf360e1d1c9d6/libgdx-utils-box2d-0.13.2.jar" exported="true"/>
+	<classpathentry sourcepath="C:/Users/Owner/.gradle/caches/modules-2/files-2.1/net.dermetfan.libgdx-utils/libgdx-utils/0.13.2/7ca29008c89e9ac2b266ecb41d7201e80dedadc9/libgdx-utils-0.13.2-sources.jar" kind="lib" path="C:/Users/Owner/.gradle/caches/modules-2/files-2.1/net.dermetfan.libgdx-utils/libgdx-utils/0.13.2/62b7ab4f643c6b396292d1f2387c0099d28102ba/libgdx-utils-0.13.2.jar" exported="true"/>
+</classpath>
