@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.hutchison.game.rooms.MainHall;
+import com.hutchison.game.rooms.Room;
 
 public class PlayGame implements Screen, InputProcessor {
 
@@ -29,13 +31,12 @@ public class PlayGame implements Screen, InputProcessor {
 	private Viewport _viewport;
 	private Sprite _testImg;
 	private SpriteBatch _batch;
+	private Room _currentRoom;
 
 	@Override
 	public void show() {
+		_currentRoom = new MainHall(); // TODO: Make data structure to hold rooms as a Map<String, Room>?
 		_batch = new SpriteBatch();
-
-		_testImg = new Sprite(new Texture("MainRoom.png"));
-
 		_camera = new OrthographicCamera();
 		_camera.translate(GAME_WIDTH / 2, GAME_HEIGHT / 2);
 		_viewport = new StretchViewport(GAME_WIDTH, GAME_HEIGHT, _camera);
@@ -64,7 +65,7 @@ public class PlayGame implements Screen, InputProcessor {
 		_camera.update();
 		_batch.setProjectionMatrix(_camera.combined);
 		_batch.begin();
-		_testImg.draw(_batch);
+		_currentRoom.getSprite().draw(_batch);
 		_batch.end();
 	}
 
