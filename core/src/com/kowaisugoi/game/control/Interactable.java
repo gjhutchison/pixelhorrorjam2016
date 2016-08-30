@@ -1,7 +1,10 @@
 package com.kowaisugoi.game.control;
 
-/**
- * Created by Owner on 8/29/2016.
- */
-public class Interactable {
+import com.badlogic.gdx.math.Rectangle;
+
+public interface Interactable {
+    public Rectangle getInteractionBox();
+
+    public boolean isClicked(float curX, float curY);
+
 }
