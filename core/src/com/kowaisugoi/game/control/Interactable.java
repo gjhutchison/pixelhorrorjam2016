@@ -1,4 +1,4 @@
-package com.hutchison.game.control;
+package com.kowaisugoi.game.control;
 
 /**
  * Created by Owner on 8/29/2016.

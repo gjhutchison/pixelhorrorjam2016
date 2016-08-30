@@ -1,8 +1,8 @@
-package com.hutchison.game;
+package com.kowaisugoi.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.hutchison.game.screens.PlayGame;
+import com.kowaisugoi.game.screens.PlayGame;
 
 public class MainGame extends Game {
 	public static String TITLE = "DAE CABIN IN WOODS?";

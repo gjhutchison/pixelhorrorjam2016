@@ -1,4 +1,4 @@
-package com.hutchison.game.rooms;
+package com.kowaisugoi.game.rooms;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
