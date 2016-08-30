@@ -1,4 +1,4 @@
-package com.hutchison.game.rooms;
+package com.kowaisugoi.game.rooms;
 
 import java.util.Map;
 
