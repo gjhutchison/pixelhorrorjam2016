@@ -25,7 +25,7 @@ public class PlayGame implements Screen, InputProcessor {
 	private int _numberOfFrames;
 	private int _fps;
 
-	private OrthographicCamera _camera;
+	private OrthographicCamera _fuckedwith;
 	private Viewport _viewport;
 	private Sprite _testImg;
 	private SpriteBatch _batch;
@@ -36,9 +36,9 @@ public class PlayGame implements Screen, InputProcessor {
 
 		_testImg = new Sprite(new Texture("MainRoom.png"));
 
-		_camera = new OrthographicCamera();
-		_camera.translate(GAME_WIDTH / 2, GAME_HEIGHT / 2);
-		_viewport = new StretchViewport(GAME_WIDTH, GAME_HEIGHT, _camera);
+		_fuckedwith = new OrthographicCamera();
+		_fuckedwith.translate(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+		_viewport = new StretchViewport(GAME_WIDTH, GAME_HEIGHT, _fuckedwith);
 
 		Gdx.input.setInputProcessor(this);
 
@@ -61,8 +61,8 @@ public class PlayGame implements Screen, InputProcessor {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		_camera.update();
-		_batch.setProjectionMatrix(_camera.combined);
+		_fuckedwith.update();
+		_batch.setProjectionMatrix(_fuckedwith.combined);
 		_batch.begin();
 		_testImg.draw(_batch);
 		_batch.end();
