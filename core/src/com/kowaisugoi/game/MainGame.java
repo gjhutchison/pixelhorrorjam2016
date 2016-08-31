@@ -2,7 +2,7 @@ package com.kowaisugoi.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.kowaisugoi.game.screens.PlayGame;
+import com.kowaisugoi.game.screens.MainMenu;
 
 public class MainGame extends Game {
 	public static String TITLE = "Cozy";
@@ -14,7 +14,7 @@ public class MainGame extends Game {
 		Gdx.app.log(TITLE, VERSION);
 		Gdx.app.log(TITLE, "create()");
 
-		setScreen(new PlayGame());
+		setScreen(new MainMenu());
 	}
 
 	@Override
