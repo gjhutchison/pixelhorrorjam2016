@@ -11,14 +11,17 @@ import com.kowaisugoi.game.rooms.RoomId;
  */
 public final class Player {
     private Player(){} // don't construct this class
-
     private static RoomId _currentRoom;
 
     public static RoomId getCurrentRoom() {
         return _currentRoom;
     }
 
-    public static void setCurrentRoom(RoomId current) {
+    public static RoomId getCurrentRoomId() {
+        return _currentRoom;
+    }
+
+    public static void setCurrentRoomId(RoomId current) {
         _currentRoom = current;
     }
 }

@@ -2,6 +2,7 @@ package com.kowaisugoi.game.rooms;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.interactables.Interactable;
 import com.kowaisugoi.game.rooms.passages.Passage;
@@ -21,8 +22,8 @@ public class MainHall implements Room {
     }
 
     @Override
-    public Sprite getSprite() {
-        return _roomSprite;
+    public void draw(SpriteBatch batch) {
+        _roomSprite.draw(batch);
     }
 
     @Override

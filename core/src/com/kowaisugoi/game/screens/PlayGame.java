@@ -10,8 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.kowaisugoi.game.player.Player;
+import com.kowaisugoi.game.rooms.FrontYard;
 import com.kowaisugoi.game.rooms.MainHall;
 import com.kowaisugoi.game.rooms.Room;
+import com.kowaisugoi.game.rooms.RoomId;
 
 public class PlayGame implements Screen, InputProcessor {
 
@@ -30,11 +33,10 @@ public class PlayGame implements Screen, InputProcessor {
 	private Viewport _viewport;
 	private Sprite _testImg;
 	private SpriteBatch _batch;
-	private Room _currentRoom;
 
 	@Override
 	public void show() {
-		_currentRoom = new MainHall(); // TODO: Make data structure to hold rooms as a Map<String, Room>?
+        Player.setCurrentRoomId(RoomId.MAIN_HALL);
 		_batch = new SpriteBatch();
 		_camera = new OrthographicCamera();
 		_camera.translate(GAME_WIDTH / 2, GAME_HEIGHT / 2);
@@ -47,10 +49,10 @@ public class PlayGame implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta) {
-		// if (shouldUpdate(delta)) {
-		// updateGame(delta);
-		renderGame(delta);
-		// }
+		 if (shouldUpdate(delta)) {
+            updateGame(delta);
+            renderGame(delta);
+		 }
 	}
 
 	private void updateGame(float delta) {
@@ -64,7 +66,7 @@ public class PlayGame implements Screen, InputProcessor {
 		_camera.update();
 		_batch.setProjectionMatrix(_camera.combined);
 		_batch.begin();
-		_currentRoom.getSprite().draw(_batch);
+		//Player.getCurrentRoom().draw(_batch);
 		_batch.end();
 	}
 
