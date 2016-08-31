@@ -11,10 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kowaisugoi.game.player.Player;
-import com.kowaisugoi.game.rooms.FrontYard;
-import com.kowaisugoi.game.rooms.MainHall;
-import com.kowaisugoi.game.rooms.Room;
-import com.kowaisugoi.game.rooms.RoomId;
+import com.kowaisugoi.game.rooms.*;
 
 public class PlayGame implements Screen, InputProcessor {
 
@@ -33,10 +30,13 @@ public class PlayGame implements Screen, InputProcessor {
 	private Viewport _viewport;
 	private Sprite _testImg;
 	private SpriteBatch _batch;
+    private RoomManager _manager;
 
 	@Override
 	public void show() {
-        Player.setCurrentRoomId(RoomId.MAIN_HALL);
+        RoomManager manager = new RoomManager();
+        Player.registerRoomManager(manager);
+        Player.setCurrentRoom(RoomId.MAIN_HALL);
 		_batch = new SpriteBatch();
 		_camera = new OrthographicCamera();
 		_camera.translate(GAME_WIDTH / 2, GAME_HEIGHT / 2);
@@ -66,7 +66,7 @@ public class PlayGame implements Screen, InputProcessor {
 		_camera.update();
 		_batch.setProjectionMatrix(_camera.combined);
 		_batch.begin();
-		//Player.getCurrentRoom().draw(_batch);
+		Player.getCurrentRoom().draw(_batch);
 		_batch.end();
 	}
 

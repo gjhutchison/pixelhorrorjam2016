@@ -9,9 +9,9 @@ import com.badlogic.gdx.math.Rectangle;
  * Created by ecrothers on 2016-08-30.
  */
 public class PickupableItem implements Item {
-    public Sprite sp;
+    public Sprite _sprite;
 
-    public PickupableItem() { }
+    public PickupableItem(Sprite sprite) { }
 
     // Draw the world sprite
     public void draw(SpriteBatch batch) {

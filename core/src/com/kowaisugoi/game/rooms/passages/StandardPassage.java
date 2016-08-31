@@ -36,7 +36,7 @@ public class StandardPassage implements Passage {
     @Override
     public boolean click(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
-            Player.setCurrentRoomId(_destination);
+            Player.setCurrentRoom(_destination);
             return true;
         }
         return false;

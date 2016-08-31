@@ -1,6 +1,8 @@
 package com.kowaisugoi.game.player;
 
+import com.kowaisugoi.game.rooms.Room;
 import com.kowaisugoi.game.rooms.RoomId;
+import com.kowaisugoi.game.rooms.RoomManager;
 
 /**
  * While this could be passed to each Room as the player enters it,
@@ -12,16 +14,21 @@ import com.kowaisugoi.game.rooms.RoomId;
 public final class Player {
     private Player(){} // don't construct this class
     private static RoomId _currentRoom;
+    private static RoomManager _manager;
 
-    public static RoomId getCurrentRoom() {
-        return _currentRoom;
+    public static Room getCurrentRoom() {
+        return _manager.getRoomMap().get(_currentRoom);
     }
 
     public static RoomId getCurrentRoomId() {
         return _currentRoom;
     }
 
-    public static void setCurrentRoomId(RoomId current) {
+    public static void registerRoomManager(RoomManager manager) {
+        _manager = manager;
+    }
+
+    public static void setCurrentRoom(RoomId current) {
         _currentRoom = current;
     }
 }

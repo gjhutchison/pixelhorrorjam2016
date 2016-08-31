@@ -11,7 +11,7 @@ import com.kowaisugoi.game.rooms.passages.StandardPassage;
 import java.util.LinkedList;
 
 public class FrontYard implements Room {
-    private Sprite _roomSprite = new Sprite(new Texture("FrontYard.png"));
+    private Sprite _roomSprite = new Sprite(new Texture("FrontYard.jpg"));
     private LinkedList<Interactable> _interactables = new LinkedList<Interactable>();
     private Passage _frontDoor = new StandardPassage(RoomId.MAIN_HALL, new Rectangle(200, 200, 600, 600));
     //private Passage _turnAround = new StandardPassage(RoomId.OUTSIDE, new Rectangle(200, 200, 200, 200));
