@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.kowaisugoi.game.screens.PlayGame;
 
 public class MainGame extends Game {
-	public static String TITLE = "DAE CABIN IN WOODS?";
+	public static String TITLE = "Cozy";
 	public static String VERSION = "0.0.1";
 
 	@Override

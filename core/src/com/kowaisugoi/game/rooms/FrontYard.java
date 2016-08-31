@@ -3,10 +3,11 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.interactables.Interactable;
-import com.kowaisugoi.game.rooms.passages.Passage;
-import com.kowaisugoi.game.rooms.passages.StandardPassage;
+import com.kowaisugoi.game.interactables.passages.Passage;
+import com.kowaisugoi.game.interactables.passages.StandardPassage;
 
 import java.util.LinkedList;
 
@@ -23,6 +24,16 @@ public class FrontYard implements Room {
     @Override
     public void draw(SpriteBatch batch) {
         _roomSprite.draw(batch);
+        for (Interactable inter : _interactables) {
+            inter.draw(batch);
+        }
+    }
+
+    @Override
+    public void draw(ShapeRenderer batch) {
+        for (Interactable inter : _interactables) {
+            inter.draw(batch);
+        }
     }
 
     @Override
@@ -31,5 +42,10 @@ public class FrontYard implements Room {
             inter.click(curX, curY);
         }
         return true;
+    }
+
+    @Override
+    public void cleanUp() {
+        _roomSprite.getTexture().dispose();
     }
 }

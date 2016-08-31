@@ -1,10 +1,13 @@
-package com.kowaisugoi.game.rooms.passages;
+package com.kowaisugoi.game.interactables.passages;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
-import com.kowaisugoi.game.rooms.RoomManager;
 
 /**
  * Created by ecrothers on 2016-08-30.
@@ -30,7 +33,24 @@ public class StandardPassage implements Passage {
 
     @Override
     public void draw(SpriteBatch batch) {
-        // TODO: Implement global debug flag where passages draw a box where they're clickable
+    }
+
+    @Override
+    public void draw(ShapeRenderer renderer) {
+        /*Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        Gdx.gl.glDisable(GL20.GL_BLEND);*/
+
+        if (Player.getDebug()) {
+            ShapeRenderer shapeRenderer = new ShapeRenderer();
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(0, 255, 0, 150);
+            shapeRenderer.rect(_interactionBox.x, _interactionBox.y, _interactionBox.width, _interactionBox.height);
+            shapeRenderer.end();
+        }
     }
 
     @Override
