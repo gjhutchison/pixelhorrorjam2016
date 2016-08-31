@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -31,7 +33,7 @@ public class PlayGame implements Screen, InputProcessor {
     private OrthographicCamera _camera;
     private Viewport _viewport;
     private SpriteBatch _batch;
-    private RoomManager _manager;
+    private ShapeRenderer _shapeRenderer;
 
     @Override
     public void show() {
@@ -39,6 +41,7 @@ public class PlayGame implements Screen, InputProcessor {
         Player.registerRoomManager(manager);
         Player.setCurrentRoom(RoomId.MAIN_HALL);
         _batch = new SpriteBatch();
+        _shapeRenderer = new ShapeRenderer();
         _camera = new OrthographicCamera();
         _camera.translate(GAME_WIDTH / 2, GAME_HEIGHT / 2);
         _viewport = new StretchViewport(GAME_WIDTH, GAME_HEIGHT, _camera);
@@ -69,6 +72,14 @@ public class PlayGame implements Screen, InputProcessor {
         _batch.begin();
         Player.getCurrentRoom().draw(_batch);
         _batch.end();
+
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        _shapeRenderer.setProjectionMatrix(_camera.combined);
+        _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        Player.getCurrentRoom().draw(_shapeRenderer);
+        _shapeRenderer.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
     private boolean shouldUpdate(float delta) {

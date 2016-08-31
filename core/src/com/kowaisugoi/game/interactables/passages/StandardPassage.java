@@ -37,17 +37,10 @@ public class StandardPassage implements Passage {
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        /*Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        Gdx.gl.glEnable(GL20.GL_BLEND);
-        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        Gdx.gl.glDisable(GL20.GL_BLEND);*/
-
         if (Player.getDebug()) {
             ShapeRenderer shapeRenderer = new ShapeRenderer();
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(0, 255, 0, 150);
+            shapeRenderer.setColor(0, 1, 0, 0.25f);
             shapeRenderer.rect(_interactionBox.x, _interactionBox.y, _interactionBox.width, _interactionBox.height);
             shapeRenderer.end();
         }
