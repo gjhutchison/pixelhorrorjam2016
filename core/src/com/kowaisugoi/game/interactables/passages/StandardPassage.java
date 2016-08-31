@@ -38,11 +38,9 @@ public class StandardPassage implements Passage {
     @Override
     public void draw(ShapeRenderer renderer) {
         if (Player.getDebug()) {
-            ShapeRenderer shapeRenderer = new ShapeRenderer();
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(0, 1, 0, 0.25f);
-            shapeRenderer.rect(_interactionBox.x, _interactionBox.y, _interactionBox.width, _interactionBox.height);
-            shapeRenderer.end();
+            renderer.begin(ShapeRenderer.ShapeType.Filled);
+            renderer.setColor(0, 1, 0, 0.25f);
+            renderer.rect(_interactionBox.x, _interactionBox.y, _interactionBox.width, _interactionBox.height);
         }
     }
 
