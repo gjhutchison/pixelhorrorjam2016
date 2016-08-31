@@ -30,7 +30,6 @@ public class PlayGame implements Screen, InputProcessor {
 
     private OrthographicCamera _camera;
     private Viewport _viewport;
-    private Sprite _testImg;
     private SpriteBatch _batch;
     private RoomManager _manager;
 
@@ -118,7 +117,6 @@ public class PlayGame implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
-        _testImg.getTexture().dispose();
     }
 
     @Override
@@ -141,16 +139,16 @@ public class PlayGame implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (button == Input.Buttons.LEFT) {
-            Vector3 clickPosition = screenToWorldPosition(screenX, screenY, _camera);
-            handleMouseClick(clickPosition.x, clickPosition.y);
-        }
+        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        // TODO Auto-generated method stub
+        if (button == Input.Buttons.LEFT) {
+            Vector3 clickPosition = screenToWorldPosition(screenX, screenY, _camera);
+            handleMouseClick(clickPosition.x, clickPosition.y);
+        }
         return false;
     }
 
@@ -172,7 +170,7 @@ public class PlayGame implements Screen, InputProcessor {
     }
 
     private void handleMouseClick(float curX, float curY) {
-
+        Player.getCurrentRoom().click(curX, curY);
     }
 
     private Vector3 screenToWorldPosition(int screenX, int screenY, OrthographicCamera camera) {

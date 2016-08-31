@@ -1,4 +1,4 @@
-package com.kowaisugoi.game.rooms.passages;
+package com.kowaisugoi.game.interactables.passages;
 
 import com.kowaisugoi.game.interactables.Interactable;
 import com.kowaisugoi.game.rooms.RoomId;

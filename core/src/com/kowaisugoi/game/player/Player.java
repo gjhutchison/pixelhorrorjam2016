@@ -15,6 +15,8 @@ public final class Player {
     private Player(){} // don't construct this class
     private static RoomId _currentRoom;
     private static RoomManager _manager;
+    private static boolean _isInInventory = false;
+    private static boolean _isDebug = true;
 
     public static Room getCurrentRoom() {
         return _manager.getRoomMap().get(_currentRoom);
@@ -30,5 +32,9 @@ public final class Player {
 
     public static void setCurrentRoom(RoomId current) {
         _currentRoom = current;
+    }
+
+    public static boolean getDebug() {
+        return _isDebug;
     }
 }

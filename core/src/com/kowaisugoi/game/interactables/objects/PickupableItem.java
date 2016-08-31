@@ -2,6 +2,7 @@ package com.kowaisugoi.game.interactables.objects;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -12,6 +13,10 @@ public class PickupableItem implements Item {
     public Sprite _sprite;
 
     public PickupableItem(Sprite sprite) { }
+
+    // Draw any world squares (debug interactable areas)
+    public void draw(ShapeRenderer renderer) {
+    }
 
     // Draw the world sprite
     public void draw(SpriteBatch batch) {

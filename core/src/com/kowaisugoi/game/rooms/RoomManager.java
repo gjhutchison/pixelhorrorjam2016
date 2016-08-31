@@ -18,4 +18,11 @@ public final class RoomManager {
     public Map<RoomId, Room> getRoomMap() {
         return _roomMap;
     }
+
+    // Clean up all rooms
+    public void cleanUp() {
+        for (Room room : _roomMap.values()) {
+            room.cleanUp();
+        }
+    }
 }
