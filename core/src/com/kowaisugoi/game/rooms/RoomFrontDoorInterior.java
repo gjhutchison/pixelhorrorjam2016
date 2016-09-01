@@ -11,15 +11,14 @@ import com.kowaisugoi.game.interactables.passages.StandardPassage;
 
 import java.util.LinkedList;
 
-public class MainHall implements Room {
-    private Sprite _roomSprite = new Sprite(new Texture("MainRoom.png"));
+public class RoomFrontDoorInterior implements Room {
+    private Sprite _roomSprite = new Sprite(new Texture("FrontDoorInterior.jpg"));
     private LinkedList<Interactable> _interactables = new LinkedList<Interactable>();
-    private Passage _frontDoor = new StandardPassage(RoomId.FRONTYARD, new Rectangle(0, 0, 200, 200));
-    private Passage _turnAround = new StandardPassage(RoomId.FRONT_DOOR_INTERIOR, new Rectangle(200, 200, 200, 200));
+    private Passage _frontDoor = new StandardPassage(RoomId.FRONTYARD, new Rectangle(200, 200, 600, 600));
+    private Passage _turnAround = new StandardPassage(RoomId.MAIN_HALL, new Rectangle(0, 0, 200, 1000));
 
-    public MainHall() {
+    public RoomFrontDoorInterior() {
         _interactables.push(_frontDoor);
-        _interactables.push(_turnAround);
     }
 
     @Override
@@ -39,7 +38,7 @@ public class MainHall implements Room {
 
     @Override
     public boolean click(float curX, float curY) {
-        // For now, the Room is ambivalent about what happens with objects
+        // This room doesn't need to react to its interactables, but we could catch the return values if we wanted
         for (Interactable inter : _interactables) {
             inter.click(curX, curY);
         }
@@ -47,7 +46,7 @@ public class MainHall implements Room {
     }
 
     @Override
-    public void cleanUp() {
+    public void dispose() {
         _roomSprite.getTexture().dispose();
     }
 }

@@ -4,10 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
@@ -19,16 +17,9 @@ import com.kowaisugoi.game.rooms.RoomManager;
 
 public class PlayGame implements Screen, InputProcessor {
 
-    private static final float MAX_FPS = 60.0f;
-    private static final float UPDATE_INTERVAL = 1.0f / MAX_FPS;
-    private static final float START_TIME = System.currentTimeMillis();
     // 640x360
     public static final float GAME_WIDTH = 160;
     public static final float GAME_HEIGHT = 90;
-
-    private float _timeSinceLastUpdate;
-    private int _numberOfFrames;
-    private int _fps;
 
     private OrthographicCamera _camera;
     private Viewport _viewport;
@@ -47,16 +38,12 @@ public class PlayGame implements Screen, InputProcessor {
         _viewport = new StretchViewport(GAME_WIDTH, GAME_HEIGHT, _camera);
 
         Gdx.input.setInputProcessor(this);
-
-        _timeSinceLastUpdate = 0.0f;
     }
 
     @Override
     public void render(float delta) {
-        if (shouldUpdate(delta)) {
-            updateGame(delta);
-            renderGame(delta);
-        }
+        updateGame(delta);
+        renderGame(delta);
     }
 
     private void updateGame(float delta) {
@@ -80,27 +67,6 @@ public class PlayGame implements Screen, InputProcessor {
         Player.getCurrentRoom().draw(_shapeRenderer);
         _shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
-    }
-
-    private boolean shouldUpdate(float delta) {
-        _timeSinceLastUpdate += delta;
-        if (_timeSinceLastUpdate >= UPDATE_INTERVAL) {
-            updateFps(delta);
-            resetUpdateTime();
-            return true;
-        }
-        return false;
-    }
-
-    private void updateFps(float delta) {
-        _numberOfFrames++;
-        _fps = (int) (_numberOfFrames / (START_TIME - System.currentTimeMillis()));
-    }
-
-    private void resetUpdateTime() {
-        if (_timeSinceLastUpdate >= 1) {
-            _timeSinceLastUpdate = 0.0f;
-        }
     }
 
     @Override

@@ -10,9 +10,9 @@ public final class RoomManager {
     private HashMap<RoomId, Room> _roomMap = new HashMap<RoomId, Room>();
 
     public RoomManager() {
-        _roomMap.put(RoomId.MAIN_HALL, new MainHall());
-        _roomMap.put(RoomId.FRONT_DOOR_INTERIOR, new FrontDoorInterior());
-        _roomMap.put(RoomId.FRONTYARD, new FrontYard());
+        _roomMap.put(RoomId.MAIN_HALL, new RoomMainHall());
+        _roomMap.put(RoomId.FRONT_DOOR_INTERIOR, new RoomFrontDoorInterior());
+        _roomMap.put(RoomId.FRONTYARD, new RoomFrontYard());
     }
 
     public Map<RoomId, Room> getRoomMap() {
@@ -22,7 +22,7 @@ public final class RoomManager {
     // Clean up all rooms
     public void cleanUp() {
         for (Room room : _roomMap.values()) {
-            room.cleanUp();
+            room.dispose();
         }
     }
 }
