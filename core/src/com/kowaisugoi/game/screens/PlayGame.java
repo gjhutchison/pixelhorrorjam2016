@@ -31,7 +31,7 @@ public class PlayGame implements Screen, InputProcessor {
     public void show() {
         RoomManager manager = new RoomManager();
         Player.registerRoomManager(manager);
-        Player.setCurrentRoom(RoomId.MAIN_HALL);
+        Player.setCurrentRoom(RoomId.CAR);
         _batch = new SpriteBatch();
         _shapeRenderer = new ShapeRenderer();
         _camera = new OrthographicCamera();

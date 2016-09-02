@@ -16,9 +16,9 @@ import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
  * Use this class as a class to build other rooms off of to avoid
  * code duplication
  */
-public class StandardRoom implements Room {
+public abstract class StandardRoom implements Room {
 
-    private Sprite _roomSprite = new Sprite(new Texture("rooms/MainRoom.png"));
+    private Sprite _roomSprite;
     private List<Interactable> _interactables = new LinkedList<Interactable>();
 
     public StandardRoom(Sprite image) {
