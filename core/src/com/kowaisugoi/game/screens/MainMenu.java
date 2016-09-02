@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kowaisugoi.game.MainGame;
+import com.kowaisugoi.game.system.FullscreenKeyHandler;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class MainMenu implements Screen, InputProcessor {
 
     private BitmapFont _titleFont;
     private BitmapFont _font;
+    private BitmapFont _tinyfont;
 
     private Random _random;
 
@@ -63,6 +65,9 @@ public class MainMenu implements Screen, InputProcessor {
         parameter.size = 20;
         _font = generator.generateFont(parameter);
         _font.setColor(Color.WHITE);
+        parameter.size = 12;
+        _tinyfont = generator.generateFont(parameter);
+        _tinyfont.setColor(Color.WHITE);
 
         _background = new Sprite(new Texture("MainMenuBackground.png"));
         _background.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
@@ -105,6 +110,7 @@ public class MainMenu implements Screen, InputProcessor {
         _batch.begin();
         _titleFont.draw(_batch, MainGame.TITLE, 5, MAIN_MENU_HEIGHT - 10);
         _font.draw(_batch, "Click To Begin", 180, 20);
+        _tinyfont.draw(_batch, "F4 Toggle Fullscreen", 5, 15);
 
         _batch.end();
     }
@@ -133,6 +139,7 @@ public class MainMenu implements Screen, InputProcessor {
     public void dispose() {
         _titleFont.dispose();
         _font.dispose();
+        _tinyfont.dispose();
 
         _shapeRenderer.dispose();
         _batch.dispose();
@@ -178,26 +185,11 @@ public class MainMenu implements Screen, InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.F4) {
-            if (!Gdx.graphics.isFullscreen()) {
-                // set resolution to HD ready (1280 x 720) and set full-screen to true
-                // Gdx.graphics.setDisplayMode(1280, 720, true);
-
-                // set resolution to default and set full-screen to true
-                Gdx.graphics.setDisplayMode(
-                        Gdx.graphics.getDesktopDisplayMode().width,
-                        Gdx.graphics.getDesktopDisplayMode().height,
-                        true);
-            } else {
-                Gdx.graphics.setDisplayMode(
-                        800,
-                        450,
-                        false);
-            }
+        if (FullscreenKeyHandler.handleFullscreenKey(keycode)) {
             return true;
         }
-        return false;
 
+        return false;
     }
 
     @Override
