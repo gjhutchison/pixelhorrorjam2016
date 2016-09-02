@@ -1,9 +1,6 @@
 package com.kowaisugoi.game.screens;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kowaisugoi.game.MainGame;
+import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,7 +178,26 @@ public class MainMenu implements Screen, InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
+        if (keycode == Input.Keys.F4) {
+            if (!Gdx.graphics.isFullscreen()) {
+                // set resolution to HD ready (1280 x 720) and set full-screen to true
+                // Gdx.graphics.setDisplayMode(1280, 720, true);
+
+                // set resolution to default and set full-screen to true
+                Gdx.graphics.setDisplayMode(
+                        Gdx.graphics.getDesktopDisplayMode().width,
+                        Gdx.graphics.getDesktopDisplayMode().height,
+                        true);
+            } else {
+                Gdx.graphics.setDisplayMode(
+                        800,
+                        450,
+                        false);
+            }
+            return true;
+        }
         return false;
+
     }
 
     @Override
