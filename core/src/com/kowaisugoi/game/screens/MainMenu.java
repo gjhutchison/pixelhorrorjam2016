@@ -52,7 +52,7 @@ public class MainMenu implements Screen, InputProcessor {
         _batch = new SpriteBatch();
         _shapeRenderer = new ShapeRenderer();
 
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Raleway-Medium.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/raleway/Raleway-Medium.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
         parameter.size = 64;
         parameter.borderColor = Color.GRAY;
