@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
-import com.kowaisugoi.game.system.FullscreenKeyHandler;
+import com.kowaisugoi.game.system.GlobalKeyHandler;
 
 public class PlayGame implements Screen, InputProcessor {
 
@@ -99,7 +99,7 @@ public class PlayGame implements Screen, InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if (FullscreenKeyHandler.handleFullscreenKey(keycode)) {
+        if (GlobalKeyHandler.keyUp(keycode)) {
             return true;
         }
 

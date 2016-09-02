@@ -15,8 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kowaisugoi.game.MainGame;
-import com.kowaisugoi.game.system.FullscreenKeyHandler;
-import javafx.scene.input.KeyCode;
+import com.kowaisugoi.game.system.GlobalKeyHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -185,7 +184,7 @@ public class MainMenu implements Screen, InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (FullscreenKeyHandler.handleFullscreenKey(keycode)) {
+        if (GlobalKeyHandler.keyUp(keycode)) {
             return true;
         }
 
