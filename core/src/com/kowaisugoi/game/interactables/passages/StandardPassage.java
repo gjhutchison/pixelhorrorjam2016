@@ -6,13 +6,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
+
+import java.util.LinkedList;
 
 /**
  * Created by ecrothers on 2016-08-30.
  */
 public class StandardPassage implements Passage {
+    private LinkedList<InteractionListener> _listeners = new LinkedList<InteractionListener>();
     private Rectangle _interactionBox;
     private RoomId _destination;
 
@@ -32,6 +36,12 @@ public class StandardPassage implements Passage {
     }
 
     @Override
+    public void roomTransition() {
+
+        Player.setCurrentRoom(_destination);
+    }
+
+    @Override
     public void draw(SpriteBatch batch) {
     }
 
@@ -46,9 +56,21 @@ public class StandardPassage implements Passage {
     @Override
     public boolean click(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
-            Player.setCurrentRoom(_destination);
+            notifyListeners();
+            roomTransition();
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void registerListener(InteractionListener lis) {
+        _listeners.push(lis);
+    }
+
+    private void notifyListeners() {
+        for (InteractionListener listener : _listeners) {
+            listener.notifyListener();
+        }
     }
 }

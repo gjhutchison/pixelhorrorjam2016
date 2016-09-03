@@ -12,4 +12,6 @@ public interface Interactable {
     public void draw(ShapeRenderer renderer);
 
     public boolean click(float curX, float curY);
+
+    public void registerListener(InteractionListener listener);
 }
