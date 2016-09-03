@@ -112,7 +112,6 @@ public class PlayGame implements Screen, InputProcessor {
         if (GlobalKeyHandler.keyUp(keycode)) {
             return true;
         }
-
         return false;
     }
 
