@@ -31,7 +31,7 @@ public class PlayGame implements Screen, InputProcessor {
     private SpriteBatch _batch;
     private ShapeRenderer _shapeRenderer;
 
-    private SlideTransition _slideTransition;
+    //private SlideTransition _slideTransition;
 
     @Override
     public void show() {
@@ -44,8 +44,8 @@ public class PlayGame implements Screen, InputProcessor {
         _camera.translate(GAME_WIDTH / 2, GAME_HEIGHT / 2);
         _viewport = new StretchViewport(GAME_WIDTH, GAME_HEIGHT, _camera);
 
-        _slideTransition = new SlideTransition();
-        PASSAGE_LISTENER_MANAGER.registerSlideTransition(_slideTransition);
+//        _slideTransition = new SlideTransition();
+        //PASSAGE_LISTENER_MANAGER.registerSlideTransition(_slideTransition);
 
         Gdx.input.setInputProcessor(this);
     }
@@ -57,7 +57,8 @@ public class PlayGame implements Screen, InputProcessor {
     }
 
     private void updateGame(float delta) {
-        PASSAGE_LISTENER_MANAGER.update(delta);
+        Player.getCurrentRoom().update(delta);
+        //PASSAGE_LISTENER_MANAGER.update(delta);
     }
 
     private void renderGame(float delta) {
@@ -75,7 +76,7 @@ public class PlayGame implements Screen, InputProcessor {
         _shapeRenderer.setProjectionMatrix(_camera.combined);
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Player.getCurrentRoom().draw(_shapeRenderer);
-        _slideTransition.draw(_shapeRenderer);
+//        _slideTransition.draw(_shapeRenderer);
         _shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
     }

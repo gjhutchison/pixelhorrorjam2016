@@ -32,12 +32,15 @@ public abstract class StandardRoom implements Room {
     @Override
     public void draw(SpriteBatch batch) {
         _roomSprite.draw(batch);
+        for (Interactable interactable : _interactables) {
+            interactable.draw(batch);
+        }
     }
 
     @Override
-    public void draw(ShapeRenderer batch) {
+    public void draw(ShapeRenderer renderer) {
         for (Interactable interactable : _interactables) {
-            interactable.draw(batch);
+            interactable.draw(renderer);
         }
     }
 
@@ -49,6 +52,13 @@ public abstract class StandardRoom implements Room {
             }
         }
         return false;
+    }
+
+    @Override
+    public void update(float delta) {
+        for (Interactable interactable : _interactables) {
+            interactable.update(delta);
+        }
     }
 
     @Override

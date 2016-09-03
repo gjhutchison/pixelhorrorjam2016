@@ -46,6 +46,13 @@ public class RoomFrontDoorInterior implements Room {
     }
 
     @Override
+    public void update(float delta) {
+        for (Interactable inter : _interactables) {
+            inter.update(delta);
+        }
+    }
+
+    @Override
     public void dispose() {
         _roomSprite.getTexture().dispose();
     }

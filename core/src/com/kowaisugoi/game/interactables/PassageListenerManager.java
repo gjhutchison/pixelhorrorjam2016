@@ -25,26 +25,9 @@ public class PassageListenerManager implements InteractionListenerManager {
     }
 
     //TODO: Disable interaction with anything while this is going on
-    public void update(float delta) {
-        if (_slideTransition.isAnimating()) {
-            _slideTransition.animateTransition(delta);
-            if (_slideTransition.isRoomChange() && !_slideTransition.hasRoomChanged()) {
-                Player.setCurrentRoom(_transferTarget);
-                _slideTransition.changedRoom();
-            }
-        }
-        if (!_disablePolling) {
-            pollNotifications();
-        }
-
-        if (_slideTransition.isAnimationComplete()) {
-            _disablePolling = false;
-            _transferingRoom = false;
-        }
-    }
 
     private void startRoomTransition(RoomId target) {
-        _slideTransition.startAnimation(1);
+        _slideTransition.startAnimation(SlideTransition.Direction.UP);
         _transferingRoom = true;
         _transferTarget = target;
     }

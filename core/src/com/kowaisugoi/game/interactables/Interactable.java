@@ -13,5 +13,7 @@ public interface Interactable {
 
     public boolean click(float curX, float curY);
 
+    public void update(float delta);
+
     public void registerListener(InteractionListener listener);
 }

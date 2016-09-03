@@ -2,28 +2,23 @@ package com.kowaisugoi.game.graphics;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 
 /**
  * Created by Owner on 9/1/2016.
  */
 public class SlideTransition {
-
-    /*
-    TODO: change to an enum
-    Direction
-    1 = up
-    2 = down
-    3 = right
-    4 = left
-     */
-
     private boolean _animating = false;
     private boolean _roomChange = false;
     private boolean _roomChanged = false;
     private boolean _animationComplete = false;
 
-    private int _direction;
+    public enum Direction {
+        UP, DOWN, LEFT, RIGHT
+    }
+
+    private Direction _direction;
 
     private float _xPosition;
     private float _yPosition;
@@ -50,7 +45,7 @@ public class SlideTransition {
     }
 
     //TODO: base direction off of cursor location
-    public void startAnimation(int direction) {
+    public void startAnimation(Direction direction) {
         _direction = direction;
         _animating = true;
         _roomChanged = false;
@@ -58,52 +53,52 @@ public class SlideTransition {
         _animationComplete = false;
         _animationLength = 0;
         switch (_direction) {
-            case 1:
+            case UP:
                 _yPosition = MIN_Y;
                 _xPosition = 0;
                 break;
-            case 2:
+            case DOWN:
                 _yPosition = MAX_Y;
                 _xPosition = 0;
                 break;
-            case 3:
+            case LEFT:
                 _xPosition = MIN_X;
                 _yPosition = 0;
                 break;
-            case 4:
+            case RIGHT:
                 _xPosition = MAX_X;
                 _yPosition = 0;
                 break;
             default:
                 _animating = false;
-                _direction = 0;
+                //_direction = 0;
         }
     }
 
     public void animateTransition(float delta) {
         _animationLength += delta;
         switch (_direction) {
-            case 1:
+            case UP:
                 _yPosition += SPEED_VERTICAL * delta;
                 break;
-            case 2:
+            case DOWN:
                 _yPosition -= SPEED_VERTICAL * delta;
                 break;
-            case 3:
+            case LEFT:
                 _xPosition += SPEED_HORIZONTAL * delta;
                 break;
-            case 4:
+            case RIGHT:
                 _xPosition -= SPEED_HORIZONTAL * delta;
                 break;
             default:
                 return;
         }
 
-        if (_direction == 1 || _direction == 2) {
+        if (_direction == Direction.UP || _direction == Direction.DOWN) {
             if (_animationLength > HALF_TIME_VERTICAL) {
                 _roomChange = true;
             }
-        } else if (_direction == 3 || _direction == 4) {
+        } else if (_direction == Direction.LEFT || _direction == Direction.RIGHT) {
             if (_animationLength > HALF_TIME_HORIZONTAL) {
                 _roomChange = true;
             }
@@ -118,6 +113,24 @@ public class SlideTransition {
             _roomChange = false;
             _animationComplete = true;
         }
+    }
+
+    public void update(float delta) {
+        if (this.isAnimating()) {
+            this.animateTransition(delta);
+            if (this.isRoomChange() && !this.hasRoomChanged()) {
+                //Player.setCurrentRoom(_transferTarget);
+                this.changedRoom();
+            }
+        }
+        /*if (!_disablePolling) {
+            pollNotifications();
+        }*/
+
+        /*if (_transition.isAnimationComplete()) {
+            _disablePolling = false;
+            _transferingRoom = false;
+        }*/
     }
 
     public boolean isRoomChange() {

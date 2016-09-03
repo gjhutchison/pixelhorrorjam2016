@@ -48,6 +48,11 @@ public class PickupableItem implements Item {
     }
 
     @Override
+    public void update(float delta) {
+
+    }
+
+    @Override
     public void registerListener(InteractionListener listener) {
         _listeners.push(listener);
     }
