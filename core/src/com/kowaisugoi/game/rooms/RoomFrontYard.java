@@ -11,7 +11,7 @@ import com.kowaisugoi.game.interactables.passages.StandardPassage;
 
 public class RoomFrontYard extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/FrontYard.png";
+    private static final String ROOM_URL = "rooms/frontyard_v1.png";
 
     private SnowAnimation _snowAnimation;
 
@@ -20,7 +20,7 @@ public class RoomFrontYard extends StandardRoom {
 
         _snowAnimation = new SnowAnimation(50, 6);
 
-        Passage frontDoor = new StandardPassage(RoomId.MAIN_HALL, new Rectangle(70, 20, 20, 35), Direction.UP);
+        Passage frontDoor = new StandardPassage(RoomId.MAIN_HALL, new Rectangle(65, 35, 20, 40), Direction.UP);
 
         addPassage(frontDoor);
     }
