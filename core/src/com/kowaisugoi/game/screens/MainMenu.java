@@ -43,6 +43,9 @@ public class MainMenu implements Screen, InputProcessor {
 
     private Sprite _background;
 
+    private float _fade;
+    private boolean _fadeIn;
+
     @Override
     public void show() {
         _camera = new OrthographicCamera(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
@@ -75,6 +78,9 @@ public class MainMenu implements Screen, InputProcessor {
 
         _snowAnimation = new SnowAnimation(50, 4, MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
 
+        _fade = 1.5f;
+        _fadeIn = true;
+
         Gdx.input.setInputProcessor(this);
     }
 
@@ -103,8 +109,25 @@ public class MainMenu implements Screen, InputProcessor {
         _titleFont.draw(_batch, MainGame.TITLE, 5, MAIN_MENU_HEIGHT - 10);
         _font.draw(_batch, "Click To Begin", 180, 20);
         _tinyfont.draw(_batch, "F4 Toggle Fullscreen", 5, 15);
-
         _batch.end();
+
+
+        if (_fadeIn) {
+
+            _fade -= 1.0 * delta;
+
+            if (_fade < 0) {
+                _fadeIn = false;
+            }
+
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            _shapeRenderer.setColor(0, 0, 0, _fade);
+            _shapeRenderer.rect(0, 0, MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
+            _shapeRenderer.end();
+            Gdx.gl.glDisable(GL20.GL_BLEND);
+        }
     }
 
     @Override
