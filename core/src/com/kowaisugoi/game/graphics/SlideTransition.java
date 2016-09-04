@@ -15,7 +15,6 @@ import com.kowaisugoi.game.screens.PlayGame;
 public class SlideTransition {
     private boolean _animating = false;
     private boolean _roomChanged = false;
-    private boolean _roomDoneChanged = false;
     private boolean _animationComplete = false;
     private Passage _passage;
     private RoomId _destination;
@@ -52,18 +51,17 @@ public class SlideTransition {
     }
 
     void swapRoom() {
-        if (_passage != null) {
-            _passage.roomTransition();
-        }
-
         // Reset animation
         _animationLength = 0;
         _xPosition = 0;
         _yPosition = 0;
         _animating = false;
         _roomChanged = false;
-        _roomDoneChanged = false;
         _animationComplete = false;
+
+        if (_passage != null) {
+            _passage.roomTransition();
+        }
     }
 
     public void startAnimation(Direction direction) {
@@ -138,9 +136,8 @@ public class SlideTransition {
     public void update(float delta) {
         if (this.isAnimating()) {
             this.animateTransition(delta);
-            if (_roomChanged && !_roomDoneChanged) {
+            if (_roomChanged) {
                 swapRoom();
-                _roomDoneChanged = true;
             }
         }
     }
