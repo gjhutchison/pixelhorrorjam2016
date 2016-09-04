@@ -60,7 +60,7 @@ public class SnowAnimation {
     }
 
     public void draw(ShapeRenderer renderer) {
-        renderer.setColor(1, 1, 1, 200);
+        renderer.setColor(0.8f, 0.8f, 0.8f, 0.75f);
         for (Snowflake snowflake : _snowflakes) {
             Vector2 position = snowflake.getPosition();
             int size = snowflake.getSize();

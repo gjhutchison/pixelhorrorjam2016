@@ -1,6 +1,5 @@
 package com.kowaisugoi.game.rooms;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -20,7 +19,7 @@ import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
 public abstract class StandardRoom implements Room {
 
     private Sprite _roomSprite;
-    private List<Interactable> _interactables = new LinkedList<Interactable>();
+    protected List<Interactable> _interactables = new LinkedList<Interactable>();
 
     public StandardRoom(Sprite image) {
         _roomSprite = image;
