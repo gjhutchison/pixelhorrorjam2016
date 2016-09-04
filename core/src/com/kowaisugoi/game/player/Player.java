@@ -23,6 +23,7 @@ public final class Player {
     private static boolean _canInteract = true;
     private static Cursor _handCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/hand_cursor.png")), 16, 0);
     private static Cursor _regularCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/regular_cursor.png")), 0, 0);
+    private static Cursor _invisCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/invisible_cursor.png")), 0, 0);
 
     public static Room getCurrentRoom() {
         return _manager.getRoomMap().get(_currentRoom);
@@ -47,6 +48,12 @@ public final class Player {
 
     public static void setCanInteract(boolean canInteract) {
         _canInteract = canInteract;
+
+        if (!canInteract) {
+            Gdx.graphics.setCursor(_invisCursor);
+        } else {
+            Gdx.graphics.setCursor(_handCursor);
+        }
     }
 
     public static boolean getCanInteract() {
