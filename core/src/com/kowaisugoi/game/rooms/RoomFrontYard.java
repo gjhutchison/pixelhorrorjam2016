@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.graphics.SlideTransition.Direction;
 import com.kowaisugoi.game.graphics.SnowAnimation;
-import com.kowaisugoi.game.interactables.Interactable;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.passages.StandardPassage;
 
@@ -20,14 +20,14 @@ public class RoomFrontYard extends StandardRoom {
 
         _snowAnimation = new SnowAnimation(50, 6);
 
-        Passage frontDoor = new StandardPassage(RoomId.MAIN_HALL, new Rectangle(70, 20, 20, 35));
+        Passage frontDoor = new StandardPassage(RoomId.MAIN_HALL, new Rectangle(70, 20, 20, 35), Direction.UP);
 
-        addInteractable(frontDoor);
+        addPassage(frontDoor);
     }
 
     @Override
     public void update(float delta) {
-        for (Interactable interactable : _interactables) {
+        for (Passage interactable : _passageList) {
             _snowAnimation.updateSnow(delta);
             interactable.update(delta);
         }
@@ -35,7 +35,7 @@ public class RoomFrontYard extends StandardRoom {
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        for (Interactable interactable : _interactables) {
+        for (Passage interactable : _passageList) {
             _snowAnimation.draw(renderer);
             interactable.draw(renderer);
         }

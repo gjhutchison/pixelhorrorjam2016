@@ -4,27 +4,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.graphics.SlideTransition;
+import com.kowaisugoi.game.graphics.SlideTransition.Direction;
 import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
-import com.kowaisugoi.game.rooms.RoomManager;
-import com.kowaisugoi.game.screens.PlayGame;
 
 import java.util.LinkedList;
 
-/**
- * Created by ecrothers on 2016-08-30.
- */
 public class StandardPassage implements Passage {
     private LinkedList<InteractionListener> _listeners = new LinkedList<InteractionListener>();
     private Rectangle _interactionBox;
     private RoomId _destination;
     private SlideTransition _transition;
+    private Direction _direction;
 
-    public StandardPassage(RoomId dest, Rectangle interactionBox) {
+    public StandardPassage(RoomId dest, Rectangle interactionBox, Direction direction) {
         _destination = dest;
         _interactionBox = interactionBox;
         _transition = new SlideTransition(this, dest);
+        _direction = direction;
     }
 
     @Override
@@ -40,6 +38,11 @@ public class StandardPassage implements Passage {
     @Override
     public void roomTransition() {
         Player.setCurrentRoom(_destination);
+    }
+
+    @Override
+    public Direction getDirection() {
+        return _direction;
     }
 
     @Override
@@ -66,7 +69,7 @@ public class StandardPassage implements Passage {
             notifyListeners();
 
             Player.setCanInteract(false);
-            _transition.startAnimation(SlideTransition.Direction.UP);
+            _transition.startAnimation(_direction);
             return true;
         }
         return false;
