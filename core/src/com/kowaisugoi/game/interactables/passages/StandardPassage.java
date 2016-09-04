@@ -73,6 +73,15 @@ public class StandardPassage implements Passage {
     }
 
     @Override
+    public boolean mouseMoved(float curX, float curY) {
+        if (_interactionBox.contains(curX, curY)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public void update(float delta) {
         _transition.update(delta);
     }

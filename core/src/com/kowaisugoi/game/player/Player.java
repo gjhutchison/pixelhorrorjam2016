@@ -1,5 +1,8 @@
 package com.kowaisugoi.game.player;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.kowaisugoi.game.rooms.Room;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
@@ -18,6 +21,8 @@ public final class Player {
     private static boolean _isInInventory = false;
     private static boolean _isDebug = true;
     private static boolean _canInteract = true;
+    private static Cursor _handCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/hand_cursor.png")), 16, 0);
+    private static Cursor _regularCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/regular_cursor.png")), 0, 0);
 
     public static Room getCurrentRoom() {
         return _manager.getRoomMap().get(_currentRoom);
@@ -46,5 +51,13 @@ public final class Player {
 
     public static boolean getCanInteract() {
         return _canInteract;
+    }
+
+    public static void setCursorInteract() {
+        Gdx.graphics.setCursor(_handCursor);
+    }
+
+    public static void setCursorNormal() {
+        Gdx.graphics.setCursor(_regularCursor);
     }
 }

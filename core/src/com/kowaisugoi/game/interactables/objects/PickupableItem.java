@@ -53,6 +53,15 @@ public class PickupableItem implements Item {
     }
 
     @Override
+    public boolean mouseMoved(float curX, float curY) {
+        if (_interactionBox.contains(curX, curY)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public void registerListener(InteractionListener listener) {
         _listeners.push(listener);
     }

@@ -1,5 +1,6 @@
 package com.kowaisugoi.game.rooms;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -48,6 +49,18 @@ public abstract class StandardRoom implements Room {
         for (Interactable interactable : _interactables) {
             interactable.draw(renderer);
         }
+    }
+
+    @Override
+    public boolean mouseMoved(float curX, float curY) {
+        for (Interactable interactable : _interactables) {
+            if (interactable.mouseMoved(curX, curY)) {
+                Player.setCursorInteract();
+                return true;
+            }
+        }
+        Player.setCursorNormal();
+        return false;
     }
 
     @Override

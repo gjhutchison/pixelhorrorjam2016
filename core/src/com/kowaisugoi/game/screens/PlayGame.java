@@ -147,6 +147,8 @@ public class PlayGame implements Screen, InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+        Vector3 movePosition = screenToWorldPosition(screenX, screenY, _camera);
+        handleMouseMoved(movePosition.x, movePosition.y);
         return false;
     }
 
@@ -156,16 +158,21 @@ public class PlayGame implements Screen, InputProcessor {
         return false;
     }
 
-    private void handleMouseClick(float curX, float curY) {
-        if (Player.getCanInteract()) {
-            Player.getCurrentRoom().click(curX, curY);
-        }
-    }
-
     private Vector3 screenToWorldPosition(int screenX, int screenY, OrthographicCamera camera) {
         Vector3 vecCursorPos = new Vector3(screenX, screenY, 0);
         camera.unproject(vecCursorPos);
         return vecCursorPos;
     }
 
+    private void handleMouseClick(float screenX, float screenY) {
+        if (Player.getCanInteract()) {
+            Player.getCurrentRoom().click(screenX, screenY);
+        }
+    }
+
+    private void handleMouseMoved(float screenX, float screenY) {
+        if (Player.getCanInteract()) {
+            Player.getCurrentRoom().mouseMoved(screenX, screenY);
+        }
+    }
 }
