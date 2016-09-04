@@ -21,7 +21,7 @@ import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
 public abstract class StandardRoom implements Room {
 
     private Sprite _roomSprite;
-    private boolean _visible = false;
+    protected boolean _visible = false;
     protected List<Item> _itemList = new LinkedList<Item>();
     protected List<Passage> _passageList = new LinkedList<Passage>();
 

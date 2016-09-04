@@ -28,13 +28,15 @@ public class RoomFrontYard extends StandardRoom {
 
     @Override
     public void update(float delta) {
-        super.update(delta);
         _snowAnimation.updateSnow(delta);
+        super.update(delta);
     }
 
     @Override
     public void draw(ShapeRenderer renderer) {
+        if (super._visible) {
+            _snowAnimation.draw(renderer);
+        }
         super.draw(renderer);
-        _snowAnimation.draw(renderer);
     }
 }
