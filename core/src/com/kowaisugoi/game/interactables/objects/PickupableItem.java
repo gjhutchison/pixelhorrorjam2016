@@ -15,10 +15,12 @@ import java.util.LinkedList;
 public class PickupableItem implements Item {
     private LinkedList<InteractionListener> _listeners = new LinkedList<InteractionListener>();
     private Rectangle _interactionBox;
-    public Sprite _sprite;
+    private Sprite _sprite;
 
     public PickupableItem(Sprite sprite, Rectangle interactionBox) {
         _interactionBox = interactionBox;
+        _sprite = sprite;
+        _sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
     }
 
     // Draw any world squares (debug interactable areas)
@@ -27,10 +29,12 @@ public class PickupableItem implements Item {
 
     // Draw the world sprite
     public void draw(SpriteBatch batch) {
+        _sprite.draw(batch);
     }
 
     // Draw the inventory sprite
-    public void drawInventorySprite(SpriteBatch batch) {
+    public Sprite getInventorySprite() {
+        return _sprite;
     }
 
     @Override
@@ -40,7 +44,7 @@ public class PickupableItem implements Item {
 
     @Override
     public boolean click(float curX, float curY) {
-         if (_interactionBox.contains(curX, curY)) {
+        if (_interactionBox.contains(curX, curY)) {
             notifyListeners();
             return true;
         }

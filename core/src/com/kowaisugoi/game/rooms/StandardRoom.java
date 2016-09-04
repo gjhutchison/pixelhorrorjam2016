@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.kowaisugoi.game.interactables.Interactable;
-import com.kowaisugoi.game.interactables.objects.Item;
+import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.player.Player;
 
@@ -22,7 +22,7 @@ public abstract class StandardRoom implements Room {
 
     private Sprite _roomSprite;
     protected boolean _visible = false;
-    protected List<Item> _itemList = new LinkedList<Item>();
+    protected List<PickupableItem> _pickupableItemList = new LinkedList<PickupableItem>();
     protected List<Passage> _passageList = new LinkedList<Passage>();
 
     public StandardRoom(Sprite image) {
@@ -42,8 +42,8 @@ public abstract class StandardRoom implements Room {
         _passageList.add(interactable);
     }
 
-    public void addItem(Item interactable) {
-        _itemList.add(interactable);
+    public void addPickupableItem(PickupableItem interactable) {
+        _pickupableItemList.add(interactable);
     }
 
     @Override
@@ -62,7 +62,7 @@ public abstract class StandardRoom implements Room {
         }
 
         _roomSprite.draw(batch);
-        for (Interactable interactable : _itemList) {
+        for (Interactable interactable : _pickupableItemList) {
             interactable.draw(batch);
         }
     }
@@ -77,7 +77,7 @@ public abstract class StandardRoom implements Room {
             return;
         }
 
-        for (Interactable interactable : _itemList) {
+        for (Interactable interactable : _pickupableItemList) {
             interactable.draw(renderer);
         }
     }
@@ -113,6 +113,13 @@ public abstract class StandardRoom implements Room {
         for (Interactable interactable : _passageList) {
             if (interactable.click(curX, curY)) {
                 return true;
+            }
+        }
+
+        for (PickupableItem pickupableItem : _pickupableItemList) {
+            if (pickupableItem.click(curX, curY)) {
+                Player.getInventory().addItem(pickupableItem);
+                _pickupableItemList.remove(pickupableItem);
             }
         }
         return false;

@@ -10,8 +10,6 @@ import com.kowaisugoi.game.interactables.passages.StandardPassage;
 public class RoomFrontDoorInterior extends StandardRoom {
     private static final String ROOM_URL = "FrontDoorInterior.jpg";
 
-    //private Sprite _roomSprite = new Sprite(new Texture("FrontDoorInterior.jpg"));
-
     public RoomFrontDoorInterior() {
         super(new Sprite(new Texture(ROOM_URL)));
 

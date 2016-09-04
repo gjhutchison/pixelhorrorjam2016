@@ -3,6 +3,7 @@ package com.kowaisugoi.game.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.kowaisugoi.game.player.inventory.PlayerInventory;
 import com.kowaisugoi.game.rooms.Room;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
@@ -11,13 +12,18 @@ import com.kowaisugoi.game.rooms.RoomManager;
  * While this could be passed to each Room as the player enters it,
  * it might be better to embrace the global singleton anti-pattern
  * in order to save a great deal of superfluous parameter passing
- *
+ * <p>
  * Created by Owner on 8/29/2016.
  */
 public final class Player {
-    private Player(){} // don't construct this class
+    private Player() {
+    } // don't construct this class
+
     private static RoomId _currentRoom;
     private static RoomManager _manager;
+
+    private static PlayerInventory _inventory;
+
     private static boolean _isInInventory = false;
     private static boolean _isDebug = true;
     private static boolean _canInteract = true;
@@ -50,6 +56,10 @@ public final class Player {
         _manager = manager;
     }
 
+    public static void registerPlayerInventory(PlayerInventory inventory) {
+        _inventory = inventory;
+    }
+
     public static void setCurrentRoom(RoomId current) {
         RoomManager.getRoomFromId(current).enter();
         _currentRoom = current;
@@ -73,8 +83,12 @@ public final class Player {
         return _canInteract;
     }
 
+    public static PlayerInventory getInventory() {
+        return _inventory;
+    }
+
     public static void setCursor(CursorType flavour) {
-        switch(flavour) {
+        switch (flavour) {
             case INVISIBLE:
                 Gdx.graphics.setCursor(_invisCursor);
                 break;

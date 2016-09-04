@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kowaisugoi.game.player.Player;
+import com.kowaisugoi.game.player.inventory.PlayerInventory;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
 import com.kowaisugoi.game.system.GlobalKeyHandler;
@@ -32,7 +33,9 @@ public class PlayGame implements Screen, InputProcessor {
     @Override
     public void show() {
         RoomManager manager = new RoomManager();
+        PlayerInventory inventory = new PlayerInventory();
         Player.registerRoomManager(manager);
+        Player.registerPlayerInventory(inventory);
         Player.setCurrentRoom(RoomId.CAR);
         Player.setCursor(Player.CursorType.REGULAR);
         _batch = new SpriteBatch();
@@ -47,7 +50,7 @@ public class PlayGame implements Screen, InputProcessor {
     @Override
     public void render(float delta) {
         updateGame(delta);
-        renderGame(delta);
+        renderGame();
     }
 
     private void updateGame(float delta) {
@@ -55,7 +58,7 @@ public class PlayGame implements Screen, InputProcessor {
         //PASSAGE_LISTENER_MANAGER.update(delta);
     }
 
-    private void renderGame(float delta) {
+    private void renderGame() {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -63,6 +66,7 @@ public class PlayGame implements Screen, InputProcessor {
         _batch.setProjectionMatrix(_camera.combined);
         _batch.begin();
         Player.getCurrentRoom().draw(_batch);
+        Player.getInventory().drawInventory(_batch);
         _batch.end();
 
         Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -105,6 +109,13 @@ public class PlayGame implements Screen, InputProcessor {
     public boolean keyDown(int keycode) {
         if (GlobalKeyHandler.keyUp(keycode)) {
             return true;
+        }
+
+        //TODO: Make the inventory accessable using the mouse instead with a button at the top of the screen
+        if (keycode == Input.Keys.I) {
+            Player.getInventory().toggleInventory();
+            //TODO: Make sure player can interact with only the inventory instead of nothing
+            Player.setCanInteract(!Player.getInventory().isInventoryOpen());
         }
         return false;
     }
