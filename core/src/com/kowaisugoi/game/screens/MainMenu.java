@@ -64,11 +64,11 @@ public class MainMenu implements Screen, InputProcessor {
         _titleFont = generator.generateFont(parameter);
         _titleFont.setColor(Color.WHITE);
 
-        parameter.borderWidth = 0;
+        parameter.borderWidth = 1;
         parameter.size = 20;
         _font = generator.generateFont(parameter);
         _font.setColor(Color.WHITE);
-        parameter.size = 12;
+        parameter.size = 8;
         _tinyfont = generator.generateFont(parameter);
         _tinyfont.setColor(Color.WHITE);
 
@@ -107,8 +107,8 @@ public class MainMenu implements Screen, InputProcessor {
 
         _batch.begin();
         _titleFont.draw(_batch, MainGame.TITLE, 5, MAIN_MENU_HEIGHT - 10);
-        _font.draw(_batch, "Click To Begin", 180, 20);
-        _tinyfont.draw(_batch, "F4 Toggle Fullscreen", 5, 15);
+        _font.draw(_batch, "Click To Begin", 170, 35);
+        _tinyfont.draw(_batch, "F4 Toggle Fullscreen", 200, 12);
         _batch.end();
 
 
