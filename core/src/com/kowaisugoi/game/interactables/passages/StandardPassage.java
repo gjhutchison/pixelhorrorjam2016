@@ -14,14 +14,15 @@ import java.util.LinkedList;
 public class StandardPassage implements Passage {
     private LinkedList<InteractionListener> _listeners = new LinkedList<InteractionListener>();
     private Rectangle _interactionBox;
-    private RoomId _destination;
+    private RoomId _source, _destination;
     private SlideTransition _transition;
     private Direction _direction;
 
-    public StandardPassage(RoomId dest, Rectangle interactionBox, Direction direction) {
+    public StandardPassage(RoomId src, RoomId dest, Rectangle interactionBox, Direction direction) {
+        _source = src;
         _destination = dest;
         _interactionBox = interactionBox;
-        _transition = new SlideTransition(this, dest);
+        _transition = new SlideTransition(this, src, dest);
         _direction = direction;
     }
 

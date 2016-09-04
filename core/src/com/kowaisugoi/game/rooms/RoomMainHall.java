@@ -14,8 +14,8 @@ public class RoomMainHall extends StandardRoom {
     public RoomMainHall() {
         super(new Sprite(new Texture(ROOM_URL)));
 
-        Passage frontDoor = new StandardPassage(RoomId.FRONTYARD, new Rectangle(65, 25, 30, 40), SlideTransition.Direction.UP);
-        Passage turnAround = new StandardPassage(RoomId.FRONTYARD, new Rectangle(55, 0, 50, 10), SlideTransition.Direction.DOWN);
+        Passage frontDoor = new StandardPassage(RoomId.MAIN_HALL, RoomId.FRONTYARD, new Rectangle(65, 25, 30, 40), SlideTransition.Direction.UP);
+        Passage turnAround = new StandardPassage(RoomId.MAIN_HALL, RoomId.FRONTYARD, new Rectangle(55, 0, 50, 10), SlideTransition.Direction.DOWN);
 
         addPassage(frontDoor);
         addPassage(turnAround);

@@ -18,6 +18,7 @@ public class SlideTransition {
     private boolean _animationComplete = false;
     private Passage _passage;
     private RoomId _destination;
+    private RoomId _source;
 
     public enum Direction {
         UP, DOWN, LEFT, RIGHT
@@ -42,7 +43,8 @@ public class SlideTransition {
     private static final float MAX_Y = PlayGame.GAME_HEIGHT;
     private static final float MIN_Y = -PlayGame.GAME_HEIGHT;
 
-    public SlideTransition(Passage p, RoomId destination) {
+    public SlideTransition(Passage p, RoomId source, RoomId destination) {
+        _source = source;
         _destination = destination;
         _passage = p;
         _animationLength = 0;
@@ -153,11 +155,15 @@ public class SlideTransition {
     public void draw(SpriteBatch batch) {
         if (_direction == Direction.UP || _direction == Direction.DOWN) {
             if (_animationLength > HALF_TIME_VERTICAL) {
-                RoomManager.getRoomMap().get(this._destination).draw(batch);
+                RoomManager.getRoomFromId(_source).setVisible(false);
+                RoomManager.getRoomFromId(_destination).setVisible(true);
+                RoomManager.getRoomFromId(_destination).draw(batch);
             }
         } else if (_direction == Direction.LEFT || _direction == Direction.RIGHT) {
             if (_animationLength > HALF_TIME_HORIZONTAL) {
-                RoomManager.getRoomMap().get(this._destination).draw(batch);
+                RoomManager.getRoomFromId(_source).setVisible(false);
+                RoomManager.getRoomFromId(_destination).setVisible(true);
+                RoomManager.getRoomFromId(_destination).draw(batch);
             }
         }
     }

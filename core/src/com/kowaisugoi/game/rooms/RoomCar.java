@@ -14,7 +14,7 @@ public class RoomCar extends StandardRoom {
     public RoomCar() {
         super(new Sprite(new Texture(ROOM_URL)));
 
-        Passage carDoor = new StandardPassage(RoomId.FRONTYARD, new Rectangle(140, 0, 20, 200), SlideTransition.Direction.RIGHT);
+        Passage carDoor = new StandardPassage(RoomId.CAR, RoomId.FRONTYARD, new Rectangle(140, 0, 20, 200), SlideTransition.Direction.RIGHT);
 
         addPassage(carDoor);
     }

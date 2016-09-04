@@ -15,7 +15,7 @@ public class RoomFrontDoorInterior extends StandardRoom {
     public RoomFrontDoorInterior() {
         super(new Sprite(new Texture(ROOM_URL)));
 
-        Passage frontDoor = new StandardPassage(RoomId.MAIN_HALL, new Rectangle(70, 20, 20, 35), SlideTransition.Direction.UP);
+        Passage frontDoor = new StandardPassage(RoomId.FRONT_DOOR_INTERIOR, RoomId.MAIN_HALL, new Rectangle(70, 20, 20, 35), SlideTransition.Direction.UP);
 
         addPassage(frontDoor);
     }

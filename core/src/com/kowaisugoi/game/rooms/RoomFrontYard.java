@@ -20,24 +20,21 @@ public class RoomFrontYard extends StandardRoom {
 
         _snowAnimation = new SnowAnimation(50, 6);
 
-        Passage frontDoor = new StandardPassage(RoomId.MAIN_HALL, new Rectangle(65, 35, 20, 40), Direction.UP);
+        // TODO: Rooms should probably locally store their own id (associated refactoring required)
+        Passage frontDoor = new StandardPassage(RoomId.FRONTYARD, RoomId.MAIN_HALL, new Rectangle(65, 35, 20, 40), Direction.UP);
 
         addPassage(frontDoor);
     }
 
     @Override
     public void update(float delta) {
-        for (Passage interactable : _passageList) {
-            _snowAnimation.updateSnow(delta);
-            interactable.update(delta);
-        }
+        super.update(delta);
+        _snowAnimation.updateSnow(delta);
     }
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        for (Passage interactable : _passageList) {
-            _snowAnimation.draw(renderer);
-            interactable.draw(renderer);
-        }
+        super.draw(renderer);
+        _snowAnimation.draw(renderer);
     }
 }

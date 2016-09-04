@@ -21,6 +21,7 @@ import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
 public abstract class StandardRoom implements Room {
 
     private Sprite _roomSprite;
+    private boolean _visible = false;
     protected List<Item> _itemList = new LinkedList<Item>();
     protected List<Passage> _passageList = new LinkedList<Passage>();
 
@@ -32,6 +33,9 @@ public abstract class StandardRoom implements Room {
     public void enter() {
         // On entering the typical room, allow the player to interact
         Player.setCanInteract(true);
+
+        // On entering the typical room, enable drawing the room immediately
+        _visible = true;
     }
 
     public void addPassage(Passage interactable) {
@@ -43,16 +47,37 @@ public abstract class StandardRoom implements Room {
     }
 
     @Override
+    public void setVisible(boolean visible) {
+        _visible = visible;
+    }
+
+    @Override
     public void draw(SpriteBatch batch) {
+        for (Passage passage : _passageList) {
+            passage.draw(batch);
+        }
+
+        if (!_visible) {
+            return;
+        }
+
         _roomSprite.draw(batch);
-        for (Interactable interactable : _passageList) {
+        for (Interactable interactable : _itemList) {
             interactable.draw(batch);
         }
     }
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        for (Interactable interactable : _passageList) {
+        for (Passage passage : _passageList) {
+            passage.draw(renderer);
+        }
+
+        if (!_visible) {
+            return;
+        }
+
+        for (Interactable interactable : _itemList) {
             interactable.draw(renderer);
         }
     }

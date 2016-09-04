@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
 
 public interface Room extends Disposable {
+    public void setVisible(boolean visible);
+
     public void draw(SpriteBatch batch);
 
     public void draw(ShapeRenderer batch);
