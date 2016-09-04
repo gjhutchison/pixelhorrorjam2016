@@ -17,6 +17,7 @@ public final class Player {
     private static RoomManager _manager;
     private static boolean _isInInventory = false;
     private static boolean _isDebug = true;
+    private static boolean _canInteract = true;
 
     public static Room getCurrentRoom() {
         return _manager.getRoomMap().get(_currentRoom);
@@ -31,10 +32,19 @@ public final class Player {
     }
 
     public static void setCurrentRoom(RoomId current) {
+        RoomManager.getRoomFromId(current).enter();
         _currentRoom = current;
     }
 
     public static boolean getDebug() {
         return _isDebug;
+    }
+
+    public static void setCanInteract(boolean canInteract) {
+        _canInteract = canInteract;
+    }
+
+    public static boolean getCanInteract() {
+        return _canInteract;
     }
 }

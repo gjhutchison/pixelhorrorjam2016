@@ -51,7 +51,11 @@ public class StandardPassage implements Passage {
     public void draw(ShapeRenderer renderer) {
         _transition.draw(renderer);
         if (Player.getDebug()) {
-            renderer.setColor(0, 1, 0, 0.25f);
+            if (Player.getCanInteract()) {
+                renderer.setColor(0, 1, 0, 0.25f);
+            } else {
+                renderer.setColor(1, 0, 0, 0.25f);
+            }
             renderer.rect(_interactionBox.x, _interactionBox.y, _interactionBox.width, _interactionBox.height);
         }
     }
@@ -61,6 +65,7 @@ public class StandardPassage implements Passage {
         if (_interactionBox.contains(curX, curY)) {
             notifyListeners();
 
+            Player.setCanInteract(false);
             _transition.startAnimation(SlideTransition.Direction.UP);
             return true;
         }

@@ -161,8 +161,7 @@ public class PlayGame implements Screen, InputProcessor {
     }
 
     private void handleMouseClick(float curX, float curY) {
-        boolean canClick = !PASSAGE_LISTENER_MANAGER.isTransferingRoom();
-        if (canClick) {
+        if (Player.getCanInteract()) {
             Player.getCurrentRoom().click(curX, curY);
         }
     }
