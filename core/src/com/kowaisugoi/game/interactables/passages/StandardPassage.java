@@ -60,20 +60,7 @@ public class StandardPassage implements Passage {
     public boolean click(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
             notifyListeners();
-            // TODO: Dynamically set direction based on the interaction box location
-            /*if (_interactionBox.getX() < PlayGame.GAME_WIDTH/2) {
-                if (_interactionBox.getY() < PlayGame.GAME_HEIGHT/2) {
-                    _transition.startAnimation(SlideTransition.Direction.UP);
-                } else {
 
-                }
-            } else {
-                if (_interactionBox.getY() < PlayGame.GAME_HEIGHT/2) {
-
-                } else {
-
-                }
-            }*/
             _transition.startAnimation(SlideTransition.Direction.UP);
             return true;
         }
