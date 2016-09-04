@@ -55,11 +55,11 @@ public abstract class StandardRoom implements Room {
     public boolean mouseMoved(float curX, float curY) {
         for (Interactable interactable : _interactables) {
             if (interactable.mouseMoved(curX, curY)) {
-                Player.setCursorInteract();
+                Player.setCursor(Player.CursorType.UP_ARROW);
                 return true;
             }
         }
-        Player.setCursorNormal();
+        Player.setCursor(Player.CursorType.REGULAR);
         return false;
     }
 

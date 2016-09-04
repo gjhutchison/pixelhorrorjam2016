@@ -34,7 +34,7 @@ public class PlayGame implements Screen, InputProcessor {
         RoomManager manager = new RoomManager();
         Player.registerRoomManager(manager);
         Player.setCurrentRoom(RoomId.CAR);
-        Player.setCursorNormal();
+        Player.setCursor(Player.CursorType.REGULAR);
         _batch = new SpriteBatch();
         _shapeRenderer = new ShapeRenderer();
         _camera = new OrthographicCamera();

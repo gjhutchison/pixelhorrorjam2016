@@ -21,7 +21,20 @@ public final class Player {
     private static boolean _isInInventory = false;
     private static boolean _isDebug = true;
     private static boolean _canInteract = true;
-    private static Cursor _handCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/hand_cursor.png")), 16, 0);
+
+    public enum CursorType {
+        REGULAR,
+        UP_ARROW,
+        DOWN_ARROW,
+        LEFT_ARROW,
+        RIGHT_ARROW,
+        INVISIBLE
+    }
+
+    private static Cursor _downArrow = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/down_arrow_cursor.png")), 16, 30);
+    private static Cursor _upArrow = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/up_arrow_cursor.png")), 16, 2);
+    private static Cursor _leftArrow = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/left_arrow_cursor.png")), 2, 16);
+    private static Cursor _rightArrow = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/right_arrow_cursor.png")), 30, 16);
     private static Cursor _regularCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/regular_cursor.png")), 0, 0);
     private static Cursor _invisCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/invisible_cursor.png")), 0, 0);
 
@@ -52,7 +65,7 @@ public final class Player {
         if (!canInteract) {
             Gdx.graphics.setCursor(_invisCursor);
         } else {
-            Gdx.graphics.setCursor(_handCursor);
+            Gdx.graphics.setCursor(_regularCursor);
         }
     }
 
@@ -60,11 +73,26 @@ public final class Player {
         return _canInteract;
     }
 
-    public static void setCursorInteract() {
-        Gdx.graphics.setCursor(_handCursor);
-    }
-
-    public static void setCursorNormal() {
-        Gdx.graphics.setCursor(_regularCursor);
+    public static void setCursor(CursorType flavour) {
+        switch(flavour) {
+            case INVISIBLE:
+                Gdx.graphics.setCursor(_invisCursor);
+                break;
+            case REGULAR:
+                Gdx.graphics.setCursor(_regularCursor);
+                break;
+            case LEFT_ARROW:
+                Gdx.graphics.setCursor(_leftArrow);
+                break;
+            case RIGHT_ARROW:
+                Gdx.graphics.setCursor(_rightArrow);
+                break;
+            case UP_ARROW:
+                Gdx.graphics.setCursor(_upArrow);
+                break;
+            case DOWN_ARROW:
+                Gdx.graphics.setCursor(_downArrow);
+                break;
+        }
     }
 }
