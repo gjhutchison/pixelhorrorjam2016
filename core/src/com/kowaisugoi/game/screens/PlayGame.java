@@ -11,8 +11,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.kowaisugoi.game.graphics.SlideTransition;
-import com.kowaisugoi.game.interactables.PassageListenerManager;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
@@ -23,8 +21,6 @@ public class PlayGame implements Screen, InputProcessor {
     // 640x360
     public static final float GAME_WIDTH = 160;
     public static final float GAME_HEIGHT = 90;
-
-    public static final PassageListenerManager PASSAGE_LISTENER_MANAGER = new PassageListenerManager();
 
     private OrthographicCamera _camera;
     private Viewport _viewport;
@@ -161,8 +157,7 @@ public class PlayGame implements Screen, InputProcessor {
     }
 
     private void handleMouseClick(float curX, float curY) {
-        boolean canClick = !PASSAGE_LISTENER_MANAGER.isTransferingRoom();
-        if (canClick) {
+        if (Player.getCanInteract()) {
             Player.getCurrentRoom().click(curX, curY);
         }
     }

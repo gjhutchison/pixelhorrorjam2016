@@ -20,6 +20,10 @@ public final class RoomManager {
         return _roomMap;
     }
 
+    public static Room getRoomFromId(RoomId roomId) {
+        return _roomMap.get(roomId);
+    }
+
     // Clean up all rooms
     public void cleanUp() {
         for (Room room : _roomMap.values()) {

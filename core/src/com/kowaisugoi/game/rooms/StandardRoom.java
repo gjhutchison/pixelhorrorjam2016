@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.kowaisugoi.game.interactables.Interactable;
+import com.kowaisugoi.game.player.Player;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,6 +24,11 @@ public abstract class StandardRoom implements Room {
     public StandardRoom(Sprite image) {
         _roomSprite = image;
         _roomSprite.setSize(GAME_WIDTH, GAME_HEIGHT);
+    }
+
+    public void enter() {
+        // On entering the typical room, allow the player to interact
+        Player.setCanInteract(true);
     }
 
     public void addInteractable(Interactable interactable) {
