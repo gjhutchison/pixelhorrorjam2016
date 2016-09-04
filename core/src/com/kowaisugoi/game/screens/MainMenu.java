@@ -1,6 +1,9 @@
 package com.kowaisugoi.game.screens;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,14 +14,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kowaisugoi.game.MainGame;
+import com.kowaisugoi.game.graphics.SnowAnimation;
 import com.kowaisugoi.game.system.GlobalKeyHandler;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class MainMenu implements Screen, InputProcessor {
@@ -35,7 +36,7 @@ public class MainMenu implements Screen, InputProcessor {
 
     private Random _random;
 
-    private List<Snowflake> _snowflakes;
+    private SnowAnimation _snowAnimation;
 
     private static final float MAIN_MENU_WIDTH = 320;
     private static final float MAIN_MENU_HEIGHT = 180;
@@ -72,9 +73,7 @@ public class MainMenu implements Screen, InputProcessor {
         _background.setSize(MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
         _background.setPosition(0, 0);
 
-        _random = new Random();
-
-        _snowflakes = snowSetup();
+        _snowAnimation = new SnowAnimation(50, 4, MAIN_MENU_WIDTH, MAIN_MENU_HEIGHT);
 
         Gdx.input.setInputProcessor(this);
     }
@@ -82,7 +81,7 @@ public class MainMenu implements Screen, InputProcessor {
     @Override
     public void render(float delta) {
 
-        animateSnow(_snowflakes, delta);
+        _snowAnimation.updateSnow(delta);
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -97,13 +96,7 @@ public class MainMenu implements Screen, InputProcessor {
         _batch.end();
 
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        _shapeRenderer.setColor(Color.WHITE);
-        for (Snowflake flake : _snowflakes) {
-            Vector2 position = flake.getPosition();
-            int size = flake.getSize();
-            _shapeRenderer.rect(position.x, position.y, size, size);
-        }
-
+        _snowAnimation.draw(_shapeRenderer);
         _shapeRenderer.end();
 
         _batch.begin();
@@ -144,37 +137,6 @@ public class MainMenu implements Screen, InputProcessor {
         _batch.dispose();
 
         _background.getTexture().dispose();
-    }
-
-    private List<Snowflake> snowSetup() {
-        List<Snowflake> flakes = new ArrayList<Snowflake>();
-        final int flakeNum = 50;
-
-        for (int i = 0; i < flakeNum; i++) {
-            flakes.add(generateFlake());
-        }
-
-        return flakes;
-    }
-
-    private Snowflake generateFlake() {
-        _random.nextInt((int) MAIN_MENU_WIDTH);
-        _random.nextInt((int) MAIN_MENU_HEIGHT);
-        _random.nextInt(3);
-
-        Snowflake flake = new Snowflake(new Vector2(_random.nextInt((int) MAIN_MENU_WIDTH),
-                _random.nextInt((int) MAIN_MENU_HEIGHT)),
-                _random.nextInt(3) + 3,
-                (_random.nextInt(2) == 1 ? -1 : 1),
-                _random.nextInt(3) + 1);
-
-        return flake;
-    }
-
-    private void animateSnow(List<Snowflake> flakes, float delta) {
-        for (Snowflake flake : flakes) {
-            flake.animate(delta);
-        }
     }
 
     @Override
@@ -222,38 +184,4 @@ public class MainMenu implements Screen, InputProcessor {
         return false;
     }
 
-    private class Snowflake {
-        private Vector2 _position;
-        private float _fallSpeed;
-        private int _sway;
-        private int _size;
-
-        Snowflake(Vector2 position, float fallSpeed, int sway, int size) {
-            _position = position;
-            _fallSpeed = -fallSpeed;
-            _sway = sway;
-            _size = size;
-        }
-
-        Vector2 getPosition() {
-            return _position;
-        }
-
-        int getSize() {
-            return _size;
-        }
-
-        void animate(float delta) {
-            _position.add((float) Math.sin(System.currentTimeMillis() / 1000) * delta * _sway, _fallSpeed * delta);
-            if (_position.x > MAIN_MENU_WIDTH + _size) {
-                _position.x -= MAIN_MENU_WIDTH - _size;
-            } else if (_position.x < _size) {
-                _position.x += MAIN_MENU_WIDTH + _size;
-            }
-
-            if (_position.y < -_size) {
-                _position.y += MAIN_MENU_HEIGHT + _size;
-            }
-        }
-    }
 }
