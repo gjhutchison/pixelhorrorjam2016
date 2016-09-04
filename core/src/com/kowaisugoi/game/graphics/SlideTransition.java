@@ -1,8 +1,12 @@
 package com.kowaisugoi.game.graphics;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.player.Player;
+import com.kowaisugoi.game.rooms.RoomId;
+import com.kowaisugoi.game.rooms.RoomManager;
 import com.kowaisugoi.game.screens.PlayGame;
 
 /**
@@ -10,9 +14,11 @@ import com.kowaisugoi.game.screens.PlayGame;
  */
 public class SlideTransition {
     private boolean _animating = false;
-    private boolean _roomChange = false;
     private boolean _roomChanged = false;
+    private boolean _roomDoneChanged = false;
     private boolean _animationComplete = false;
+    private Passage _passage;
+    private RoomId _destination;
 
     public enum Direction {
         UP, DOWN, LEFT, RIGHT
@@ -29,7 +35,6 @@ public class SlideTransition {
     private static final float HALF_TIME_HORIZONTAL = (PlayGame.GAME_WIDTH / SPEED_HORIZONTAL);
     private static final float HALF_TIME_VERTICAL = (PlayGame.GAME_HEIGHT / SPEED_VERTICAL);
 
-
     private float _animationLength;
 
     private static final float MAX_X = PlayGame.GAME_WIDTH;
@@ -38,18 +43,33 @@ public class SlideTransition {
     private static final float MAX_Y = PlayGame.GAME_HEIGHT;
     private static final float MIN_Y = -PlayGame.GAME_HEIGHT;
 
-    public SlideTransition() {
+    public SlideTransition(Passage p, RoomId destination) {
+        _destination = destination;
+        _passage = p;
         _animationLength = 0;
         _xPosition = 0;
         _yPosition = 0;
     }
 
-    //TODO: base direction off of cursor location
+    void swapRoom() {
+        if (_passage != null) {
+            _passage.roomTransition();
+        }
+
+        // Reset animation
+        _animationLength = 0;
+        _xPosition = 0;
+        _yPosition = 0;
+        _animating = false;
+        _roomChanged = false;
+        _roomDoneChanged = false;
+        _animationComplete = false;
+    }
+
     public void startAnimation(Direction direction) {
         _direction = direction;
         _animating = true;
         _roomChanged = false;
-        _roomChange = false;
         _animationComplete = false;
         _animationLength = 0;
         switch (_direction) {
@@ -94,51 +114,35 @@ public class SlideTransition {
                 return;
         }
 
-        if (_direction == Direction.UP || _direction == Direction.DOWN) {
+        /*if (_direction == Direction.UP || _direction == Direction.DOWN) {
             if (_animationLength > HALF_TIME_VERTICAL) {
-                _roomChange = true;
+                _roomChanged = true;
             }
         } else if (_direction == Direction.LEFT || _direction == Direction.RIGHT) {
             if (_animationLength > HALF_TIME_HORIZONTAL) {
-                _roomChange = true;
+                _roomChanged = true;
             }
-        }
+        }*/
 
         if (_xPosition > MAX_X || _xPosition < MIN_X) {
             _animating = false;
-            _roomChange = false;
             _animationComplete = true;
+            _roomChanged = true;
         } else if (_yPosition > MAX_Y || _yPosition < MIN_Y) {
             _animating = false;
-            _roomChange = false;
             _animationComplete = true;
+            _roomChanged = true;
         }
     }
 
     public void update(float delta) {
         if (this.isAnimating()) {
             this.animateTransition(delta);
-            if (this.isRoomChange() && !this.hasRoomChanged()) {
-                //Player.setCurrentRoom(_transferTarget);
-                this.changedRoom();
+            if (_roomChanged && !_roomDoneChanged) {
+                swapRoom();
+                _roomDoneChanged = true;
             }
         }
-        /*if (!_disablePolling) {
-            pollNotifications();
-        }*/
-
-        /*if (_transition.isAnimationComplete()) {
-            _disablePolling = false;
-            _transferingRoom = false;
-        }*/
-    }
-
-    public boolean isRoomChange() {
-        return _roomChange;
-    }
-
-    public boolean hasRoomChanged() {
-        return _roomChanged;
     }
 
     public boolean isAnimating() {
@@ -149,8 +153,16 @@ public class SlideTransition {
         return _animationComplete;
     }
 
-    public void changedRoom() {
-        _roomChanged = true;
+    public void draw(SpriteBatch batch) {
+        if (_direction == Direction.UP || _direction == Direction.DOWN) {
+            if (_animationLength > HALF_TIME_VERTICAL) {
+                RoomManager.getRoomMap().get(this._destination).draw(batch);
+            }
+        } else if (_direction == Direction.LEFT || _direction == Direction.RIGHT) {
+            if (_animationLength > HALF_TIME_HORIZONTAL) {
+                RoomManager.getRoomMap().get(this._destination).draw(batch);
+            }
+        }
     }
 
     public void draw(ShapeRenderer renderer) {

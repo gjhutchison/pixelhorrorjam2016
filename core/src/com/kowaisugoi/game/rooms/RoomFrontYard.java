@@ -16,8 +16,6 @@ public class RoomFrontYard extends StandardRoom {
 
         Passage frontDoor = new StandardPassage(RoomId.MAIN_HALL, new Rectangle(70, 20, 20, 35));
 
-        frontDoor.registerListener(new PassageListener(RoomId.MAIN_HALL));
-
         addInteractable(frontDoor);
     }
 }

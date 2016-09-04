@@ -16,8 +16,6 @@ public class RoomCar extends StandardRoom {
 
         Passage carDoor = new StandardPassage(RoomId.FRONTYARD, new Rectangle(140, 0, 20, 200));
 
-        carDoor.registerListener(new PassageListener(RoomId.FRONTYARD));
-
         addInteractable(carDoor);
     }
 }
