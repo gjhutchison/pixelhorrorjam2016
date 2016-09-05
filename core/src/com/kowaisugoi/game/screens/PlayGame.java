@@ -39,15 +39,17 @@ public class PlayGame implements Screen, InputProcessor {
     public void show() {
         RoomManager manager = new RoomManager();
         PlayerInventory inventory = new PlayerInventory();
-        Player.registerRoomManager(manager);
-        Player.registerPlayerInventory(inventory);
-        Player.setCurrentRoom(RoomId.CAR);
-        Player.setCursor(Player.CursorType.REGULAR);
         _batch = new SpriteBatch();
         _shapeRenderer = new ShapeRenderer();
         _camera = new OrthographicCamera();
         _camera.translate(GAME_WIDTH / 2, GAME_HEIGHT / 2);
         _viewport = new StretchViewport(GAME_WIDTH, GAME_HEIGHT, _camera);
+
+        Player.setInputProcessor(this);
+        Player.registerRoomManager(manager);
+        Player.registerPlayerInventory(inventory);
+        Player.setCurrentRoom(RoomId.CAR);
+        Player.setCursor(Player.CursorType.REGULAR);
 
         Gdx.input.setInputProcessor(this);
     }
