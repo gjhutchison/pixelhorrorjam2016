@@ -44,7 +44,7 @@ public final class Player {
         NONE
     }
 
-    private static ThoughtBox _thought = null;
+    private static ThoughtBox _thought = new ThoughtBox("");
 
     public enum CursorType {
         REGULAR,

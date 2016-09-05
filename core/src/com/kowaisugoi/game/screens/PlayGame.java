@@ -66,6 +66,8 @@ public class PlayGame implements Screen, InputProcessor {
         if (Player.getInteractionMode() == ITEM_INTERACTION) {
             Player.getInventory().moveSelectedItemSprite(_cursorX, _cursorY);
         }
+
+        Player.getThought().update(delta);
     }
 
     private void renderGame() {
@@ -77,7 +79,6 @@ public class PlayGame implements Screen, InputProcessor {
         _batch.begin();
         Player.getCurrentRoom().draw(_batch);
         Player.getInventory().drawInventory(_batch);
-        Player.getThought().draw(_batch);
         _batch.end();
 
         Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -85,7 +86,6 @@ public class PlayGame implements Screen, InputProcessor {
         _shapeRenderer.setProjectionMatrix(_camera.combined);
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Player.getCurrentRoom().draw(_shapeRenderer);
-        Player.getThought().draw(_shapeRenderer);
         _shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
@@ -93,6 +93,13 @@ public class PlayGame implements Screen, InputProcessor {
         if (Player.getInteractionMode() == ITEM_INTERACTION) {
             Player.getInventory().drawSelectedItemSprite(_batch);
         }
+        _batch.end();
+
+        _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        Player.getThought().draw(_shapeRenderer);
+        _shapeRenderer.end();
+        _batch.begin();
+        Player.getThought().draw(_batch);
         _batch.end();
     }
 

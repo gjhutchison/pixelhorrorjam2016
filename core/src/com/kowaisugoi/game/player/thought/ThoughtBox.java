@@ -1,25 +1,18 @@
 package com.kowaisugoi.game.player.thought;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
-import com.kowaisugoi.game.interactables.objects.PickupableItem;
-import com.kowaisugoi.game.player.inventory.InventorySlot;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.kowaisugoi.game.screens.PlayGame;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.kowaisugoi.game.screens.PlayGame.GAME_HEIGHT;
-import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
-
 public class ThoughtBox implements Disposable {
+    private long _createdTime;
+    private long _duration;
+    private long _opacity;
     private String _text;
     private BitmapFont _thoughtFont;
     private float THOUGHT_X = 0;
@@ -28,15 +21,21 @@ public class ThoughtBox implements Disposable {
     private float THOUGHT_HEIGHT = 20;
 
     public ThoughtBox(String text) {
+        _createdTime = TimeUtils.millis();
+        _duration = 5000;
 
         // TODO: Move this somewhere universal
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/raleway/Raleway-Medium.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 12;
+        parameter.size = 64;
 
         _thoughtFont = generator.generateFont(parameter);
         _thoughtFont.setColor(1f,1f,1f,1f);
         _text = text;
+    }
+
+    public void update(float delta) {
+        // TODO: Update opacity based on delta
     }
 
     public void draw(SpriteBatch batch) {
@@ -51,8 +50,11 @@ public class ThoughtBox implements Disposable {
     }
 
     public void draw(ShapeRenderer renderer) {
-        renderer.setColor(0.05f, 0.05f, 0.05f, 0.6f);
-        renderer.rect(THOUGHT_X, THOUGHT_Y, THOUGHT_WIDTH, THOUGHT_HEIGHT);
+        //float opacity = 1.0;
+        //float opacity = 1-elapsed/_duration;
+
+        //renderer.setColor(0.05f, 0.05f, 0.05f, opacity);
+        //renderer.rect(THOUGHT_X, THOUGHT_Y, THOUGHT_WIDTH, THOUGHT_HEIGHT);
     }
 
     @Override
