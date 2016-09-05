@@ -17,6 +17,9 @@ import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
 
 public class PlayerInventory implements Disposable {
 
+    private static final float OFFSET_X = 5f;
+    private static final float OFFSET_Y = 5f;
+
     private static final String INVENTORY_SPRITE_URL = "ui/inventory.png";
     private static final String INVENTORY_BUTTON_SPRITE_URL = "ui/inventory_button.png";
     private static final String INVENTORY_BUTTON_CLOSED_URL = "ui/inventory_button_close.png";
@@ -137,8 +140,12 @@ public class PlayerInventory implements Disposable {
 
     public void moveSelectedItemSprite(float curX, float curY) {
         Sprite sprite = _selectedSlot.getItem().getInventorySprite();
-        sprite.setPosition(curX, curY);
         sprite.setSize(16, 16);
+
+        float xLocation = curX - OFFSET_X;
+        float yLocation = curY - OFFSET_Y;
+
+        sprite.setPosition(xLocation, yLocation);
     }
 
     public ItemId getSelectedItemId() {

@@ -20,7 +20,6 @@ import com.kowaisugoi.game.system.GlobalKeyHandler;
 import static com.kowaisugoi.game.player.Player.InteractionMode.*;
 
 public class PlayGame implements Screen, InputProcessor {
-
     // 640x360
     public static final float GAME_WIDTH = 160;
     public static final float GAME_HEIGHT = 90;
@@ -29,11 +28,6 @@ public class PlayGame implements Screen, InputProcessor {
     private Viewport _viewport;
     private SpriteBatch _batch;
     private ShapeRenderer _shapeRenderer;
-
-    private float _cursorX;
-    private float _cursorY;
-
-    //private SlideTransition _slideTransition;
 
     @Override
     public void show() {
@@ -61,14 +55,16 @@ public class PlayGame implements Screen, InputProcessor {
     }
 
     private void updateGame(float delta) {
+        Vector3 position = screenToWorldPosition(Gdx.input.getX(), Gdx.input.getY(), _camera);
+
         Player.getCurrentRoom().update(delta);
 
         if (Player.getInteractionMode() == ITEM_INTERACTION) {
-            Player.getInventory().moveSelectedItemSprite(_cursorX, _cursorY);
+            Player.getInventory().moveSelectedItemSprite(position.x, position.y);
         }
 
         Player.getThought().update(delta);
-        beautifyCursor(Gdx.input.getX(), Gdx.input.getY());
+        beautifyCursor(position.x, position.y);
     }
 
     private void renderGame() {
@@ -207,10 +203,6 @@ public class PlayGame implements Screen, InputProcessor {
     private Vector3 screenToWorldPosition(int screenX, int screenY, OrthographicCamera camera) {
         Vector3 vecCursorPos = new Vector3(screenX, screenY, 0);
         camera.unproject(vecCursorPos);
-
-        _cursorX = vecCursorPos.x;
-        _cursorY = vecCursorPos.y;
-
         return vecCursorPos;
     }
 
@@ -225,13 +217,12 @@ public class PlayGame implements Screen, InputProcessor {
         }
     }
 
-    private void beautifyCursor(int screenX, int screenY) {
+    private void beautifyCursor(float x, float y) {
         // Default cursor, in case nobody else wants to set it
         Player.setCursor(Player.CursorType.REGULAR);
 
-        Vector3 clickPosition = screenToWorldPosition(screenX, screenY, _camera);
         if (Player.getInteractionMode() == NORMAL) {
-            Player.getCurrentRoom().beautifyCursor(clickPosition.x, clickPosition.y);
+            Player.getCurrentRoom().beautifyCursor(x, y);
         }
     }
 
