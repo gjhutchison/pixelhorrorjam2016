@@ -68,6 +68,9 @@ public class PlayGame implements Screen, InputProcessor {
         }
 
         Player.getThought().update(delta);
+
+        // Update player cursor according to position
+        handleMousePosition(Gdx.input.getX(), Gdx.input.getY());
     }
 
     private void renderGame() {
@@ -194,8 +197,6 @@ public class PlayGame implements Screen, InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        Vector3 movePosition = screenToWorldPosition(screenX, screenY, _camera);
-        handleMouseMoved(movePosition.x, movePosition.y);
         return false;
     }
 
@@ -226,9 +227,10 @@ public class PlayGame implements Screen, InputProcessor {
         }
     }
 
-    private void handleMouseMoved(float screenX, float screenY) {
+    private void handleMousePosition(int screenX, int screenY) {
+        Vector3 clickPosition = screenToWorldPosition(screenX, screenY, _camera);
         if (Player.getInteractionMode() == NORMAL) {
-            Player.getCurrentRoom().mouseMoved(screenX, screenY);
+            Player.getCurrentRoom().mouseMoved(clickPosition.x, clickPosition.y);
         }
     }
 
