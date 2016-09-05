@@ -11,5 +11,11 @@
 # Ignore bin directories #
 bin/
 
+# Ignore project files #
+*.iml
+gradlew
+gradlew.bat
+.idea/
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
