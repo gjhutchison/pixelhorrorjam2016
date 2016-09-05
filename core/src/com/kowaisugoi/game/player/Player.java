@@ -8,6 +8,8 @@ import com.kowaisugoi.game.rooms.Room;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
 
+import static com.kowaisugoi.game.player.Player.InteractionMode.NORMAL;
+
 /**
  * While this could be passed to each Room as the player enters it,
  * it might be better to embrace the global singleton anti-pattern
@@ -27,6 +29,17 @@ public final class Player {
     private static boolean _isInInventory = false;
     private static boolean _isDebug = false;
     private static boolean _canInteract = true;
+    private static boolean _inventoryInteract = false;
+    private static boolean _itemCombine = false;
+
+    private static InteractionMode _interactionMode = NORMAL;
+
+    public enum InteractionMode {
+        NORMAL,
+        INVENTORY,
+        ITEM_INTERACTION,
+        NONE
+    }
 
     public enum CursorType {
         REGULAR,
@@ -81,6 +94,14 @@ public final class Player {
         } else {
             Gdx.graphics.setCursor(_regularCursor);
         }
+    }
+
+    public static void setInteractionMode(InteractionMode mode) {
+        _interactionMode = mode;
+    }
+
+    public static InteractionMode getInteractionMode() {
+        return _interactionMode;
     }
 
     public static boolean getCanInteract() {

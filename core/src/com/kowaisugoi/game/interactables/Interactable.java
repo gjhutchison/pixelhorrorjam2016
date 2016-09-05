@@ -20,7 +20,7 @@ public interface Interactable {
 
     public void registerListener(InteractionListener listener);
 
-    public boolean itemInteractable();
+    public boolean isItemInteractable();
 
-    public boolean itemIteracts(ItemId id);
+    public boolean itemIteract(ItemId id);
 }

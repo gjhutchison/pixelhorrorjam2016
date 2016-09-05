@@ -73,12 +73,12 @@ public class PickupableItem implements Item {
     }
 
     @Override
-    public boolean itemInteractable() {
+    public boolean isItemInteractable() {
         return false;
     }
 
     @Override
-    public boolean itemIteracts(ItemId id) {
+    public boolean itemIteract(ItemId id) {
         return false;
     }
 
@@ -86,5 +86,10 @@ public class PickupableItem implements Item {
         for (InteractionListener listener : _listeners) {
             listener.notifyListener();
         }
+    }
+
+    @Override
+    public ItemId getItemId() {
+        return _id;
     }
 }

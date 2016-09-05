@@ -97,12 +97,12 @@ public class StandardPassage implements Passage {
     }
 
     @Override
-    public boolean itemInteractable() {
+    public boolean isItemInteractable() {
         return false;
     }
 
     @Override
-    public boolean itemIteracts(ItemId id) {
+    public boolean itemIteract(ItemId id) {
         return false;
     }
 

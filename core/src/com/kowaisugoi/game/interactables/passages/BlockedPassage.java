@@ -43,12 +43,12 @@ public class BlockedPassage extends StandardPassage {
     }
 
     @Override
-    public boolean itemInteractable() {
+    public boolean isItemInteractable() {
         return true;
     }
 
     @Override
-    public boolean itemIteracts(ItemId id) {
+    public boolean itemIteract(ItemId id) {
         if (id == _interactionItemId) {
             _unlocked = true;
             return true;

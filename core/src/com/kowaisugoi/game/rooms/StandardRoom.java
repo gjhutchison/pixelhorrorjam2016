@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.kowaisugoi.game.interactables.Interactable;
+import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.player.Player;
@@ -120,6 +121,19 @@ public abstract class StandardRoom implements Room {
             if (pickupableItem.click(curX, curY)) {
                 Player.getInventory().addItem(pickupableItem);
                 _pickupableItemList.remove(pickupableItem);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean click(float curX, float curY, ItemId itemId) {
+        for (Interactable interactable : _passageList) {
+            if (interactable.isItemInteractable()) {
+                if (interactable.itemIteract(itemId)) {
+                    return true;
+                }
             }
         }
         return false;
