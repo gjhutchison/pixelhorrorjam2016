@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
+import com.kowaisugoi.game.player.thought.ThoughtBox;
 import com.kowaisugoi.game.rooms.Room;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
@@ -31,6 +32,8 @@ public final class Player {
     private static boolean _isDebug = false;
     private static boolean _canInteract = true;
 
+    private static ThoughtBox _thought = null;
+
     public enum CursorType {
         REGULAR,
         UP_ARROW,
@@ -49,6 +52,10 @@ public final class Player {
 
     public static void setInputProcessor(InputProcessor input) {
         _input = input;
+    }
+
+    public static ThoughtBox getThought() {
+        return _thought;
     }
 
     public static Room getCurrentRoom() {
@@ -120,5 +127,10 @@ public final class Player {
                 Gdx.graphics.setCursor(_downArrow);
                 break;
         }
+    }
+
+    public static void think(String text) {
+        ThoughtBox tb = new ThoughtBox(text);
+        _thought = tb;
     }
 }
