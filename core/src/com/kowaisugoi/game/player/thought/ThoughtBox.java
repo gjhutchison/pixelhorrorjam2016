@@ -16,7 +16,8 @@ import com.kowaisugoi.game.screens.PlayGame;
 public class ThoughtBox implements Disposable {
     private float _holdDuration = 0;
     private float _displayedFor;
-    private float _fadeDuration;
+    private float _fadeInDuration;
+    private float _fadeOutDuration;
     private float _opacity;
     private GlyphLayout _layout;
     private String _text;
@@ -26,9 +27,12 @@ public class ThoughtBox implements Disposable {
     private float THOUGHT_WIDTH = PlayGame.GAME_WIDTH;
     private float THOUGHT_HEIGHT = 10;
     private Color _color = new Color(1f, 1f, 1f, 1f);
+    private float OPACITY_MAX = 0.8f;
 
-    public ThoughtBox(String text) {
-        _fadeDuration = 3.5f;
+    public ThoughtBox(String text, float holdDuration) {
+        _holdDuration = holdDuration;
+        _fadeOutDuration = 2.0f;
+        _fadeInDuration = 1.0f;
 
         // TODO: Move this somewhere universal
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/raleway/Raleway-Medium.ttf"));
@@ -43,7 +47,21 @@ public class ThoughtBox implements Disposable {
 
     public void update(float delta) {
         _displayedFor += delta;
-        _opacity =  1.0f-(_displayedFor/_fadeDuration);
+
+        if (_displayedFor < _fadeInDuration) {
+            _opacity = ((_displayedFor)/_fadeInDuration) * OPACITY_MAX;
+        } else if (_displayedFor < _fadeInDuration + _holdDuration) {
+            _opacity = OPACITY_MAX;
+        } else {
+            _opacity =  (1.0f-(_displayedFor-_fadeInDuration-_holdDuration)/_fadeOutDuration) * OPACITY_MAX;
+        }
+
+        // Just in case
+        if (_opacity < 0) {
+            _opacity = 0;
+        } else if (_opacity > OPACITY_MAX) {
+            _opacity = OPACITY_MAX;
+        }
     }
 
     public void draw(SpriteBatch batch) {

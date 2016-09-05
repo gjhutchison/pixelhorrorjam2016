@@ -23,6 +23,6 @@ public class RoomCar extends StandardRoom {
     @Override
     public void enter() {
         super.enter();
-        Player.think("It's cold in here.");
+        Player.think("It's cold in here.", 2.0f);
     }
 }

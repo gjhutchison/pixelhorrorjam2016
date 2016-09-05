@@ -44,7 +44,7 @@ public final class Player {
         NONE
     }
 
-    private static ThoughtBox _thought = new ThoughtBox("");
+    private static ThoughtBox _thought = new ThoughtBox("", 0);
 
     public enum CursorType {
         REGULAR,
@@ -149,8 +149,8 @@ public final class Player {
         }
     }
 
-    public static void think(String text) {
-        ThoughtBox tb = new ThoughtBox(text);
+    public static void think(String text, float holdDuration) {
+        ThoughtBox tb = new ThoughtBox(text, holdDuration);
         _thought = tb;
     }
 }
