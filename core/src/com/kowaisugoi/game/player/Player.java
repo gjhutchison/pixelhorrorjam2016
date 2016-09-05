@@ -1,6 +1,8 @@
 package com.kowaisugoi.game.player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
@@ -22,6 +24,7 @@ public final class Player {
     private static RoomId _currentRoom;
     private static RoomManager _manager;
 
+    private static InputProcessor _input;
     private static PlayerInventory _inventory;
 
     private static boolean _isInInventory = false;
@@ -44,6 +47,10 @@ public final class Player {
     private static Cursor _regularCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/regular_cursor.png")), 0, 0);
     private static Cursor _invisCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/invisible_cursor.png")), 0, 0);
 
+    public static void setInputProcessor(InputProcessor input) {
+        _input = input;
+    }
+
     public static Room getCurrentRoom() {
         return _manager.getRoomMap().get(_currentRoom);
     }
@@ -63,6 +70,7 @@ public final class Player {
     public static void setCurrentRoom(RoomId current) {
         RoomManager.getRoomFromId(current).enter();
         _currentRoom = current;
+        _input.mouseMoved(Gdx.input.getX(), Gdx.input.getY());
     }
 
     public static boolean getDebug() {

@@ -28,6 +28,8 @@ public class RoomFrontYard extends StandardRoom {
                 new Rectangle(65, 35, 20, 40),
                 Direction.UP, ItemId.KEY_HOUSE);
 
+
+
         addPassage(frontDoor);
     }
 
