@@ -4,10 +4,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.kowaisugoi.game.interactables.passages.Passage;
-import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
 import com.kowaisugoi.game.screens.PlayGame;
+import com.kowaisugoi.game.system.GameUtil.Direction;
 
 /**
  * Created by Owner on 9/1/2016.
@@ -19,10 +19,6 @@ public class SlideTransition {
     private Passage _passage;
     private RoomId _destination;
     private RoomId _source;
-
-    public enum Direction {
-        UP, DOWN, LEFT, RIGHT
-    }
 
     private Direction _direction;
 

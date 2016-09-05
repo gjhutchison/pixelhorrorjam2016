@@ -4,10 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.kowaisugoi.game.graphics.SlideTransition.Direction;
 import com.kowaisugoi.game.graphics.SnowAnimation;
+import com.kowaisugoi.game.interactables.objects.ItemId;
+import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
-import com.kowaisugoi.game.interactables.passages.StandardPassage;
+import com.kowaisugoi.game.system.GameUtil.Direction;
 
 public class RoomFrontYard extends StandardRoom {
 
@@ -21,7 +22,11 @@ public class RoomFrontYard extends StandardRoom {
         _snowAnimation = new SnowAnimation(50, 6);
 
         // TODO: Rooms should probably locally store their own id (associated refactoring required)
-        Passage frontDoor = new StandardPassage(RoomId.FRONTYARD, RoomId.MAIN_HALL, new Rectangle(65, 35, 20, 40), Direction.UP);
+        // Passage frontDoor = new StandardPassage(RoomId.FRONTYARD, RoomId.MAIN_HALL, new Rectangle(65, 35, 20, 40), Direction.UP);
+        Passage frontDoor = new BlockedPassage(RoomId.FRONTYARD,
+                RoomId.MAIN_HALL,
+                new Rectangle(65, 35, 20, 40),
+                Direction.UP, ItemId.KEY_HOUSE);
 
         addPassage(frontDoor);
     }

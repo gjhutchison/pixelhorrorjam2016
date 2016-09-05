@@ -4,18 +4,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.graphics.SlideTransition;
-import com.kowaisugoi.game.graphics.SlideTransition.Direction;
 import com.kowaisugoi.game.interactables.InteractionListener;
+import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
+import com.kowaisugoi.game.system.GameUtil.Direction;
 
 import java.util.LinkedList;
 
 public class StandardPassage implements Passage {
     private LinkedList<InteractionListener> _listeners = new LinkedList<InteractionListener>();
-    private Rectangle _interactionBox;
+    protected Rectangle _interactionBox;
     private RoomId _source, _destination;
-    private SlideTransition _transition;
+    protected SlideTransition _transition;
     private Direction _direction;
 
     public StandardPassage(RoomId src, RoomId dest, Rectangle interactionBox, Direction direction) {
@@ -93,6 +94,16 @@ public class StandardPassage implements Passage {
     @Override
     public void registerListener(InteractionListener lis) {
         _listeners.push(lis);
+    }
+
+    @Override
+    public boolean itemInteractable() {
+        return false;
+    }
+
+    @Override
+    public boolean itemIteracts(ItemId id) {
+        return false;
     }
 
     private void notifyListeners() {

@@ -16,11 +16,13 @@ public class PickupableItem implements Item {
     private LinkedList<InteractionListener> _listeners = new LinkedList<InteractionListener>();
     private Rectangle _interactionBox;
     private Sprite _sprite;
+    private ItemId _id;
 
-    public PickupableItem(Sprite sprite, Rectangle interactionBox) {
+    public PickupableItem(Sprite sprite, Rectangle interactionBox, ItemId id) {
         _interactionBox = interactionBox;
         _sprite = sprite;
         _sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
+        _id = id;
     }
 
     // Draw any world squares (debug interactable areas)
@@ -68,6 +70,16 @@ public class PickupableItem implements Item {
     @Override
     public void registerListener(InteractionListener listener) {
         _listeners.push(listener);
+    }
+
+    @Override
+    public boolean itemInteractable() {
+        return false;
+    }
+
+    @Override
+    public boolean itemIteracts(ItemId id) {
+        return false;
     }
 
     public void notifyListeners() {

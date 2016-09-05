@@ -3,6 +3,7 @@ package com.kowaisugoi.game.interactables;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.interactables.objects.ItemId;
 
 public interface Interactable {
     public Rectangle getInteractionBox();
@@ -18,4 +19,8 @@ public interface Interactable {
     public void update(float delta);
 
     public void registerListener(InteractionListener listener);
+
+    public boolean itemInteractable();
+
+    public boolean itemIteracts(ItemId id);
 }
