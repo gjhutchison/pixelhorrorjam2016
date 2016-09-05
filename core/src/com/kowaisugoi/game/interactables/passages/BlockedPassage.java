@@ -41,8 +41,8 @@ public class BlockedPassage extends StandardPassage {
                 _transition.startAnimation(getDirection());
                 return true;
             }
+            Player.think(_lockedText, 2.0f);
         }
-        Player.think(_lockedText, 2.0f);
         return false;
     }
 
