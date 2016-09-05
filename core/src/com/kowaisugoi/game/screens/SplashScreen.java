@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.kowaisugoi.game.system.GlobalKeyHandler;
 
 public class SplashScreen implements Screen, InputProcessor {
 
@@ -143,13 +144,15 @@ public class SplashScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
+        if (!GlobalKeyHandler.keyUp(keycode)) {
+            ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu());
+        }
         return false;
     }
 
     @Override
     public boolean keyTyped(char character) {
-        ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu());
-        return true;
+        return false;
     }
 
     @Override
