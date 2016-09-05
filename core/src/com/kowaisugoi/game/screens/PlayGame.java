@@ -216,13 +216,18 @@ public class PlayGame implements Screen, InputProcessor {
     }
 
     private void handleMouseClick(float screenX, float screenY) {
-        if (Player.getCanInteract()) {
+        if (Player.getInteractionMode() == NORMAL) {
+            if (Player.getInventory().getButtonBox().contains(screenX, screenY)) {
+                Player.setInteractionMode(INVENTORY);
+                Player.getInventory().toggleInventory();
+                return;
+            }
             Player.getCurrentRoom().click(screenX, screenY);
         }
     }
 
     private void handleMouseMoved(float screenX, float screenY) {
-        if (Player.getCanInteract()) {
+        if (Player.getInteractionMode() == NORMAL) {
             Player.getCurrentRoom().mouseMoved(screenX, screenY);
         }
     }
