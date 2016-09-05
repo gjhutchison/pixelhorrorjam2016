@@ -83,30 +83,11 @@ public abstract class StandardRoom implements Room {
         }
     }
 
-    //TODO: be mouse entered or mouse exited
     @Override
-    public boolean mouseMoved(float curX, float curY) {
+    public void beautifyCursor(float curX, float curY) {
         for (Passage passage : _passageList) {
-            if (passage.mouseMoved(curX, curY)) {
-                switch (passage.getDirection()) {
-                    case UP:
-                        Player.setCursor(Player.CursorType.UP_ARROW);
-                        break;
-                    case DOWN:
-                        Player.setCursor(Player.CursorType.DOWN_ARROW);
-                        break;
-                    case LEFT:
-                        Player.setCursor(Player.CursorType.LEFT_ARROW);
-                        break;
-                    case RIGHT:
-                        Player.setCursor(Player.CursorType.RIGHT_ARROW);
-                        break;
-                }
-                return true;
-            }
+            passage.beautifyCursor(curX, curY);
         }
-        Player.setCursor(Player.CursorType.REGULAR);
-        return false;
     }
 
     @Override

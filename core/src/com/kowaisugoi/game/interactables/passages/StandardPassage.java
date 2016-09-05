@@ -78,11 +78,22 @@ public class StandardPassage implements Passage {
     }
 
     @Override
-    public boolean mouseMoved(float curX, float curY) {
+    public void beautifyCursor(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
-            return true;
-        } else {
-            return false;
+            switch (getDirection()) {
+                case UP:
+                    Player.setCursor(Player.CursorType.UP_ARROW);
+                    break;
+                case DOWN:
+                    Player.setCursor(Player.CursorType.DOWN_ARROW);
+                    break;
+                case LEFT:
+                    Player.setCursor(Player.CursorType.LEFT_ARROW);
+                    break;
+                case RIGHT:
+                    Player.setCursor(Player.CursorType.RIGHT_ARROW);
+                    break;
+            }
         }
     }
 

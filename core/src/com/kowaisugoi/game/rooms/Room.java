@@ -16,7 +16,7 @@ public interface Room extends Disposable {
 
     public boolean click(float curX, float curY, ItemId itemId);
 
-    public boolean mouseMoved(float curX, float curY);
+    public void beautifyCursor(float curX, float curY);
 
     public void update(float delta);
 
