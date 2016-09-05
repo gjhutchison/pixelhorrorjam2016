@@ -33,7 +33,7 @@ public abstract class StandardRoom implements Room {
 
     public void enter() {
         // On entering the typical room, allow the player to interact
-        Player.setCanInteract(true);
+        Player.setInteractionMode(Player.InteractionMode.NORMAL);
 
         // On entering the typical room, enable drawing the room immediately
         _visible = true;

@@ -18,9 +18,11 @@ import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
 public class PlayerInventory implements Disposable {
 
     private static final String INVENTORY_SPRITE_URL = "ui/inventory.png";
+    private static final String INVENTORY_BUTTON_SPRITE_URL = "ui/inventory_button.png";
 
     private List<InventorySlot> _inventorySlots;
     private Sprite _inventorySprite;
+    private Sprite _buttonSprite;
 
     private boolean _inventoryOpen;
 
@@ -29,6 +31,8 @@ public class PlayerInventory implements Disposable {
     public PlayerInventory() {
         _inventorySlots = new ArrayList<InventorySlot>();
         _inventorySprite = setupSprite();
+
+        _buttonSprite = setupButtonSprite();
 
         _inventoryOpen = false;
     }
@@ -65,8 +69,24 @@ public class PlayerInventory implements Disposable {
         return sprite;
     }
 
+    private Sprite setupButtonSprite() {
+        Sprite sprite = new Sprite(new Texture(INVENTORY_BUTTON_SPRITE_URL));
+        sprite.setSize(8, 8);
+        sprite.setPosition(GAME_WIDTH - 8, GAME_HEIGHT - 8);
+
+        return sprite;
+    }
+
+    public Rectangle getButtonBox() {
+        return new Rectangle(_buttonSprite.getX(),
+                _buttonSprite.getY(),
+                _buttonSprite.getWidth(),
+                _buttonSprite.getHeight());
+    }
+
     public void drawInventory(SpriteBatch batch) {
         if (!_inventoryOpen || Player.getInteractionMode() != Player.InteractionMode.INVENTORY) {
+            _buttonSprite.draw(batch);
             return;
         }
         _inventorySprite.draw(batch);

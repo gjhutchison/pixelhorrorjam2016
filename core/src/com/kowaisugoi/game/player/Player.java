@@ -10,6 +10,7 @@ import com.kowaisugoi.game.rooms.Room;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
 
+import static com.kowaisugoi.game.player.Player.InteractionMode.NONE;
 import static com.kowaisugoi.game.player.Player.InteractionMode.NORMAL;
 
 /**
@@ -31,7 +32,6 @@ public final class Player {
 
     private static boolean _isInInventory = false;
     private static boolean _isDebug = false;
-    private static boolean _canInteract = true;
     private static boolean _inventoryInteract = false;
     private static boolean _itemCombine = false;
 
@@ -100,27 +100,20 @@ public final class Player {
         _isDebug = debug;
     }
 
-    public static void setCanInteract(boolean canInteract) {
-        _canInteract = canInteract;
+    public static void setInteractionMode(InteractionMode mode) {
+        _interactionMode = mode;
 
-        if (!canInteract) {
+        if (_interactionMode == NONE) {
             Gdx.graphics.setCursor(_invisCursor);
         } else {
             Gdx.graphics.setCursor(_regularCursor);
         }
     }
 
-    public static void setInteractionMode(InteractionMode mode) {
-        _interactionMode = mode;
-    }
-
     public static InteractionMode getInteractionMode() {
         return _interactionMode;
     }
 
-    public static boolean getCanInteract() {
-        return _canInteract;
-    }
 
     public static PlayerInventory getInventory() {
         return _inventory;

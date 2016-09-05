@@ -56,7 +56,7 @@ public class StandardPassage implements Passage {
     public void draw(ShapeRenderer renderer) {
         _transition.draw(renderer);
         if (Player.getDebug()) {
-            if (Player.getCanInteract()) {
+            if (Player.getInteractionMode() == Player.InteractionMode.NORMAL) {
                 renderer.setColor(0, 1, 0, 0.25f);
             } else {
                 renderer.setColor(1, 0, 0, 0.25f);
@@ -70,7 +70,7 @@ public class StandardPassage implements Passage {
         if (_interactionBox.contains(curX, curY)) {
             notifyListeners();
 
-            Player.setCanInteract(false);
+            Player.setInteractionMode(Player.InteractionMode.NONE);
             _transition.startAnimation(_direction);
             return true;
         }

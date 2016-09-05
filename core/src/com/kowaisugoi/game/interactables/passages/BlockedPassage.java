@@ -34,7 +34,7 @@ public class BlockedPassage extends StandardPassage {
     public boolean click(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
             if (_unlocked) {
-                Player.setCanInteract(false);
+                Player.setInteractionMode(Player.InteractionMode.NONE);
                 _transition.startAnimation(getDirection());
                 return true;
             }
