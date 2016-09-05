@@ -130,9 +130,12 @@ public abstract class StandardRoom implements Room {
     @Override
     public boolean click(float curX, float curY, ItemId itemId) {
         for (Interactable interactable : _passageList) {
-            if (interactable.isItemInteractable()) {
-                if (interactable.itemIteract(itemId)) {
-                    return true;
+
+            if (interactable.getInteractionBox().contains(curX, curY)) {
+                if (interactable.isItemInteractable()) {
+                    if (interactable.itemIteract(itemId)) {
+                        return true;
+                    }
                 }
             }
         }
