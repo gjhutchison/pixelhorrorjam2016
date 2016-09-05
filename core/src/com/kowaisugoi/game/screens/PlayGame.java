@@ -176,9 +176,9 @@ public class PlayGame implements Screen, InputProcessor {
 
             if (Player.getInteractionMode() == INVENTORY || Player.getInteractionMode() == ITEM_INTERACTION) {
                 handleInventoryMouseClick(clickPosition.x, clickPosition.y);
+            } else {
+                handleMouseClick(clickPosition.x, clickPosition.y);
             }
-
-            handleMouseClick(clickPosition.x, clickPosition.y);
         }
         return false;
     }

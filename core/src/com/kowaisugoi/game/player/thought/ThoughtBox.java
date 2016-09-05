@@ -1,7 +1,10 @@
 package com.kowaisugoi.game.player.thought;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -27,9 +30,10 @@ public class ThoughtBox implements Disposable {
         // TODO: Move this somewhere universal
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/raleway/Raleway-Medium.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 64;
+        parameter.size = 36;
 
         _thoughtFont = generator.generateFont(parameter);
+        _thoughtFont.getData().setScale(0.15f,0.15f);
         _thoughtFont.setColor(1f,1f,1f,1f);
         _text = text;
     }
@@ -50,11 +54,8 @@ public class ThoughtBox implements Disposable {
     }
 
     public void draw(ShapeRenderer renderer) {
-        //float opacity = 1.0;
-        //float opacity = 1-elapsed/_duration;
-
-        //renderer.setColor(0.05f, 0.05f, 0.05f, opacity);
-        //renderer.rect(THOUGHT_X, THOUGHT_Y, THOUGHT_WIDTH, THOUGHT_HEIGHT);
+        renderer.setColor(0.05f, 0.05f, 0.05f, 0.6f);
+        renderer.rect(THOUGHT_X, THOUGHT_Y, THOUGHT_WIDTH, THOUGHT_HEIGHT);
     }
 
     @Override
