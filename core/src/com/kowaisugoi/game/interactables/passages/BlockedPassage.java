@@ -3,12 +3,13 @@ package com.kowaisugoi.game.interactables.passages;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.control.flags.Flag;
 import com.kowaisugoi.game.interactables.objects.ItemId;
+import com.kowaisugoi.game.messages.MessageProperties;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.system.GameUtil;
 
 public class BlockedPassage extends StandardPassage {
-
+    private String _lockedText = "";
     private boolean _unlocked = false;
     private ItemId _interactionItemId;
 
@@ -16,8 +17,10 @@ public class BlockedPassage extends StandardPassage {
                           RoomId dest,
                           Rectangle interactionBox,
                           GameUtil.Direction direction,
-                          ItemId id) {
+                          ItemId id,
+                          String lockedText) {
         super(src, dest, interactionBox, direction);
+        _lockedText = lockedText;
         _interactionItemId = id;
     }
 
@@ -39,6 +42,7 @@ public class BlockedPassage extends StandardPassage {
                 return true;
             }
         }
+        Player.think(_lockedText, 2.0f);
         return false;
     }
 

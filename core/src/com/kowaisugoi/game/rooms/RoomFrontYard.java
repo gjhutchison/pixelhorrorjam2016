@@ -9,6 +9,7 @@ import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
+import com.kowaisugoi.game.messages.MessageProperties;
 import com.kowaisugoi.game.system.GameUtil.Direction;
 
 public class RoomFrontYard extends StandardRoom {
@@ -27,7 +28,8 @@ public class RoomFrontYard extends StandardRoom {
         Passage frontDoor = new BlockedPassage(RoomId.FRONTYARD,
                 RoomId.MAIN_HALL,
                 new Rectangle(65, 35, 20, 40),
-                Direction.UP, ItemId.KEY_HOUSE);
+                Direction.UP, ItemId.KEY_HOUSE,
+                MessageProperties.getProperties().getProperty("thought.locked"));
 
         PickupableItem dankKey = new PickupableItem(new Sprite(new Texture("items/key.png")),
                 new Rectangle(10, 10, 32, 32),
