@@ -25,7 +25,7 @@ public final class Player {
     private static PlayerInventory _inventory;
 
     private static boolean _isInInventory = false;
-    private static boolean _isDebug = true;
+    private static boolean _isDebug = false;
     private static boolean _canInteract = true;
 
     public enum CursorType {
@@ -67,6 +67,10 @@ public final class Player {
 
     public static boolean getDebug() {
         return _isDebug;
+    }
+
+    public static void setDebug(boolean debug) {
+        _isDebug = debug;
     }
 
     public static void setCanInteract(boolean canInteract) {

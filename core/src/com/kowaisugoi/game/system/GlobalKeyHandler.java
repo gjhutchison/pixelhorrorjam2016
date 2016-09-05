@@ -2,6 +2,7 @@ package com.kowaisugoi.game.system;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.kowaisugoi.game.player.Player;
 
 /**
  * Prevents code duplication across MainMenu/PlayGame,
@@ -11,6 +12,7 @@ import com.badlogic.gdx.Input;
  */
 public final class GlobalKeyHandler {
     static final int FULLSCREEN_KEY = Input.Keys.F4;
+    static final int DEBUG_KEY = Input.Keys.F8;
     static final int EXIT_KEY = Input.Keys.ESCAPE;
 
     public static boolean keyUp(int keycode) {
@@ -31,6 +33,14 @@ public final class GlobalKeyHandler {
 
         if (keycode == EXIT_KEY) {
             Gdx.app.exit();
+        }
+
+        if (keycode == DEBUG_KEY) {
+            if (Player.getDebug()) {
+                Player.setDebug(false);
+            } else {
+                Player.setDebug(true);
+            }
         }
 
         return false;
