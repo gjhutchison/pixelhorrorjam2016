@@ -19,10 +19,12 @@ public class PlayerInventory implements Disposable {
 
     private static final String INVENTORY_SPRITE_URL = "ui/inventory.png";
     private static final String INVENTORY_BUTTON_SPRITE_URL = "ui/inventory_button.png";
+    private static final String INVENTORY_BUTTON_CLOSED_URL = "ui/inventory_button_close.png";
 
     private List<InventorySlot> _inventorySlots;
     private Sprite _inventorySprite;
-    private Sprite _buttonSprite;
+    private Sprite _buttonOpenSprite;
+    private Sprite _buttonCloseSprite;
 
     private boolean _inventoryOpen;
 
@@ -32,7 +34,8 @@ public class PlayerInventory implements Disposable {
         _inventorySlots = new ArrayList<InventorySlot>();
         _inventorySprite = setupSprite();
 
-        _buttonSprite = setupButtonSprite();
+        _buttonOpenSprite = setupButtonOpenSprite();
+        _buttonCloseSprite = setupButtonCloseSprite();
 
         _inventoryOpen = false;
     }
@@ -69,7 +72,7 @@ public class PlayerInventory implements Disposable {
         return sprite;
     }
 
-    private Sprite setupButtonSprite() {
+    private Sprite setupButtonOpenSprite() {
         Sprite sprite = new Sprite(new Texture(INVENTORY_BUTTON_SPRITE_URL));
         sprite.setSize(8, 8);
         sprite.setPosition(GAME_WIDTH - 8, GAME_HEIGHT - 8);
@@ -77,18 +80,27 @@ public class PlayerInventory implements Disposable {
         return sprite;
     }
 
+    private Sprite setupButtonCloseSprite() {
+        Sprite sprite = new Sprite(new Texture(INVENTORY_BUTTON_CLOSED_URL));
+        sprite.setSize(8, 8);
+        sprite.setPosition(GAME_WIDTH - 8, GAME_HEIGHT - 8);
+
+        return sprite;
+    }
+
     public Rectangle getButtonBox() {
-        return new Rectangle(_buttonSprite.getX(),
-                _buttonSprite.getY(),
-                _buttonSprite.getWidth(),
-                _buttonSprite.getHeight());
+        return new Rectangle(_buttonOpenSprite.getX(),
+                _buttonOpenSprite.getY(),
+                _buttonOpenSprite.getWidth(),
+                _buttonOpenSprite.getHeight());
     }
 
     public void drawInventory(SpriteBatch batch) {
         if (!_inventoryOpen || Player.getInteractionMode() != Player.InteractionMode.INVENTORY) {
-            _buttonSprite.draw(batch);
+            _buttonOpenSprite.draw(batch);
             return;
         }
+        _buttonCloseSprite.draw(batch);
         _inventorySprite.draw(batch);
         drawItems(batch);
     }
@@ -136,5 +148,7 @@ public class PlayerInventory implements Disposable {
     @Override
     public void dispose() {
         _inventorySprite.getTexture().dispose();
+        _buttonOpenSprite.getTexture().dispose();
+        _buttonCloseSprite.getTexture().dispose();
     }
 }

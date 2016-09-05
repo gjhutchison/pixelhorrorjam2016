@@ -234,6 +234,11 @@ public class PlayGame implements Screen, InputProcessor {
 
     private void handleInventoryMouseClick(float screenX, float screenY) {
         if (Player.getInteractionMode() == INVENTORY) {
+            if (Player.getInventory().getButtonBox().contains(screenX, screenY)) {
+                Player.getInventory().toggleInventory();
+                Player.setInteractionMode(NORMAL);
+                return;
+            }
             if (Player.getInventory().click(screenX, screenY)) {
                 Player.setInteractionMode(ITEM_INTERACTION);
             }
