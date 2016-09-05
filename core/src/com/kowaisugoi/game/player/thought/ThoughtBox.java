@@ -32,9 +32,10 @@ public class ThoughtBox implements Disposable {
         // TODO: Move this somewhere universal
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/raleway/Raleway-Medium.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 12;
+        parameter.size = 36;
 
         _thoughtFont = generator.generateFont(parameter);
+        _thoughtFont.getData().setScale(0.15f,0.15f);
         _thoughtFont.setColor(1f,1f,1f,1f);
         _text = text;
     }
