@@ -17,6 +17,8 @@ import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
 import com.kowaisugoi.game.system.GlobalKeyHandler;
 
+import static com.kowaisugoi.game.player.Player.InteractionMode.*;
+
 public class PlayGame implements Screen, InputProcessor {
 
     // 640x360
@@ -27,6 +29,11 @@ public class PlayGame implements Screen, InputProcessor {
     private Viewport _viewport;
     private SpriteBatch _batch;
     private ShapeRenderer _shapeRenderer;
+
+    private float _cursorX;
+    private float _cursorY;
+
+    //private SlideTransition _slideTransition;
 
     @Override
     public void show() {
@@ -55,7 +62,10 @@ public class PlayGame implements Screen, InputProcessor {
 
     private void updateGame(float delta) {
         Player.getCurrentRoom().update(delta);
-        //PASSAGE_LISTENER_MANAGER.update(delta);
+
+        if (Player.getInteractionMode() == ITEM_INTERACTION) {
+            Player.getInventory().moveSelectedItemSprite(_cursorX, _cursorY);
+        }
     }
 
     private void renderGame() {
@@ -78,6 +88,12 @@ public class PlayGame implements Screen, InputProcessor {
         Player.getThought().draw(_shapeRenderer);
         _shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
+
+        _batch.begin();
+        if (Player.getInteractionMode() == ITEM_INTERACTION) {
+            Player.getInventory().drawSelectedItemSprite(_batch);
+        }
+        _batch.end();
     }
 
     @Override
@@ -117,7 +133,13 @@ public class PlayGame implements Screen, InputProcessor {
         if (keycode == Input.Keys.I) {
             Player.getInventory().toggleInventory();
             //TODO: Make sure player can interact with only the inventory instead of nothing
-            Player.setCanInteract(!Player.getInventory().isInventoryOpen());
+
+            if (Player.getInventory().isInventoryOpen()) {
+                Player.setInteractionMode(INVENTORY);
+            } else if (!Player.getInventory().isInventoryOpen() &&
+                    Player.getInteractionMode() != ITEM_INTERACTION) {
+                Player.setInteractionMode(NORMAL);
+            }
         }
         return false;
     }
@@ -144,6 +166,11 @@ public class PlayGame implements Screen, InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         if (button == Input.Buttons.LEFT) {
             Vector3 clickPosition = screenToWorldPosition(screenX, screenY, _camera);
+
+            if (Player.getInteractionMode() == INVENTORY || Player.getInteractionMode() == ITEM_INTERACTION) {
+                handleInventoryMouseClick(clickPosition.x, clickPosition.y);
+            }
+
             handleMouseClick(clickPosition.x, clickPosition.y);
         }
         return false;
@@ -171,6 +198,10 @@ public class PlayGame implements Screen, InputProcessor {
     private Vector3 screenToWorldPosition(int screenX, int screenY, OrthographicCamera camera) {
         Vector3 vecCursorPos = new Vector3(screenX, screenY, 0);
         camera.unproject(vecCursorPos);
+
+        _cursorX = vecCursorPos.x;
+        _cursorY = vecCursorPos.y;
+
         return vecCursorPos;
     }
 
@@ -183,6 +214,17 @@ public class PlayGame implements Screen, InputProcessor {
     private void handleMouseMoved(float screenX, float screenY) {
         if (Player.getCanInteract()) {
             Player.getCurrentRoom().mouseMoved(screenX, screenY);
+        }
+    }
+
+    private void handleInventoryMouseClick(float screenX, float screenY) {
+        if (Player.getInteractionMode() == INVENTORY) {
+            if (Player.getInventory().click(screenX, screenY)) {
+                Player.setInteractionMode(ITEM_INTERACTION);
+            }
+        } else if (Player.getInteractionMode() == ITEM_INTERACTION) {
+            Player.getCurrentRoom().click(screenX, screenY, Player.getInventory().getSelectedItemId());
+            Player.setInteractionMode(NORMAL);
         }
     }
 }

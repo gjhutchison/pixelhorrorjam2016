@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.graphics.SnowAnimation;
 import com.kowaisugoi.game.interactables.objects.ItemId;
+import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.system.GameUtil.Direction;
@@ -28,7 +29,11 @@ public class RoomFrontYard extends StandardRoom {
                 new Rectangle(65, 35, 20, 40),
                 Direction.UP, ItemId.KEY_HOUSE);
 
+        PickupableItem dankKey = new PickupableItem(new Sprite(new Texture("items/key.png")),
+                new Rectangle(10, 10, 32, 32),
+                ItemId.KEY_HOUSE);
 
+        addPickupableItem(dankKey);
 
         addPassage(frontDoor);
     }

@@ -3,8 +3,11 @@ package com.kowaisugoi.game.player.inventory;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Disposable;
+import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
+import com.kowaisugoi.game.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,8 @@ public class PlayerInventory implements Disposable {
     private Sprite _inventorySprite;
 
     private boolean _inventoryOpen;
+
+    private InventorySlot _selectedSlot;
 
     public PlayerInventory() {
         _inventorySlots = new ArrayList<InventorySlot>();
@@ -38,9 +43,17 @@ public class PlayerInventory implements Disposable {
 
     private void positionSprites() {
         for (int i = 0; i < _inventorySlots.size(); i++) {
+            InventorySlot slot = _inventorySlots.get(i);
+
+            float x = 19 + (47 * (i - (3 * (i / 3))));
+            float y = 47 - (37 * (i / 3));
+
             Sprite sprite = _inventorySlots.get(i).getItem().getInventorySprite();
             sprite.setSize(32, 32);
-            sprite.setPosition(19 + (47 * (i - (3 * (i / 3)))), 47 - (37 * (i / 3)));
+            sprite.setPosition(x, y);
+
+            slot.setInteractionBox(new Rectangle(x, y, 32, 32));
+
         }
     }
 
@@ -53,7 +66,7 @@ public class PlayerInventory implements Disposable {
     }
 
     public void drawInventory(SpriteBatch batch) {
-        if (!_inventoryOpen) {
+        if (!_inventoryOpen || Player.getInteractionMode() != Player.InteractionMode.INVENTORY) {
             return;
         }
         _inventorySprite.draw(batch);
@@ -72,6 +85,32 @@ public class PlayerInventory implements Disposable {
 
     public boolean isInventoryOpen() {
         return _inventoryOpen;
+    }
+
+    public boolean click(float curX, float curY) {
+        for (InventorySlot slot : _inventorySlots) {
+            if (slot.interact(curX, curY)) {
+                _selectedSlot = slot;
+                _inventoryOpen = false;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void drawSelectedItemSprite(SpriteBatch batch) {
+        Sprite sprite = _selectedSlot.getItem().getInventorySprite();
+        sprite.draw(batch);
+    }
+
+    public void moveSelectedItemSprite(float curX, float curY) {
+        Sprite sprite = _selectedSlot.getItem().getInventorySprite();
+        sprite.setPosition(curX, curY);
+        sprite.setSize(16, 16);
+    }
+
+    public ItemId getSelectedItemId() {
+        return _selectedSlot.getItem().getItemId();
     }
 
     @Override

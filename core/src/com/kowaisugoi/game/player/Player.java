@@ -1,7 +1,6 @@
 package com.kowaisugoi.game.player;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -10,6 +9,8 @@ import com.kowaisugoi.game.player.thought.ThoughtBox;
 import com.kowaisugoi.game.rooms.Room;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
+
+import static com.kowaisugoi.game.player.Player.InteractionMode.NORMAL;
 
 /**
  * While this could be passed to each Room as the player enters it,
@@ -31,6 +32,17 @@ public final class Player {
     private static boolean _isInInventory = false;
     private static boolean _isDebug = false;
     private static boolean _canInteract = true;
+    private static boolean _inventoryInteract = false;
+    private static boolean _itemCombine = false;
+
+    private static InteractionMode _interactionMode = NORMAL;
+
+    public enum InteractionMode {
+        NORMAL,
+        INVENTORY,
+        ITEM_INTERACTION,
+        NONE
+    }
 
     private static ThoughtBox _thought = null;
 
@@ -96,6 +108,14 @@ public final class Player {
         } else {
             Gdx.graphics.setCursor(_regularCursor);
         }
+    }
+
+    public static void setInteractionMode(InteractionMode mode) {
+        _interactionMode = mode;
+    }
+
+    public static InteractionMode getInteractionMode() {
+        return _interactionMode;
     }
 
     public static boolean getCanInteract() {
