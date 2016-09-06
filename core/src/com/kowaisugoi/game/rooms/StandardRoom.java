@@ -88,6 +88,9 @@ public abstract class StandardRoom implements Room {
         for (Passage passage : _passageList) {
             passage.beautifyCursor(curX, curY);
         }
+        for (PickupableItem pickupableItem : _pickupableItemList) {
+            pickupableItem.beautifyCursor(curX, curY);
+        }
     }
 
     @Override

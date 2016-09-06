@@ -221,6 +221,11 @@ public class PlayGame implements Screen, InputProcessor {
         // Default cursor, in case nobody else wants to set it
         Player.setCursor(Player.CursorType.REGULAR);
 
+        if (Player.getInventory().getButtonBox().contains(x, y)) {
+            Player.setCursor(Player.CursorType.PICKUP);
+            return;
+        }
+
         if (Player.getInteractionMode() == NORMAL) {
             Player.getCurrentRoom().beautifyCursor(x, y);
         }

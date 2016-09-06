@@ -61,7 +61,7 @@ public final class Player {
     private static Cursor _leftArrow = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/left_arrow_cursor.png")), 2, 16);
     private static Cursor _rightArrow = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/right_arrow_cursor.png")), 30, 16);
     private static Cursor _regularCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/regular_cursor.png")), 0, 0);
-    private static Cursor _pickupCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/regular_cursor.png")), 0, 0);
+    private static Cursor _pickupCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/pickup_cursor.png")), 0, 0);
     private static Cursor _invisCursor = Gdx.graphics.newCursor(new Pixmap(Gdx.files.internal("cursors/invisible_cursor.png")), 0, 0);
 
     public static void setInputProcessor(InputProcessor input) {
