@@ -35,6 +35,8 @@ public final class Player {
     private static boolean _inventoryInteract = false;
     private static boolean _itemCombine = false;
 
+    private static CursorType _cursorFlavor = CursorType.REGULAR;
+
     private static InteractionMode _interactionMode = NORMAL;
 
     public enum InteractionMode {
@@ -122,6 +124,10 @@ public final class Player {
     }
 
     public static void setCursor(CursorType flavour) {
+        if (flavour == _cursorFlavor) {
+            return;
+        }
+
         switch (flavour) {
             case INVISIBLE:
                 Gdx.graphics.setCursor(_invisCursor);
@@ -145,6 +151,8 @@ public final class Player {
                 Gdx.graphics.setCursor(_pickupCursor);
                 break;
         }
+
+        _cursorFlavor = flavour;
     }
 
     public static void think(String text, float holdDuration) {
