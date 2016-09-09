@@ -127,8 +127,11 @@ public final class Player {
         if (flavour == _cursorFlavor) {
             return;
         }
+        _cursorFlavor = flavour;
+    }
 
-        switch (flavour) {
+    public static void changeCursor() {
+        switch (_cursorFlavor) {
             case INVISIBLE:
                 Gdx.graphics.setCursor(_invisCursor);
                 break;
@@ -151,8 +154,6 @@ public final class Player {
                 Gdx.graphics.setCursor(_pickupCursor);
                 break;
         }
-
-        _cursorFlavor = flavour;
     }
 
     public static void think(String text, float holdDuration) {
