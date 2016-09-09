@@ -90,6 +90,7 @@ public abstract class StandardRoom implements Room {
         }
         for (PickupableItem pickupableItem : _pickupableItemList) {
             pickupableItem.beautifyCursor(curX, curY);
+            return;
         }
     }
 
