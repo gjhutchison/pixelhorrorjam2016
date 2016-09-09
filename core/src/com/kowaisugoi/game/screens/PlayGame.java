@@ -65,6 +65,7 @@ public class PlayGame implements Screen, InputProcessor {
 
         Player.getThought().update(delta);
         beautifyCursor(position.x, position.y);
+        Player.changeCursor();
     }
 
     private void renderGame() {
