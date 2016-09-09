@@ -71,7 +71,8 @@ public class PlayGame implements Screen, InputProcessor {
     private void renderGame() {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         // Draw room sprites
         _camera.update();
         _batch.setProjectionMatrix(_camera.combined);
@@ -79,6 +80,7 @@ public class PlayGame implements Screen, InputProcessor {
         Player.getCurrentRoom().draw(_batch);
         Player.getInventory().drawInventory(_batch);
         _batch.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
 
         // Draw room shapes
         Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -87,8 +89,10 @@ public class PlayGame implements Screen, InputProcessor {
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Player.getCurrentRoom().draw(_shapeRenderer);
         _shapeRenderer.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
 
         // Draw room FX
+        Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_DST_COLOR, GL20.GL_ONE);
         _batch.begin();
         Player.getCurrentRoom().drawFx(_batch);
@@ -103,12 +107,15 @@ public class PlayGame implements Screen, InputProcessor {
         _batch.end();
 
         // Draw top-level room elements (e.g. transitions, spookyness)
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Player.getCurrentRoom().drawOnFace(_shapeRenderer);
         _shapeRenderer.end();
         _batch.begin();
         Player.getCurrentRoom().drawOnFace(_batch);
         _batch.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
 
         // Draw player thoughts over everything
         Gdx.gl.glEnable(GL20.GL_BLEND);
