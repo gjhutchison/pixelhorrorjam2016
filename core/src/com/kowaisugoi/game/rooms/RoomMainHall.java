@@ -9,7 +9,7 @@ import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomMainHall extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/MainRoom.png";
+    private static final String ROOM_URL = "rooms/cozy_room.png";
 
     public RoomMainHall() {
         super(new Sprite(new Texture(ROOM_URL)));

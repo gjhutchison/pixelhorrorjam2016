@@ -31,8 +31,8 @@ public class ThoughtBox implements Disposable {
 
     public ThoughtBox(String text, float holdDuration) {
         _holdDuration = holdDuration;
-        _fadeOutDuration = 2.0f;
-        _fadeInDuration = 1.0f;
+        _fadeOutDuration = 1.4f;
+        _fadeInDuration = 0.6f;
 
         // TODO: Move this somewhere universal
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/raleway/Raleway-Medium.ttf"));
