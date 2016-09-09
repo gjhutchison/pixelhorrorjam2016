@@ -8,6 +8,8 @@ import com.kowaisugoi.game.interactables.objects.ItemId;
 public interface Room extends Disposable {
     public void setVisible(boolean visible);
 
+    public void drawFx(SpriteBatch batch);
+
     public void draw(SpriteBatch batch);
 
     public void draw(ShapeRenderer batch);

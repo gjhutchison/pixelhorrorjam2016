@@ -84,6 +84,10 @@ public abstract class StandardRoom implements Room {
     }
 
     @Override
+    public void drawFx(SpriteBatch batch) {
+    }
+
+    @Override
     public void beautifyCursor(float curX, float curY) {
         for (Passage passage : _passageList) {
             passage.beautifyCursor(curX, curY);

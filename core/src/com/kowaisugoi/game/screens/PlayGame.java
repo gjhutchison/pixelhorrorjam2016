@@ -71,6 +71,7 @@ public class PlayGame implements Screen, InputProcessor {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        // Draw room sprites
         _camera.update();
         _batch.setProjectionMatrix(_camera.combined);
         _batch.begin();
@@ -78,20 +79,29 @@ public class PlayGame implements Screen, InputProcessor {
         Player.getInventory().drawInventory(_batch);
         _batch.end();
 
+        // Draw room shapes
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         _shapeRenderer.setProjectionMatrix(_camera.combined);
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Player.getCurrentRoom().draw(_shapeRenderer);
         _shapeRenderer.end();
+
+        // Draw room FX
+        Gdx.gl.glBlendFunc(GL20.GL_DST_COLOR, GL20.GL_ONE);
+        _batch.begin();
+        Player.getCurrentRoom().drawFx(_batch);
+        _batch.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
+        // Draw inventory, if applicable
         _batch.begin();
         if (Player.getInteractionMode() == ITEM_INTERACTION) {
             Player.getInventory().drawSelectedItemSprite(_batch);
         }
         _batch.end();
 
+        // Draw Thoughts
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
