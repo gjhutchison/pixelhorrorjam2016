@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.graphics.SlideTransition;
+import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.player.Player;
@@ -38,8 +39,8 @@ public class StandardPassage implements Passage {
     }
 
     @Override
-    public void roomTransition() {
-        Player.setCurrentRoom(_destination);
+    public void roomTransition(Transition t) {
+        Player.enterRoom(_destination, t);
     }
 
     @Override

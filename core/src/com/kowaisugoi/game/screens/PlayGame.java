@@ -42,7 +42,7 @@ public class PlayGame implements Screen, InputProcessor {
         Player.setInputProcessor(this);
         Player.registerRoomManager(manager);
         Player.registerPlayerInventory(inventory);
-        Player.setCurrentRoom(RoomId.CAR);
+        Player.enterRoom(RoomId.CAR, null);
         Player.setCursor(Player.CursorType.REGULAR);
 
         Gdx.input.setInputProcessor(this);
@@ -101,7 +101,15 @@ public class PlayGame implements Screen, InputProcessor {
         }
         _batch.end();
 
-        // Draw Thoughts
+        // Draw top-level room elements (e.g. transitions, spookyness)
+        _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        Player.getCurrentRoom().drawOnFace(_shapeRenderer);
+        _shapeRenderer.end();
+        _batch.begin();
+        Player.getCurrentRoom().drawOnFace(_batch);
+        _batch.end();
+
+        // Draw player thoughts over everything
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);

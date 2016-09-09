@@ -2,7 +2,9 @@ package com.kowaisugoi.game.rooms;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.particles.renderers.PointSpriteRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.interactables.Interactable;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
@@ -25,6 +27,7 @@ public abstract class StandardRoom implements Room {
     protected boolean _visible = false;
     protected List<PickupableItem> _pickupableItemList = new LinkedList<PickupableItem>();
     protected List<Passage> _passageList = new LinkedList<Passage>();
+    private Transition _transition = null;
 
     public StandardRoom(Sprite image) {
         _roomSprite = image;
@@ -37,6 +40,11 @@ public abstract class StandardRoom implements Room {
 
         // On entering the typical room, enable drawing the room immediately
         _visible = true;
+    }
+
+    public void enter(Transition t) {
+        enter();
+        _transition = t;
     }
 
     public void addPassage(Passage interactable) {
@@ -54,10 +62,6 @@ public abstract class StandardRoom implements Room {
 
     @Override
     public void draw(SpriteBatch batch) {
-        for (Passage passage : _passageList) {
-            passage.draw(batch);
-        }
-
         if (!_visible) {
             return;
         }
@@ -70,10 +74,6 @@ public abstract class StandardRoom implements Room {
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        for (Passage passage : _passageList) {
-            passage.draw(renderer);
-        }
-
         if (!_visible) {
             return;
         }
@@ -85,6 +85,27 @@ public abstract class StandardRoom implements Room {
 
     @Override
     public void drawFx(SpriteBatch batch) {
+    }
+
+    @Override
+    public void drawOnFace(SpriteBatch batch) {
+        // In a standard room, passages only draw as transitions
+        // TODO: May want to make it passage.getTransition.draw(renderer), in case doors get sprites
+        for (Passage passage : _passageList) {
+            passage.draw(batch);
+        }
+    }
+
+    @Override
+    public void drawOnFace(ShapeRenderer renderer) {
+        if (_transition != null) {
+            _transition.draw(renderer);
+        }
+        // In a standard room, passages only draw as transitions
+        // TODO: May want to make it passage.getTransition.draw(renderer), in case doors get sprites
+        for (Passage passage : _passageList) {
+            passage.draw(renderer);
+        }
     }
 
     @Override
@@ -133,6 +154,9 @@ public abstract class StandardRoom implements Room {
 
     @Override
     public void update(float delta) {
+        if (_transition != null) {
+            _transition.update(delta);
+        }
         for (Interactable interactable : _passageList) {
             interactable.update(delta);
         }

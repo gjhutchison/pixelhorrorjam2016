@@ -3,6 +3,7 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
+import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 
 public interface Room extends Disposable {
@@ -14,6 +15,10 @@ public interface Room extends Disposable {
 
     public void draw(ShapeRenderer batch);
 
+    public void drawOnFace(SpriteBatch batch);
+
+    public void drawOnFace(ShapeRenderer batch);
+
     public boolean click(float curX, float curY);
 
     public boolean click(float curX, float curY, ItemId itemId);
@@ -23,4 +28,6 @@ public interface Room extends Disposable {
     public void update(float delta);
 
     public void enter();
+
+    public void enter(Transition t);
 }

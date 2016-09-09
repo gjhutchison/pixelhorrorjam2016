@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.kowaisugoi.game.interactables.passages.Passage;
+import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
 import com.kowaisugoi.game.screens.PlayGame;
@@ -12,7 +13,7 @@ import com.kowaisugoi.game.system.GameUtil.Direction;
 /**
  * Created by Owner on 9/1/2016.
  */
-public class SlideTransition {
+public class SlideTransition implements Transition {
     private boolean _animating = false;
     private boolean _roomChanged = false;
     private boolean _animationComplete = false;
@@ -49,16 +50,8 @@ public class SlideTransition {
     }
 
     void swapRoom() {
-        // Reset animation
-        _animationLength = 0;
-        _xPosition = 0;
-        _yPosition = 0;
-        _animating = false;
-        _roomChanged = false;
-        _animationComplete = false;
-
         if (_passage != null) {
-            _passage.roomTransition();
+            _passage.roomTransition(this);
         }
     }
 
@@ -110,32 +103,28 @@ public class SlideTransition {
                 return;
         }
 
-        /*if (_direction == Direction.UP || _direction == Direction.DOWN) {
-            if (_animationLength > HALF_TIME_VERTICAL) {
-                _roomChanged = true;
-            }
-        } else if (_direction == Direction.LEFT || _direction == Direction.RIGHT) {
-            if (_animationLength > HALF_TIME_HORIZONTAL) {
-                _roomChanged = true;
-            }
-        }*/
-
-        if (_xPosition > MAX_X || _xPosition < MIN_X) {
-            _animating = false;
-            _animationComplete = true;
-            _roomChanged = true;
-        } else if (_yPosition > MAX_Y || _yPosition < MIN_Y) {
-            _animating = false;
-            _animationComplete = true;
-            _roomChanged = true;
-        }
     }
 
+    @Override
     public void update(float delta) {
         if (this.isAnimating()) {
             this.animateTransition(delta);
-            if (_roomChanged) {
-                swapRoom();
+            if (_direction == Direction.UP || _direction == Direction.DOWN) {
+                if (_animationLength > HALF_TIME_VERTICAL) {
+                    swapRoom();
+                }
+            } else if (_direction == Direction.LEFT || _direction == Direction.RIGHT) {
+                if (_animationLength > HALF_TIME_HORIZONTAL) {
+                    swapRoom();
+                }
+            }
+
+            if (_xPosition > MAX_X || _xPosition < MIN_X) {
+                _animating = false;
+                _animationComplete = true;
+            } else if (_yPosition > MAX_Y || _yPosition < MIN_Y) {
+                _animating = false;
+                _animationComplete = true;
             }
         }
     }
@@ -148,22 +137,11 @@ public class SlideTransition {
         return _animationComplete;
     }
 
+    @Override
     public void draw(SpriteBatch batch) {
-        if (_direction == Direction.UP || _direction == Direction.DOWN) {
-            if (_animationLength > HALF_TIME_VERTICAL) {
-                RoomManager.getRoomFromId(_source).setVisible(false);
-                RoomManager.getRoomFromId(_destination).setVisible(true);
-                RoomManager.getRoomFromId(_destination).draw(batch);
-            }
-        } else if (_direction == Direction.LEFT || _direction == Direction.RIGHT) {
-            if (_animationLength > HALF_TIME_HORIZONTAL) {
-                RoomManager.getRoomFromId(_source).setVisible(false);
-                RoomManager.getRoomFromId(_destination).setVisible(true);
-                RoomManager.getRoomFromId(_destination).draw(batch);
-            }
-        }
     }
 
+    @Override
     public void draw(ShapeRenderer renderer) {
         if (renderer.isDrawing() && _animating) {
             renderer.setColor(Color.BLACK);

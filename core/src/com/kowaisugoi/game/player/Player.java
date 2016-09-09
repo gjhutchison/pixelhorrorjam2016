@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
 import com.kowaisugoi.game.player.thought.ThoughtBox;
 import com.kowaisugoi.game.rooms.Room;
@@ -90,9 +91,14 @@ public final class Player {
         _inventory = inventory;
     }
 
-    public static void setCurrentRoom(RoomId current) {
-        RoomManager.getRoomFromId(current).enter();
-        _currentRoom = current;
+    /**
+     * Enter the next room
+     * @param newRoom: The room to enter
+     * @param t: Any transition which needs to finish drawing (can be null)
+     */
+    public static void enterRoom(RoomId newRoom, Transition t) {
+        RoomManager.getRoomFromId(newRoom).enter(t);
+        _currentRoom = newRoom;
         _input.mouseMoved(Gdx.input.getX(), Gdx.input.getY());
     }
 
