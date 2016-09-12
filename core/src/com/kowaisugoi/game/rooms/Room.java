@@ -13,10 +13,6 @@ public interface Room extends Disposable {
 
     public void draw(ShapeRenderer batch);
 
-    public void drawOnFace(SpriteBatch batch);
-
-    public void drawOnFace(ShapeRenderer batch);
-
     public boolean click(float curX, float curY);
 
     public boolean click(float curX, float curY, ItemId itemId);
@@ -26,6 +22,4 @@ public interface Room extends Disposable {
     public void update(float delta);
 
     public void enter();
-
-    public void enter(Transition t);
 }

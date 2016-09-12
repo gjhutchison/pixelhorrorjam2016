@@ -14,18 +14,16 @@ import com.kowaisugoi.game.system.GameUtil.Direction;
 
 import java.util.LinkedList;
 
-public class StandardPassage implements Passage {
+public class DirectionalPassage implements Passage {
     private LinkedList<InteractionListener> _listeners = new LinkedList<InteractionListener>();
     protected Rectangle _interactionBox;
     private RoomId _source, _destination;
-    protected SlideTransition _transition;
-    private Direction _direction;
+    protected Direction _direction;
 
-    public StandardPassage(RoomId src, RoomId dest, Rectangle interactionBox, Direction direction) {
+    public DirectionalPassage(RoomId src, RoomId dest, Rectangle interactionBox, Direction direction) {
         _source = src;
         _destination = dest;
         _interactionBox = interactionBox;
-        _transition = new SlideTransition(this, src, dest);
         _direction = direction;
     }
 
@@ -40,23 +38,16 @@ public class StandardPassage implements Passage {
     }
 
     @Override
-    public void roomTransition(Transition t) {
-        World.getPlayer().enterRoom(_destination, t);
-    }
-
-    @Override
-    public Direction getDirection() {
-        return _direction;
+    public void roomTransition() {
+        World.getPlayer().enterRoom(_destination);
     }
 
     @Override
     public void draw(SpriteBatch batch) {
-        _transition.draw(batch);
     }
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        _transition.draw(renderer);
         if (World.getPlayer().getDebug()) {
             if (World.getPlayer().getInteractionMode() == Player.InteractionMode.NORMAL) {
                 renderer.setColor(0, 1, 0, 0.25f);
@@ -73,7 +64,7 @@ public class StandardPassage implements Passage {
             notifyListeners();
 
             World.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
-            _transition.startAnimation(_direction);
+            World.playTransition(new SlideTransition(this, _direction));
             return true;
         }
         return false;
@@ -82,7 +73,7 @@ public class StandardPassage implements Passage {
     @Override
     public void beautifyCursor(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
-            switch (getDirection()) {
+            switch (_direction) {
                 case UP:
                     World.getPlayer().setCursor(Player.CursorType.UP_ARROW);
                     break;
@@ -101,7 +92,6 @@ public class StandardPassage implements Passage {
 
     @Override
     public void update(float delta) {
-        _transition.update(delta);
     }
 
     @Override

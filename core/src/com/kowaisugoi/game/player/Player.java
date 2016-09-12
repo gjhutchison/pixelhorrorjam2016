@@ -83,7 +83,7 @@ public final class Player implements Disposable, InputProcessor {
     }
 
     public void startGame(RoomId start) {
-        enterRoom(start, null);
+        enterRoom(start);
     }
 
     @Override
@@ -199,10 +199,9 @@ public final class Player implements Disposable, InputProcessor {
     /**
      * Enter the next room
      * @param newRoom: The room to enter
-     * @param t: Any transition which needs to finish drawing (can be null)
      */
-    public void enterRoom(RoomId newRoom, Transition t) {
-        RoomManager.getRoomFromId(newRoom).enter(t);
+    public void enterRoom(RoomId newRoom) {
+        RoomManager.getRoomFromId(newRoom).enter();
         _currentRoom = newRoom;
     }
 

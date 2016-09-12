@@ -72,27 +72,6 @@ public abstract class StandardRoom implements Room {
     }
 
     @Override
-    public void drawOnFace(SpriteBatch batch) {
-        // In a standard room, passages only draw as transitions
-        // TODO: May want to make it passage.getTransition.draw(renderer), in case doors get sprites
-        for (Passage passage : _passageList) {
-            passage.draw(batch);
-        }
-    }
-
-    @Override
-    public void drawOnFace(ShapeRenderer renderer) {
-        if (_transition != null) {
-            _transition.draw(renderer);
-        }
-        // In a standard room, passages only draw as transitions
-        // TODO: May want to make it passage.getTransition.draw(renderer), in case doors get sprites
-        for (Passage passage : _passageList) {
-            passage.draw(renderer);
-        }
-    }
-
-    @Override
     public void beautifyCursor(float curX, float curY) {
         for (Passage passage : _passageList) {
             passage.beautifyCursor(curX, curY);

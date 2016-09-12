@@ -8,7 +8,5 @@ import com.kowaisugoi.game.system.GameUtil.Direction;
 public interface Passage extends Interactable {
     public RoomId getDestination();
 
-    public void roomTransition(Transition t);
-
-    public Direction getDirection();
+    public void roomTransition();
 }

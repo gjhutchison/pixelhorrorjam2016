@@ -4,24 +4,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.kowaisugoi.game.interactables.passages.Passage;
-import com.kowaisugoi.game.player.Player;
-import com.kowaisugoi.game.rooms.RoomId;
-import com.kowaisugoi.game.rooms.RoomManager;
 import com.kowaisugoi.game.screens.World;
 import com.kowaisugoi.game.system.GameUtil.Direction;
 
 public class SlideTransition implements Transition {
     private boolean _animating = false;
-    private boolean _roomChanged = false;
     private boolean _animationComplete = false;
     private Passage _passage;
-    private RoomId _destination;
-    private RoomId _source;
-
     private Direction _direction;
 
-    private float _xPosition;
-    private float _yPosition;
+    private float _xPosition, _yPosition;
 
     private static final float SPEED_HORIZONTAL = 540f;
     private static final float SPEED_VERTICAL = SPEED_HORIZONTAL * (World.GAME_HEIGHT / World.GAME_WIDTH);
@@ -37,27 +29,15 @@ public class SlideTransition implements Transition {
     private static final float MAX_Y = World.GAME_HEIGHT;
     private static final float MIN_Y = -World.GAME_HEIGHT;
 
-    public SlideTransition(Passage p, RoomId source, RoomId destination) {
-        _source = source;
-        _destination = destination;
+    public SlideTransition(Passage p, Direction direction) {
         _passage = p;
         _animationLength = 0;
         _xPosition = 0;
         _yPosition = 0;
-    }
-
-    void swapRoom() {
-        if (_passage != null) {
-            _passage.roomTransition(this);
-        }
-    }
-
-    public void startAnimation(Direction direction) {
-        _direction = direction;
-        _animating = true;
-        _roomChanged = false;
+        _animating = false;
         _animationComplete = false;
-        _animationLength = 0;
+        _direction = direction;
+
         switch (_direction) {
             case UP:
                 _yPosition = MIN_Y;
@@ -78,6 +58,12 @@ public class SlideTransition implements Transition {
             default:
                 _animating = false;
                 //_direction = 0;
+        }
+    }
+
+    void swapRoom() {
+        if (_passage != null) {
+            _passage.roomTransition();
         }
     }
 
@@ -124,6 +110,11 @@ public class SlideTransition implements Transition {
                 _animationComplete = true;
             }
         }
+    }
+
+    @Override
+    public void play() {
+        _animating = true;
     }
 
     public boolean isAnimating() {

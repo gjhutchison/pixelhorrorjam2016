@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
 import com.kowaisugoi.game.rooms.RoomId;
@@ -16,7 +17,9 @@ import com.kowaisugoi.game.rooms.RoomManager;
 
 import static com.kowaisugoi.game.player.Player.InteractionMode.*;
 
-// TODO: May be better to let Player own the InputProcessor
+/**
+ * Top level entity responsible for rendering the visible world
+ */
 public class World implements Screen {
     // 640x360
     public static final float GAME_WIDTH = 160;
@@ -27,6 +30,7 @@ public class World implements Screen {
     private SpriteBatch _batch;
     private ShapeRenderer _shapeRenderer;
     private static Player _player;
+    private static Transition _transition;
 
     public static Player getPlayer() {
         return _player;
@@ -58,14 +62,18 @@ public class World implements Screen {
         Vector3 position = screenToWorldPosition(Gdx.input.getX(), Gdx.input.getY());
         getPlayer().updateCursor(position);
         getPlayer().update(delta);
+
+        if (_transition != null) {
+            _transition.update(delta);
+        }
     }
 
-    // TODO: A Player.drawView() method may simplify this and reduce clutter
-    private void renderGame() {
+    private void renderCurrentRoom() {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
         // Draw room sprites
         _camera.update();
         _batch.setProjectionMatrix(_camera.combined);
@@ -83,7 +91,9 @@ public class World implements Screen {
         getPlayer().getCurrentRoom().draw(_shapeRenderer);
         _shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
+    }
 
+    private void renderFX() {
         // Draw room FX
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_DST_COLOR, GL20.GL_ONE);
@@ -91,25 +101,30 @@ public class World implements Screen {
         getPlayer().getCurrentRoom().drawFx(_batch);
         _batch.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
+    }
 
-        // Draw inventory, if applicable
-        _batch.begin();
-        if (getPlayer().getInteractionMode() == ITEM_INTERACTION) {
-            getPlayer().getInventory().drawSelectedItemSprite(_batch);
+    private void renderInventory() {
+        getPlayer().getInventory().drawSelectedItemSprite(_batch);
+    }
+
+    private void renderTransitions() {
+        // Draw transitions, if applicable
+        if (_transition == null) {
+            return;
         }
-        _batch.end();
 
-        // Draw top-level room elements (e.g. transitions, spookyness)
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        getPlayer().getCurrentRoom().drawOnFace(_shapeRenderer);
+        _transition.draw(_shapeRenderer);
         _shapeRenderer.end();
         _batch.begin();
-        getPlayer().getCurrentRoom().drawOnFace(_batch);
+        _transition.draw(_batch);
         _batch.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
+    }
 
+    private void renderHUD() {
         // Draw player thoughts over everything
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -120,6 +135,24 @@ public class World implements Screen {
         getPlayer().getThought().draw(_batch);
         _batch.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
+    }
+
+    /**
+     * Breaks down rendering of game world into different layers
+     */
+    private void renderGame() {
+        renderCurrentRoom();
+        renderFX();
+
+        // Draw inventory, if applicable
+        _batch.begin();
+        if (getPlayer().getInteractionMode() == ITEM_INTERACTION) {
+            renderInventory();
+        }
+        _batch.end();
+
+        renderTransitions();
+        renderHUD();
     }
 
     @Override
@@ -153,5 +186,14 @@ public class World implements Screen {
         Vector3 vecCursorPos = new Vector3(screenX, screenY, 0);
         _camera.unproject(vecCursorPos);
         return vecCursorPos;
+    }
+
+    /**
+     * Play transition animation on transition layer
+     * @param t The transition animation to play
+     */
+    public static void playTransition(Transition t) {
+        _transition = t;
+        _transition.play();
     }
 }

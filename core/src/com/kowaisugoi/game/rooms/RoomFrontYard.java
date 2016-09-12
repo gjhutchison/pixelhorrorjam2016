@@ -24,7 +24,7 @@ public class RoomFrontYard extends StandardRoom {
         _snowAnimation = new SnowAnimation(50, 6);
 
         // TODO: Rooms should probably locally store their own id (associated refactoring required)
-        // Passage frontDoor = new StandardPassage(RoomId.FRONTYARD, RoomId.MAIN_HALL, new Rectangle(65, 35, 20, 40), Direction.UP);
+        // Passage frontDoor = new DirectionalPassage(RoomId.FRONTYARD, RoomId.MAIN_HALL, new Rectangle(65, 35, 20, 40), Direction.UP);
         Passage frontDoor = new BlockedPassage(RoomId.FRONTYARD,
                 RoomId.MAIN_HALL,
                 new Rectangle(65, 35, 20, 40),
