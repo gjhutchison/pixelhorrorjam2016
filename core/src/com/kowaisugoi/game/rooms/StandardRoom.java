@@ -10,12 +10,13 @@ import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.player.Player;
+import com.kowaisugoi.game.screens.World;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.kowaisugoi.game.screens.PlayGame.GAME_HEIGHT;
-import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
+import static com.kowaisugoi.game.screens.World.GAME_HEIGHT;
+import static com.kowaisugoi.game.screens.World.GAME_WIDTH;
 
 /**
  * Use this class as a class to build other rooms off of to avoid
@@ -24,7 +25,6 @@ import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
 public abstract class StandardRoom implements Room {
 
     private Sprite _roomSprite;
-    protected boolean _visible = false;
     protected List<PickupableItem> _pickupableItemList = new LinkedList<PickupableItem>();
     protected List<Passage> _passageList = new LinkedList<Passage>();
     private Transition _transition = null;
@@ -36,10 +36,7 @@ public abstract class StandardRoom implements Room {
 
     public void enter() {
         // On entering the typical room, allow the player to interact
-        Player.setInteractionMode(Player.InteractionMode.NORMAL);
-
-        // On entering the typical room, enable drawing the room immediately
-        _visible = true;
+        World.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
     }
 
     public void enter(Transition t) {
@@ -56,16 +53,7 @@ public abstract class StandardRoom implements Room {
     }
 
     @Override
-    public void setVisible(boolean visible) {
-        _visible = visible;
-    }
-
-    @Override
     public void draw(SpriteBatch batch) {
-        if (!_visible) {
-            return;
-        }
-
         _roomSprite.draw(batch);
         for (Interactable interactable : _pickupableItemList) {
             interactable.draw(batch);
@@ -74,10 +62,6 @@ public abstract class StandardRoom implements Room {
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        if (!_visible) {
-            return;
-        }
-
         for (Interactable interactable : _pickupableItemList) {
             interactable.draw(renderer);
         }
@@ -129,7 +113,7 @@ public abstract class StandardRoom implements Room {
 
         for (PickupableItem pickupableItem : _pickupableItemList) {
             if (pickupableItem.click(curX, curY)) {
-                Player.getInventory().addItem(pickupableItem);
+                World.getPlayer().getInventory().addItem(pickupableItem);
                 _pickupableItemList.remove(pickupableItem);
                 return true;
             }

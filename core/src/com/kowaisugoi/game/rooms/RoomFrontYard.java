@@ -48,9 +48,7 @@ public class RoomFrontYard extends StandardRoom {
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        if (super._visible) {
-            _snowAnimation.draw(renderer);
-        }
+        _snowAnimation.draw(renderer);
         super.draw(renderer);
     }
 }

@@ -9,6 +9,7 @@ import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
+import com.kowaisugoi.game.screens.World;
 import com.kowaisugoi.game.system.GameUtil.Direction;
 
 import java.util.LinkedList;
@@ -40,7 +41,7 @@ public class StandardPassage implements Passage {
 
     @Override
     public void roomTransition(Transition t) {
-        Player.enterRoom(_destination, t);
+        World.getPlayer().enterRoom(_destination, t);
     }
 
     @Override
@@ -56,8 +57,8 @@ public class StandardPassage implements Passage {
     @Override
     public void draw(ShapeRenderer renderer) {
         _transition.draw(renderer);
-        if (Player.getDebug()) {
-            if (Player.getInteractionMode() == Player.InteractionMode.NORMAL) {
+        if (World.getPlayer().getDebug()) {
+            if (World.getPlayer().getInteractionMode() == Player.InteractionMode.NORMAL) {
                 renderer.setColor(0, 1, 0, 0.25f);
             } else {
                 renderer.setColor(1, 0, 0, 0.25f);
@@ -71,7 +72,7 @@ public class StandardPassage implements Passage {
         if (_interactionBox.contains(curX, curY)) {
             notifyListeners();
 
-            Player.setInteractionMode(Player.InteractionMode.NONE);
+            World.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
             _transition.startAnimation(_direction);
             return true;
         }
@@ -83,16 +84,16 @@ public class StandardPassage implements Passage {
         if (_interactionBox.contains(curX, curY)) {
             switch (getDirection()) {
                 case UP:
-                    Player.setCursor(Player.CursorType.UP_ARROW);
+                    World.getPlayer().setCursor(Player.CursorType.UP_ARROW);
                     break;
                 case DOWN:
-                    Player.setCursor(Player.CursorType.DOWN_ARROW);
+                    World.getPlayer().setCursor(Player.CursorType.DOWN_ARROW);
                     break;
                 case LEFT:
-                    Player.setCursor(Player.CursorType.LEFT_ARROW);
+                    World.getPlayer().setCursor(Player.CursorType.LEFT_ARROW);
                     break;
                 case RIGHT:
-                    Player.setCursor(Player.CursorType.RIGHT_ARROW);
+                    World.getPlayer().setCursor(Player.CursorType.RIGHT_ARROW);
                     break;
             }
         }

@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.player.Player;
+import com.kowaisugoi.game.screens.World;
 
 import java.util.LinkedList;
 
 /**
  * Items which can be picked up, and therefore require an inventory sprite
- * Created by ecrothers on 2016-08-30.
  */
 public class PickupableItem implements Item {
     private LinkedList<InteractionListener> _listeners = new LinkedList<InteractionListener>();
@@ -63,7 +63,7 @@ public class PickupableItem implements Item {
     @Override
     public void beautifyCursor(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
-            Player.setCursor(Player.CursorType.PICKUP);
+            World.getPlayer().setCursor(Player.CursorType.PICKUP);
         }
     }
 

@@ -3,12 +3,11 @@ package com.kowaisugoi.game.system;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.kowaisugoi.game.player.Player;
+import com.kowaisugoi.game.screens.World;
 
 /**
- * Prevents code duplication across MainMenu/PlayGame,
+ * Prevents code duplication across MainMenu/World,
  * allows for easy modification of any global hotkeys
- * <p>
- * Created by ecrothers on 2016-09-01.
  */
 public final class GlobalKeyHandler {
     static final int FULLSCREEN_KEY = Input.Keys.F4;
@@ -36,10 +35,10 @@ public final class GlobalKeyHandler {
         }
 
         if (keycode == DEBUG_KEY) {
-            if (Player.getDebug()) {
-                Player.setDebug(false);
+            if (World.getPlayer().getDebug()) {
+                World.getPlayer().setDebug(false);
             } else {
-                Player.setDebug(true);
+                World.getPlayer().setDebug(true);
             }
         }
 

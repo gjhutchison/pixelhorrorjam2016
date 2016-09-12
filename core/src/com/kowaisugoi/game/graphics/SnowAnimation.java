@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import static com.kowaisugoi.game.screens.PlayGame.GAME_HEIGHT;
-import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
+import static com.kowaisugoi.game.screens.World.GAME_HEIGHT;
+import static com.kowaisugoi.game.screens.World.GAME_WIDTH;
 
 public class SnowAnimation {
 

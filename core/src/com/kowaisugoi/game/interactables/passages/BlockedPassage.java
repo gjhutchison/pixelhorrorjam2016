@@ -6,6 +6,7 @@ import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.messages.MessageProperties;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
+import com.kowaisugoi.game.screens.World;
 import com.kowaisugoi.game.system.GameUtil;
 
 public class BlockedPassage extends StandardPassage {
@@ -37,11 +38,11 @@ public class BlockedPassage extends StandardPassage {
     public boolean click(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
             if (_unlocked) {
-                Player.setInteractionMode(Player.InteractionMode.NONE);
+                World.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
                 _transition.startAnimation(getDirection());
                 return true;
             }
-            Player.think(_lockedText, 2.0f);
+            World.getPlayer().think(_lockedText, 2.0f);
         }
         return false;
     }

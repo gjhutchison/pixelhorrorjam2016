@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.kowaisugoi.game.screens.PlayGame;
+import com.kowaisugoi.game.screens.World;
 
 public class ThoughtBox implements Disposable {
     private float _holdDuration = 0;
@@ -24,15 +24,15 @@ public class ThoughtBox implements Disposable {
     private BitmapFont _thoughtFont;
     private float THOUGHT_X = 0;
     private float THOUGHT_Y = 0;
-    private float THOUGHT_WIDTH = PlayGame.GAME_WIDTH;
+    private float THOUGHT_WIDTH = World.GAME_WIDTH;
     private float THOUGHT_HEIGHT = 10;
     private Color _color = new Color(1f, 1f, 1f, 1f);
     private float OPACITY_MAX = 0.8f;
 
     public ThoughtBox(String text, float holdDuration) {
         _holdDuration = holdDuration;
-        _fadeOutDuration = 1.4f;
-        _fadeInDuration = 0.6f;
+        _fadeOutDuration = 1.2f;
+        _fadeInDuration = 0.5f;
 
         // TODO: Move this somewhere universal
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/raleway/Raleway-Medium.ttf"));

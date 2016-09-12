@@ -7,12 +7,9 @@ import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
-import com.kowaisugoi.game.screens.PlayGame;
+import com.kowaisugoi.game.screens.World;
 import com.kowaisugoi.game.system.GameUtil.Direction;
 
-/**
- * Created by Owner on 9/1/2016.
- */
 public class SlideTransition implements Transition {
     private boolean _animating = false;
     private boolean _roomChanged = false;
@@ -27,18 +24,18 @@ public class SlideTransition implements Transition {
     private float _yPosition;
 
     private static final float SPEED_HORIZONTAL = 540f;
-    private static final float SPEED_VERTICAL = SPEED_HORIZONTAL * (PlayGame.GAME_HEIGHT / PlayGame.GAME_WIDTH);
+    private static final float SPEED_VERTICAL = SPEED_HORIZONTAL * (World.GAME_HEIGHT / World.GAME_WIDTH);
 
-    private static final float HALF_TIME_HORIZONTAL = (PlayGame.GAME_WIDTH / SPEED_HORIZONTAL);
-    private static final float HALF_TIME_VERTICAL = (PlayGame.GAME_HEIGHT / SPEED_VERTICAL);
+    private static final float HALF_TIME_HORIZONTAL = (World.GAME_WIDTH / SPEED_HORIZONTAL);
+    private static final float HALF_TIME_VERTICAL = (World.GAME_HEIGHT / SPEED_VERTICAL);
 
     private float _animationLength;
 
-    private static final float MAX_X = PlayGame.GAME_WIDTH;
-    private static final float MIN_X = -PlayGame.GAME_WIDTH;
+    private static final float MAX_X = World.GAME_WIDTH;
+    private static final float MIN_X = -World.GAME_WIDTH;
 
-    private static final float MAX_Y = PlayGame.GAME_HEIGHT;
-    private static final float MIN_Y = -PlayGame.GAME_HEIGHT;
+    private static final float MAX_Y = World.GAME_HEIGHT;
+    private static final float MIN_Y = -World.GAME_HEIGHT;
 
     public SlideTransition(Passage p, RoomId source, RoomId destination) {
         _source = source;
@@ -145,7 +142,7 @@ public class SlideTransition implements Transition {
     public void draw(ShapeRenderer renderer) {
         if (renderer.isDrawing() && _animating) {
             renderer.setColor(Color.BLACK);
-            renderer.rect(_xPosition, _yPosition, PlayGame.GAME_WIDTH, PlayGame.GAME_HEIGHT);
+            renderer.rect(_xPosition, _yPosition, World.GAME_WIDTH, World.GAME_HEIGHT);
         }
     }
 }
