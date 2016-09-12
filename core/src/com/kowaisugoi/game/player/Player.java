@@ -32,6 +32,7 @@ public final class Player implements Disposable, InputProcessor {
     private boolean _itemCombine = false;
 
     private CursorType _cursorFlavor = CursorType.REGULAR;
+    private CursorType _currentCursorFlavor = null;
 
     private InteractionMode _interactionMode = InteractionMode.NORMAL;
 
@@ -217,9 +218,9 @@ public final class Player implements Disposable, InputProcessor {
         _interactionMode = mode;
 
         if (_interactionMode == InteractionMode.NONE) {
-            Gdx.graphics.setCursor(_invisCursor);
+            setCursor(CursorType.INVISIBLE);
         } else {
-            Gdx.graphics.setCursor(_regularCursor);
+            setCursor(CursorType.REGULAR);
         }
     }
 
@@ -233,13 +234,15 @@ public final class Player implements Disposable, InputProcessor {
     }
 
     public void setCursor(CursorType flavour) {
-        if (flavour == _cursorFlavor) {
-            return;
-        }
         _cursorFlavor = flavour;
     }
 
     public void changeCursor() {
+        // Don't call Gdx.graphics if the cursor hasn't actually changed
+        if (_cursorFlavor == _currentCursorFlavor) {
+            return;
+        }
+
         switch (_cursorFlavor) {
             case INVISIBLE:
                 Gdx.graphics.setCursor(_invisCursor);
@@ -263,6 +266,7 @@ public final class Player implements Disposable, InputProcessor {
                 Gdx.graphics.setCursor(_pickupCursor);
                 break;
         }
+        _currentCursorFlavor = _cursorFlavor;
     }
 
     public void think(String text, float holdDuration) {

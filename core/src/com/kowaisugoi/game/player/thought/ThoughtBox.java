@@ -31,7 +31,7 @@ public class ThoughtBox implements Disposable {
 
     public ThoughtBox(String text, float holdDuration) {
         _holdDuration = holdDuration;
-        _fadeOutDuration = 1.2f;
+        _fadeOutDuration = 1.1f;
         _fadeInDuration = 0.5f;
 
         // TODO: Move this somewhere universal
