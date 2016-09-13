@@ -30,6 +30,7 @@ public class World implements Screen {
     private SpriteBatch _batch;
     private ShapeRenderer _shapeRenderer;
     private static Player _player;
+    private static boolean _debug = false;
     private static Transition _transition;
 
     public static Player getPlayer() {
@@ -195,5 +196,13 @@ public class World implements Screen {
     public static void playTransition(Transition t) {
         _transition = t;
         _transition.play();
+    }
+
+    public static void setDebug(boolean debug) {
+        _debug = debug;
+    }
+
+    public static boolean getDebug() {
+        return _debug;
     }
 }

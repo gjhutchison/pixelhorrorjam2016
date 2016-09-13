@@ -27,7 +27,6 @@ public final class Player implements Disposable, InputProcessor {
     private PlayerInventory _inventory;
 
     private boolean _isInInventory = false;
-    private boolean _isDebug = false;
     private boolean _inventoryInteract = false;
     private boolean _itemCombine = false;
 
@@ -203,14 +202,6 @@ public final class Player implements Disposable, InputProcessor {
     public void enterRoom(RoomId newRoom) {
         RoomManager.getRoomFromId(newRoom).enter();
         _currentRoom = newRoom;
-    }
-
-    public boolean getDebug() {
-        return _isDebug;
-    }
-
-    public void setDebug(boolean debug) {
-        _isDebug = debug;
     }
 
     public void setInteractionMode(InteractionMode mode) {

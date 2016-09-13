@@ -35,10 +35,10 @@ public final class GlobalKeyHandler {
         }
 
         if (keycode == DEBUG_KEY) {
-            if (World.getPlayer().getDebug()) {
-                World.getPlayer().setDebug(false);
+            if (World.getDebug()) {
+                World.setDebug(false);
             } else {
-                World.getPlayer().setDebug(true);
+                World.setDebug(true);
             }
         }
 

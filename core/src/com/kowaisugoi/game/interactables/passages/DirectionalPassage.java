@@ -48,7 +48,7 @@ public class DirectionalPassage implements Passage {
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        if (World.getPlayer().getDebug()) {
+        if (World.getDebug()) {
             if (World.getPlayer().getInteractionMode() == Player.InteractionMode.NORMAL) {
                 renderer.setColor(0, 1, 0, 0.25f);
             } else {
