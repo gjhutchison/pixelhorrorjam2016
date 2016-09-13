@@ -17,7 +17,7 @@ public class RoomHallway extends StandardRoom {
 
         Passage passageMainRoom = new DirectionalPassage(RoomId.HALLWAY,
                 RoomId.MAIN_HALL,
-                new Rectangle(20, 0, 120, 30),
+                new Rectangle(50, 0, 50, 15),
                 GameUtil.Direction.DOWN);
 
         addPassage(passageMainRoom);
