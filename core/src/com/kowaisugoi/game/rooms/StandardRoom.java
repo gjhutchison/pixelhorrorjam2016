@@ -62,6 +62,9 @@ public abstract class StandardRoom implements Room {
 
     @Override
     public void draw(ShapeRenderer renderer) {
+        for (Passage passage : _passageList) {
+            passage.draw(renderer);
+        }
         for (Interactable interactable : _pickupableItemList) {
             interactable.draw(renderer);
         }
