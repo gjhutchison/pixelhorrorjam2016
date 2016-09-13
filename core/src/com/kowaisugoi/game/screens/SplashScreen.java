@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.kowaisugoi.game.audio.AudioManager;
+import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.system.GlobalKeyHandler;
 
 public class SplashScreen implements Screen, InputProcessor {
@@ -55,6 +57,8 @@ public class SplashScreen implements Screen, InputProcessor {
 
         _fadeIn = true;
         _fadeOut = false;
+
+        AudioManager.playMusic(MusicId.GENERAL_MUSIC);
 
         Gdx.input.setInputProcessor(this);
     }
