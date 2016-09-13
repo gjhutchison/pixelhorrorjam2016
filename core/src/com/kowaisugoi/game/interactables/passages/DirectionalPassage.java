@@ -51,6 +51,8 @@ public class DirectionalPassage implements Passage {
         if (World.getDebug()) {
             if (World.getPlayer().getInteractionMode() == Player.InteractionMode.NORMAL) {
                 renderer.setColor(0, 1, 0, 0.25f);
+            } else if (World.getPlayer().getInteractionMode() == Player.InteractionMode.ITEM_INTERACTION){
+                renderer.setColor(0, 0, 1, 0.25f);
             } else {
                 renderer.setColor(1, 0, 0, 0.25f);
             }
