@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
+import com.kowaisugoi.game.audio.AudioManager;
+import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.graphics.SlideTransition;
 import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.interactables.objects.ItemId;
@@ -19,6 +21,8 @@ public class DirectionalPassage implements Passage {
     protected Rectangle _interactionBox;
     private RoomId _source, _destination;
     protected Direction _direction;
+
+    private SoundId _soundId;
 
     public DirectionalPassage(RoomId src, RoomId dest, Rectangle interactionBox, Direction direction) {
         _source = src;
@@ -44,7 +48,7 @@ public class DirectionalPassage implements Passage {
 
     @Override
     public void transitionComplete() {
-        Timer.schedule(new Timer.Task(){
+        Timer.schedule(new Timer.Task() {
                            @Override
                            public void run() {
                                PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
@@ -65,7 +69,7 @@ public class DirectionalPassage implements Passage {
         if (PlayGame.getDebug()) {
             if (PlayGame.getPlayer().getInteractionMode() == Player.InteractionMode.NORMAL) {
                 renderer.setColor(0, 1, 0, 0.25f);
-            } else if (PlayGame.getPlayer().getInteractionMode() == Player.InteractionMode.ITEM_INTERACTION){
+            } else if (PlayGame.getPlayer().getInteractionMode() == Player.InteractionMode.ITEM_INTERACTION) {
                 renderer.setColor(0, 0, 1, 0.25f);
             } else {
                 renderer.setColor(1, 0, 0, 0.25f);
@@ -81,6 +85,9 @@ public class DirectionalPassage implements Passage {
 
             PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
             PlayGame.playTransition(new SlideTransition(this, _direction));
+
+            AudioManager.playSound(_soundId);
+
             return true;
         }
         return false;
@@ -113,6 +120,11 @@ public class DirectionalPassage implements Passage {
     @Override
     public void registerListener(InteractionListener lis) {
         _listeners.push(lis);
+    }
+
+    @Override
+    public void setSoundEffect(SoundId soundId) {
+        _soundId = soundId;
     }
 
     @Override

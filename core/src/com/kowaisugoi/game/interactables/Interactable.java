@@ -3,6 +3,7 @@ package com.kowaisugoi.game.interactables;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 
 public interface Interactable {
@@ -19,6 +20,8 @@ public interface Interactable {
     public void update(float delta);
 
     public void registerListener(InteractionListener listener);
+
+    public void setSoundEffect(SoundId soundId);
 
     public boolean isItemInteractable();
 

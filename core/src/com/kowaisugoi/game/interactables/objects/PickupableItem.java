@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.audio.AudioManager;
+import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
@@ -18,6 +20,8 @@ public class PickupableItem implements Item {
     private Rectangle _interactionBox;
     private Sprite _sprite;
     private ItemId _id;
+
+    private SoundId _soundId;
 
     public PickupableItem(Sprite sprite, Rectangle interactionBox, ItemId id) {
         _interactionBox = interactionBox;
@@ -49,6 +53,7 @@ public class PickupableItem implements Item {
     public boolean click(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
             notifyListeners();
+            AudioManager.playSound(_soundId);
             return true;
         }
         return false;
@@ -69,6 +74,11 @@ public class PickupableItem implements Item {
     @Override
     public void registerListener(InteractionListener listener) {
         _listeners.push(listener);
+    }
+
+    @Override
+    public void setSoundEffect(SoundId soundId) {
+        _soundId = soundId;
     }
 
     @Override

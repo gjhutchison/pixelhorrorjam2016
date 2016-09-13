@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
@@ -41,6 +42,9 @@ public class PlayGame implements Screen {
     public void show() {
         RoomManager manager = new RoomManager();
         PlayerInventory inventory = new PlayerInventory();
+
+        AudioManager.initSounds();
+
         _batch = new SpriteBatch();
         _shapeRenderer = new ShapeRenderer();
         _camera = new OrthographicCamera();
@@ -191,6 +195,7 @@ public class PlayGame implements Screen {
 
     /**
      * Play transition animation on transition layer
+     *
      * @param t The transition animation to play
      */
     public static void playTransition(Transition t) {
