@@ -16,8 +16,8 @@ public class RoomMainHall extends StandardRoom {
     int currentSprite = 0;
     float deltaBuffer = 0;
     private static final String[] OVERLAY_URLS = {"rooms/mainhall/cozy_overlay_1.png",
-                                                  "rooms/mainhall/cozy_overlay_2.png",
-                                                  "rooms/mainhall/cozy_overlay_3.png"};
+            "rooms/mainhall/cozy_overlay_2.png",
+            "rooms/mainhall/cozy_overlay_3.png"};
     ArrayList<Sprite> _overlays = new ArrayList<Sprite>();
 
     public RoomMainHall() {
@@ -29,7 +29,7 @@ public class RoomMainHall extends StandardRoom {
             _overlays.add(overlay);
         }
 
-        Passage frontDoor = new DirectionalPassage(RoomId.MAIN_HALL, RoomId.FRONTYARD, new Rectangle(65, 25, 30, 40), GameUtil.Direction.UP);
+        Passage frontDoor = new DirectionalPassage(RoomId.MAIN_HALL, RoomId.HALLWAY, new Rectangle(5, 25, 30, 40), GameUtil.Direction.LEFT);
         Passage turnAround = new DirectionalPassage(RoomId.MAIN_HALL, RoomId.FRONTYARD, new Rectangle(55, 0, 50, 10), GameUtil.Direction.DOWN);
 
         addPassage(frontDoor);
