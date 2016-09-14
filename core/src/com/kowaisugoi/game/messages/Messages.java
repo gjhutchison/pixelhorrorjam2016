@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class MessageProperties {
+public class Messages {
 
     private static final Properties _messages = init();
 
@@ -24,5 +24,12 @@ public class MessageProperties {
 
     public static Properties getProperties() {
         return _messages;
+    }
+
+    public static String getText(String key) {
+        if (_messages.containsKey(key)) {
+            return _messages.getProperty(key);
+        }
+        return "<NO TEXT>";
     }
 }

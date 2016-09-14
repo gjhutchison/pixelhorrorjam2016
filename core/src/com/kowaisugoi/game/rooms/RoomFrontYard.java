@@ -11,7 +11,7 @@ import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
-import com.kowaisugoi.game.messages.MessageProperties;
+import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.system.GameUtil.Direction;
 
 public class RoomFrontYard extends StandardRoom {
@@ -31,7 +31,8 @@ public class RoomFrontYard extends StandardRoom {
                 RoomId.MAIN_HALL,
                 new Rectangle(65, 35, 20, 40),
                 Direction.UP, ItemId.KEY_HOUSE,
-                MessageProperties.getProperties().getProperty("thought.locked"),
+                Messages.getText("frontyard.door.interact.locked"),
+                Messages.getText("frontyard.interaction.key.door"),
                 SoundId.DOOR_LOCKED);
 
         frontDoor.setSoundEffect(SoundId.DOOR_CREAK);

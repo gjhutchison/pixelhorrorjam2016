@@ -8,6 +8,7 @@ import com.kowaisugoi.game.interactables.Interactable;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.Passage;
+import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 
@@ -24,8 +25,9 @@ import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
 public abstract class StandardRoom implements Room {
 
     private Sprite _roomSprite;
-    protected List<PickupableItem> _pickupableItemList = new LinkedList<PickupableItem>();
-    protected List<Passage> _passageList = new LinkedList<Passage>();
+    private List<PickupableItem> _pickupableItemList = new LinkedList<PickupableItem>();
+    private List<Passage> _passageList = new LinkedList<Passage>();
+    private List<Describable> _describableList = new LinkedList<Describable>();
     private Transition _transition = null;
 
     public StandardRoom(Sprite image) {
@@ -50,6 +52,10 @@ public abstract class StandardRoom implements Room {
         _pickupableItemList.add(interactable);
     }
 
+    public void addDescribable(Describable describable) {
+        _describableList.add(describable);
+    }
+
     @Override
     public void draw(SpriteBatch batch) {
         _roomSprite.draw(batch);
@@ -66,6 +72,9 @@ public abstract class StandardRoom implements Room {
         for (Interactable interactable : _pickupableItemList) {
             interactable.draw(renderer);
         }
+        for (Describable describable : _describableList) {
+            describable.draw(renderer);
+        }
     }
 
     @Override
@@ -79,7 +88,9 @@ public abstract class StandardRoom implements Room {
         }
         for (PickupableItem pickupableItem : _pickupableItemList) {
             pickupableItem.beautifyCursor(curX, curY);
-            return;
+        }
+        for (Describable describable : _describableList) {
+            describable.beautifyCursor(curX, curY);
         }
     }
 
@@ -87,6 +98,12 @@ public abstract class StandardRoom implements Room {
     public boolean click(float curX, float curY) {
         for (Interactable interactable : _passageList) {
             if (interactable.click(curX, curY)) {
+                return true;
+            }
+        }
+
+        for (Describable describable : _describableList) {
+            if (describable.click(curX, curY)) {
                 return true;
             }
         }

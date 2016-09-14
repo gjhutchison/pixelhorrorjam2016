@@ -25,7 +25,7 @@ public class ThoughtBox implements Disposable {
     private float THOUGHT_HEIGHT = 10;
     private Color _color = new Color(1f, 1f, 1f, 1f);
     private float OPACITY_MAX = 0.8f;
-
+    
     public ThoughtBox(String text, float holdDuration) {
         _holdDuration = holdDuration;
         _fadeOutDuration = 1.1f;
@@ -37,7 +37,7 @@ public class ThoughtBox implements Disposable {
         parameter.size = 32;
 
         _thoughtFont = generator.generateFont(parameter);
-        _thoughtFont.getData().setScale(0.12f,0.12f);
+        _thoughtFont.getData().setScale(0.12f, 0.12f);
         _text = text;
         _layout = new GlyphLayout();
     }
@@ -46,11 +46,11 @@ public class ThoughtBox implements Disposable {
         _displayedFor += delta;
 
         if (_displayedFor < _fadeInDuration) {
-            _opacity = ((_displayedFor)/_fadeInDuration) * OPACITY_MAX;
+            _opacity = ((_displayedFor) / _fadeInDuration) * OPACITY_MAX;
         } else if (_displayedFor < _fadeInDuration + _holdDuration) {
             _opacity = OPACITY_MAX;
         } else {
-            _opacity =  (1.0f-(_displayedFor-_fadeInDuration-_holdDuration)/_fadeOutDuration) * OPACITY_MAX;
+            _opacity = (1.0f - (_displayedFor - _fadeInDuration - _holdDuration) / _fadeOutDuration) * OPACITY_MAX;
         }
 
         // Just in case
@@ -62,14 +62,14 @@ public class ThoughtBox implements Disposable {
     }
 
     public void draw(SpriteBatch batch) {
-        float x_pos = (THOUGHT_X+THOUGHT_WIDTH)/2;
-        float y_pos = (THOUGHT_Y+THOUGHT_HEIGHT)/2;
+        float x_pos = (THOUGHT_X + THOUGHT_WIDTH) / 2;
+        float y_pos = (THOUGHT_Y + THOUGHT_HEIGHT) / 2;
 
         _color.set(_color.r, _color.g, _color.b, _opacity);
         _thoughtFont.setColor(_color);
-        _layout.setText(_thoughtFont,_text);
-        x_pos -= _layout.width/2;
-        y_pos += _layout.height/2;
+        _layout.setText(_thoughtFont, _text);
+        x_pos -= _layout.width / 2;
+        y_pos += _layout.height / 2;
 
         _thoughtFont.draw(batch, _layout, x_pos, y_pos);
     }
@@ -80,5 +80,7 @@ public class ThoughtBox implements Disposable {
     }
 
     @Override
-    public void dispose() { }
+    public void dispose() {
+        _thoughtFont.dispose();
+    }
 }

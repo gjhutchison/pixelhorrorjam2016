@@ -7,7 +7,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.graphics.SnowAnimation;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
-import com.kowaisugoi.game.messages.MessageProperties;
+import com.kowaisugoi.game.interactables.scenic.Describable;
+import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
+import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
@@ -23,11 +25,21 @@ public class RoomForestPath extends StandardRoom {
 
         _snowAnimation = new SnowAnimation(50, 6);
 
+        Describable treesDescription = new GeneralDescribable(
+                Messages.getText("forestpath.trees.description"),
+                new Rectangle(0, 10, 25, 65));
+        Describable treesDescription2 = new GeneralDescribable(
+                Messages.getText("forestpath.trees.description2"),
+                new Rectangle(110, 10, 25, 65));
+
         Passage forward = new DirectionalPassage(RoomId.ROAD, RoomId.FRONTYARD, new Rectangle(60, 20, 30, 60), GameUtil.Direction.UP);
         Passage backward = new DirectionalPassage(RoomId.ROAD, RoomId.CAR, new Rectangle(55, 0, 50, 10), GameUtil.Direction.DOWN);
 
         addPassage(forward);
         addPassage(backward);
+
+        addDescribable(treesDescription);
+        addDescribable(treesDescription2);
     }
 
     @Override
@@ -47,7 +59,7 @@ public class RoomForestPath extends StandardRoom {
         super.enter();
 
         if (_firstTime) {
-            PlayGame.getPlayer().think(MessageProperties.getProperties().getProperty("thought.outside"), 2.0f);
+            PlayGame.getPlayer().think(Messages.getText("forestpath.enter.thought"));
             _firstTime = false;
         }
     }

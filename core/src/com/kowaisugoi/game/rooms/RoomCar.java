@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
-import com.kowaisugoi.game.messages.MessageProperties;
+import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
@@ -27,7 +27,7 @@ public class RoomCar extends StandardRoom {
         super.enter();
 
         if (firstTime) {
-            PlayGame.getPlayer().think(MessageProperties.getProperties().getProperty("thought.car"), 2.0f);
+            PlayGame.getPlayer().think(Messages.getText("car.enter.thought"), 2.0f);
             firstTime = false;
         }
     }

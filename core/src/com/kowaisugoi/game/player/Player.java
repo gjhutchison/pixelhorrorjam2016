@@ -34,9 +34,9 @@ public final class Player implements Disposable, InputProcessor {
     private InteractionMode _interactionMode = InteractionMode.NORMAL;
 
     private Pixmap _downArrowTex, _upArrowTex, _leftArrowTex, _rightArrowTex,
-            _regularCursorTex, _pickupCursorTex, _invisCursorTex;
+            _regularCursorTex, _pickupCursorTex, _invisCursorTex, _examineCursorTex;
     private Cursor _downArrow, _upArrow, _leftArrow, _rightArrow,
-            _regularCursor, _pickupCursor, _invisCursor;
+            _regularCursor, _pickupCursor, _invisCursor, _examineCursor;
 
     public enum InteractionMode {
         NORMAL,
@@ -54,6 +54,7 @@ public final class Player implements Disposable, InputProcessor {
         LEFT_ARROW,
         RIGHT_ARROW,
         PICKUP,
+        EXAMINE,
         INVISIBLE
     }
 
@@ -69,6 +70,7 @@ public final class Player implements Disposable, InputProcessor {
         _regularCursorTex = new Pixmap(Gdx.files.internal("cursors/regular_cursor.png"));
         _pickupCursorTex = new Pixmap(Gdx.files.internal("cursors/pickup_cursor.png"));
         _invisCursorTex = new Pixmap(Gdx.files.internal("cursors/invisible_cursor.png"));
+        _examineCursorTex = new Pixmap(Gdx.files.internal("cursors/examine_cursor.png"));
 
         _downArrow = Gdx.graphics.newCursor(_downArrowTex, 16, 30);
         _upArrow = Gdx.graphics.newCursor(_upArrowTex, 16, 2);
@@ -77,6 +79,7 @@ public final class Player implements Disposable, InputProcessor {
         _regularCursor = Gdx.graphics.newCursor(_regularCursorTex, 0, 0);
         _pickupCursor = Gdx.graphics.newCursor(_pickupCursorTex, 0, 0);
         _invisCursor = Gdx.graphics.newCursor(_invisCursorTex, 0, 0);
+        _examineCursor = Gdx.graphics.newCursor(_examineCursorTex, 0, 0);
     }
 
     public void startGame(RoomId start) {
@@ -195,6 +198,7 @@ public final class Player implements Disposable, InputProcessor {
 
     /**
      * Enter the next room
+     *
      * @param newRoom: The room to enter
      */
     public void enterRoom(RoomId newRoom) {
@@ -253,13 +257,23 @@ public final class Player implements Disposable, InputProcessor {
             case PICKUP:
                 Gdx.graphics.setCursor(_pickupCursor);
                 break;
+            case EXAMINE:
+                Gdx.graphics.setCursor(_examineCursor);
+                break;
         }
         _currentCursorFlavor = _cursorFlavor;
     }
 
     public void think(String text, float holdDuration) {
         ThoughtBox tb = new ThoughtBox(text, holdDuration);
+        if (_thought != null) {
+            _thought.dispose();
+        }
         _thought = tb;
+    }
+
+    public void think(String text) {
+        think(text, 2.0f);
     }
 
     @Override

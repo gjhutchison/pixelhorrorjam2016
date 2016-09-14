@@ -58,7 +58,7 @@ public class SplashScreen implements Screen, InputProcessor {
         _fadeIn = true;
         _fadeOut = false;
 
-        AudioManager.playMusic(MusicId.GENERAL_MUSIC);
+        AudioManager.playMusic(MusicId.MAIN_MENU);
 
         Gdx.input.setInputProcessor(this);
     }

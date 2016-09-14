@@ -7,6 +7,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
+import com.kowaisugoi.game.interactables.scenic.Describable;
+import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
+import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.system.GameUtil;
 
 import java.util.ArrayList;
@@ -32,8 +35,13 @@ public class RoomMainHall extends StandardRoom {
 
         Passage hallDoor = new DirectionalPassage(RoomId.MAIN_HALL, RoomId.HALLWAY, new Rectangle(5, 25, 30, 40), GameUtil.Direction.LEFT);
         Passage turnAround = new DirectionalPassage(RoomId.MAIN_HALL, RoomId.FRONTYARD, new Rectangle(55, 0, 50, 10), GameUtil.Direction.DOWN);
+
+        Describable paintingDescription = new GeneralDescribable(Messages.getText("mainhall.painting.thought"),
+                new Rectangle(55, 50, 40, 30));
+
         turnAround.setSoundEffect(SoundId.DOOR_CREAK);
 
+        addDescribable(paintingDescription);
 
         addPassage(hallDoor);
         addPassage(turnAround);
