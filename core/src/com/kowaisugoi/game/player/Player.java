@@ -280,15 +280,19 @@ public final class Player implements Disposable, InputProcessor {
 
     public void updateCursor(Vector3 position) {
         // Default cursor, in case nobody else wants to set it
-        setCursor(Player.CursorType.REGULAR);
+        setCursor(CursorType.REGULAR);
+
+        if (getInteractionMode() == InteractionMode.NORMAL) {
+            getCurrentRoom().beautifyCursor(position.x, position.y);
+        }
 
         if (getInventory().getButtonBox().contains(position.x, position.y)) {
             setCursor(Player.CursorType.PICKUP);
             return;
         }
 
-        if (getInteractionMode() == InteractionMode.NORMAL) {
-            getCurrentRoom().beautifyCursor(position.x, position.y);
+        if (getInteractionMode() == InteractionMode.NONE) {
+            setCursor(CursorType.INVISIBLE);
         }
 
         changeCursor();

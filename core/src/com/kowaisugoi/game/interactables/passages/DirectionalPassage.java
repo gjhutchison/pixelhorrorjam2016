@@ -54,7 +54,7 @@ public class DirectionalPassage implements Passage {
                                PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
                            }
                        }
-                , 0.6f // Initial delay
+                , 0.4f // Initial delay
                 , 0 // Fire every X seconds
                 , 1 // Number of times to fire
         );
