@@ -2,6 +2,7 @@ package com.kowaisugoi.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.screens.SplashScreen;
 
 public class MainGame extends Game {
@@ -13,6 +14,7 @@ public class MainGame extends Game {
 
         Gdx.app.log(TITLE, VERSION);
         Gdx.app.log(TITLE, "create()");
+        AudioManager.initSounds();
         setScreen(new SplashScreen());
     }
 
