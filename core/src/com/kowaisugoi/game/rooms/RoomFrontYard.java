@@ -9,6 +9,7 @@ import com.kowaisugoi.game.graphics.SnowAnimation;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
+import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.messages.MessageProperties;
 import com.kowaisugoi.game.system.GameUtil.Direction;
@@ -25,7 +26,7 @@ public class RoomFrontYard extends StandardRoom {
         _snowAnimation = new SnowAnimation(50, 6);
 
         // TODO: Rooms should probably locally store their own id (associated refactoring required)
-        // Passage frontDoor = new DirectionalPassage(RoomId.FRONTYARD, RoomId.MAIN_HALL, new Rectangle(65, 35, 20, 40), Direction.UP);
+        Passage backToRoad = new DirectionalPassage(RoomId.FRONTYARD, RoomId.ROAD, new Rectangle(55, 0, 50, 10), Direction.DOWN);
         Passage frontDoor = new BlockedPassage(RoomId.FRONTYARD,
                 RoomId.MAIN_HALL,
                 new Rectangle(65, 35, 20, 40),
@@ -42,6 +43,7 @@ public class RoomFrontYard extends StandardRoom {
         addPickupableItem(dankKey);
 
         addPassage(frontDoor);
+        addPassage(backToRoad);
     }
 
     @Override
