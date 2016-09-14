@@ -8,13 +8,13 @@ import com.badlogic.gdx.utils.Disposable;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.player.Player;
-import com.kowaisugoi.game.screens.World;
+import com.kowaisugoi.game.screens.PlayGame;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.kowaisugoi.game.screens.World.GAME_HEIGHT;
-import static com.kowaisugoi.game.screens.World.GAME_WIDTH;
+import static com.kowaisugoi.game.screens.PlayGame.GAME_HEIGHT;
+import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
 
 public class PlayerInventory implements Disposable {
 
@@ -100,7 +100,7 @@ public class PlayerInventory implements Disposable {
     }
 
     public void drawInventory(SpriteBatch batch) {
-        if (!_inventoryOpen || World.getPlayer().getInteractionMode() != Player.InteractionMode.INVENTORY) {
+        if (!_inventoryOpen || PlayGame.getPlayer().getInteractionMode() != Player.InteractionMode.INVENTORY) {
             _buttonOpenSprite.draw(batch);
             return;
         }

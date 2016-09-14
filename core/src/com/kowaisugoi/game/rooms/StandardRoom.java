@@ -2,7 +2,6 @@ package com.kowaisugoi.game.rooms;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.particles.renderers.PointSpriteRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.interactables.Interactable;
@@ -10,13 +9,13 @@ import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.player.Player;
-import com.kowaisugoi.game.screens.World;
+import com.kowaisugoi.game.screens.PlayGame;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.kowaisugoi.game.screens.World.GAME_HEIGHT;
-import static com.kowaisugoi.game.screens.World.GAME_WIDTH;
+import static com.kowaisugoi.game.screens.PlayGame.GAME_HEIGHT;
+import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
 
 /**
  * Use this class as a class to build other rooms off of to avoid
@@ -36,7 +35,7 @@ public abstract class StandardRoom implements Room {
 
     public void enter() {
         // On entering the typical room, allow the player to interact
-        World.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+        PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
     }
 
     public void enter(Transition t) {
@@ -95,7 +94,7 @@ public abstract class StandardRoom implements Room {
 
         for (PickupableItem pickupableItem : _pickupableItemList) {
             if (pickupableItem.click(curX, curY)) {
-                World.getPlayer().getInventory().addItem(pickupableItem);
+                PlayGame.getPlayer().getInventory().addItem(pickupableItem);
                 _pickupableItemList.remove(pickupableItem);
                 return true;
             }

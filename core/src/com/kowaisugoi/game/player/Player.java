@@ -5,22 +5,20 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
-import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
 import com.kowaisugoi.game.player.thought.ThoughtBox;
 import com.kowaisugoi.game.rooms.Room;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
-import com.kowaisugoi.game.screens.World;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GlobalKeyHandler;
 
 import static com.kowaisugoi.game.player.Player.InteractionMode.*;
 
 public final class Player implements Disposable, InputProcessor {
-    private World _world;
+    private PlayGame _world;
     private RoomId _currentRoom;
     private RoomManager _manager;
 
@@ -59,7 +57,7 @@ public final class Player implements Disposable, InputProcessor {
         INVISIBLE
     }
 
-    public Player(World w, RoomManager manager, PlayerInventory inv) {
+    public Player(PlayGame w, RoomManager manager, PlayerInventory inv) {
         _world = w;
         _inventory = inv;
         _manager = manager;

@@ -20,7 +20,7 @@ import static com.kowaisugoi.game.player.Player.InteractionMode.*;
 /**
  * Top level entity responsible for rendering the visible world
  */
-public class World implements Screen {
+public class PlayGame implements Screen {
     // 640x360
     public static final float GAME_WIDTH = 160;
     public static final float GAME_HEIGHT = 90;

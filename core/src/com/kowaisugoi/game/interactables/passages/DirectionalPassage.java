@@ -4,12 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.graphics.SlideTransition;
-import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
-import com.kowaisugoi.game.screens.World;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil.Direction;
 
 import java.util.LinkedList;
@@ -39,7 +38,7 @@ public class DirectionalPassage implements Passage {
 
     @Override
     public void roomTransition() {
-        World.getPlayer().enterRoom(_destination);
+        PlayGame.getPlayer().enterRoom(_destination);
     }
 
     @Override
@@ -48,10 +47,10 @@ public class DirectionalPassage implements Passage {
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        if (World.getDebug()) {
-            if (World.getPlayer().getInteractionMode() == Player.InteractionMode.NORMAL) {
+        if (PlayGame.getDebug()) {
+            if (PlayGame.getPlayer().getInteractionMode() == Player.InteractionMode.NORMAL) {
                 renderer.setColor(0, 1, 0, 0.25f);
-            } else if (World.getPlayer().getInteractionMode() == Player.InteractionMode.ITEM_INTERACTION){
+            } else if (PlayGame.getPlayer().getInteractionMode() == Player.InteractionMode.ITEM_INTERACTION){
                 renderer.setColor(0, 0, 1, 0.25f);
             } else {
                 renderer.setColor(1, 0, 0, 0.25f);
@@ -65,8 +64,8 @@ public class DirectionalPassage implements Passage {
         if (_interactionBox.contains(curX, curY)) {
             notifyListeners();
 
-            World.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
-            World.playTransition(new SlideTransition(this, _direction));
+            PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
+            PlayGame.playTransition(new SlideTransition(this, _direction));
             return true;
         }
         return false;
@@ -77,16 +76,16 @@ public class DirectionalPassage implements Passage {
         if (_interactionBox.contains(curX, curY)) {
             switch (_direction) {
                 case UP:
-                    World.getPlayer().setCursor(Player.CursorType.UP_ARROW);
+                    PlayGame.getPlayer().setCursor(Player.CursorType.UP_ARROW);
                     break;
                 case DOWN:
-                    World.getPlayer().setCursor(Player.CursorType.DOWN_ARROW);
+                    PlayGame.getPlayer().setCursor(Player.CursorType.DOWN_ARROW);
                     break;
                 case LEFT:
-                    World.getPlayer().setCursor(Player.CursorType.LEFT_ARROW);
+                    PlayGame.getPlayer().setCursor(Player.CursorType.LEFT_ARROW);
                     break;
                 case RIGHT:
-                    World.getPlayer().setCursor(Player.CursorType.RIGHT_ARROW);
+                    PlayGame.getPlayer().setCursor(Player.CursorType.RIGHT_ARROW);
                     break;
             }
         }

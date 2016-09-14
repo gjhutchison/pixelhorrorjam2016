@@ -1,13 +1,12 @@
 package com.kowaisugoi.game.interactables.objects;
 
-import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.player.Player;
-import com.kowaisugoi.game.screens.World;
+import com.kowaisugoi.game.screens.PlayGame;
 
 import java.util.LinkedList;
 
@@ -63,7 +62,7 @@ public class PickupableItem implements Item {
     @Override
     public void beautifyCursor(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
-            World.getPlayer().setCursor(Player.CursorType.PICKUP);
+            PlayGame.getPlayer().setCursor(Player.CursorType.PICKUP);
         }
     }
 

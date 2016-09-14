@@ -2,11 +2,10 @@ package com.kowaisugoi.game.system;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.kowaisugoi.game.player.Player;
-import com.kowaisugoi.game.screens.World;
+import com.kowaisugoi.game.screens.PlayGame;
 
 /**
- * Prevents code duplication across MainMenu/World,
+ * Prevents code duplication across MainMenu/PlayGame,
  * allows for easy modification of any global hotkeys
  */
 public final class GlobalKeyHandler {
@@ -35,10 +34,10 @@ public final class GlobalKeyHandler {
         }
 
         if (keycode == DEBUG_KEY) {
-            if (World.getDebug()) {
-                World.setDebug(false);
+            if (PlayGame.getDebug()) {
+                PlayGame.setDebug(false);
             } else {
-                World.setDebug(true);
+                PlayGame.setDebug(true);
             }
         }
 

@@ -2,16 +2,13 @@ package com.kowaisugoi.game.player.thought;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.TimeUtils;
-import com.kowaisugoi.game.screens.World;
+import com.kowaisugoi.game.screens.PlayGame;
 
 public class ThoughtBox implements Disposable {
     private float _holdDuration = 0;
@@ -24,7 +21,7 @@ public class ThoughtBox implements Disposable {
     private BitmapFont _thoughtFont;
     private float THOUGHT_X = 0;
     private float THOUGHT_Y = 0;
-    private float THOUGHT_WIDTH = World.GAME_WIDTH;
+    private float THOUGHT_WIDTH = PlayGame.GAME_WIDTH;
     private float THOUGHT_HEIGHT = 10;
     private Color _color = new Color(1f, 1f, 1f, 1f);
     private float OPACITY_MAX = 0.8f;

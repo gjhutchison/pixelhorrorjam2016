@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.messages.MessageProperties;
-import com.kowaisugoi.game.screens.World;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomCar extends StandardRoom {
@@ -24,6 +24,6 @@ public class RoomCar extends StandardRoom {
     @Override
     public void enter() {
         super.enter();
-        World.getPlayer().think(MessageProperties.getProperties().getProperty("thought.car"), 2.0f);
+        PlayGame.getPlayer().think(MessageProperties.getProperties().getProperty("thought.car"), 2.0f);
     }
 }

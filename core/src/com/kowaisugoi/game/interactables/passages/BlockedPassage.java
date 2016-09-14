@@ -2,11 +2,9 @@ package com.kowaisugoi.game.interactables.passages;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.control.flags.Flag;
-import com.kowaisugoi.game.graphics.SlideTransition;
 import com.kowaisugoi.game.interactables.objects.ItemId;
-import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.rooms.RoomId;
-import com.kowaisugoi.game.screens.World;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
 public class BlockedPassage extends DirectionalPassage {
@@ -40,7 +38,7 @@ public class BlockedPassage extends DirectionalPassage {
             if (_unlocked) {
                 return super.click(curX, curY);
             }
-            World.getPlayer().think(_lockedText, 2.0f);
+            PlayGame.getPlayer().think(_lockedText, 2.0f);
         }
         return false;
     }
