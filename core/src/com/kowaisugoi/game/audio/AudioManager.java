@@ -14,8 +14,8 @@ public class AudioManager implements Disposable {
     private static final Map<MusicId, Music> musicMap = new HashMap<MusicId, Music>();
 
     public static void initSounds() {
-        soundMap.put(SoundId.DOOR_CREAK, Gdx.audio.newSound(Gdx.files.internal("audio/effects/REEEE.mp3")));
-        soundMap.put(SoundId.DOOR_LOCKED, Gdx.audio.newSound(Gdx.files.internal("audio/effects/lockedhehe.mp3")));
+        soundMap.put(SoundId.DOOR_CREAK, Gdx.audio.newSound(Gdx.files.internal("audio/effects/Door.mp3")));
+        soundMap.put(SoundId.DOOR_LOCKED, Gdx.audio.newSound(Gdx.files.internal("audio/effects/Door Locked.mp3")));
 
         musicMap.put(MusicId.GENERAL_MUSIC, Gdx.audio.newMusic(Gdx.files.internal("audio/music/bensound-betterdays.mp3")));
     }
