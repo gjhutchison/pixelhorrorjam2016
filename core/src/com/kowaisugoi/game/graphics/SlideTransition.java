@@ -9,7 +9,6 @@ import com.kowaisugoi.game.system.GameUtil.Direction;
 
 public class SlideTransition implements Transition {
     private boolean _animating = false;
-    private boolean _animationComplete = false;
     private Passage _passage;
     private Direction _direction;
 
@@ -35,7 +34,6 @@ public class SlideTransition implements Transition {
         _xPosition = 0;
         _yPosition = 0;
         _animating = false;
-        _animationComplete = false;
         _direction = direction;
 
         switch (_direction) {
@@ -61,13 +59,13 @@ public class SlideTransition implements Transition {
         }
     }
 
-    void swapRoom() {
+    private void swapRoom() {
         if (_passage != null) {
             _passage.roomTransition();
         }
     }
 
-    public void animateTransition(float delta) {
+    private void animateTransition(float delta) {
         _animationLength += delta;
         switch (_direction) {
             case UP:
@@ -85,12 +83,11 @@ public class SlideTransition implements Transition {
             default:
                 return;
         }
-
     }
 
     @Override
     public void update(float delta) {
-        if (this.isAnimating()) {
+        if (_animating) {
             this.animateTransition(delta);
             if (_direction == Direction.UP || _direction == Direction.DOWN) {
                 if (_animationLength > HALF_TIME_VERTICAL) {
@@ -102,12 +99,10 @@ public class SlideTransition implements Transition {
                 }
             }
 
-            if (_xPosition > MAX_X || _xPosition < MIN_X) {
+            if ((_xPosition > MAX_X || _xPosition < MIN_X) ||
+                    (_yPosition > MAX_Y || _yPosition < MIN_Y)) {
                 _animating = false;
-                _animationComplete = true;
-            } else if (_yPosition > MAX_Y || _yPosition < MIN_Y) {
-                _animating = false;
-                _animationComplete = true;
+                _passage.transitionComplete();
             }
         }
     }
@@ -115,14 +110,6 @@ public class SlideTransition implements Transition {
     @Override
     public void play() {
         _animating = true;
-    }
-
-    public boolean isAnimating() {
-        return _animating;
-    }
-
-    public boolean isAnimationComplete() {
-        return _animationComplete;
     }
 
     @Override

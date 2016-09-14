@@ -34,8 +34,7 @@ public abstract class StandardRoom implements Room {
     }
 
     public void enter() {
-        // On entering the typical room, allow the player to interact
-        PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+        // do spooky things here
     }
 
     public void enter(Transition t) {

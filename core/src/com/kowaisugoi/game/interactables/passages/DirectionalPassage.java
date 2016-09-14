@@ -42,6 +42,11 @@ public class DirectionalPassage implements Passage {
     }
 
     @Override
+    public void transitionComplete() {
+        PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+    }
+
+    @Override
     public void draw(SpriteBatch batch) {
     }
 

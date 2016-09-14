@@ -9,4 +9,6 @@ public interface Passage extends Interactable {
     public RoomId getDestination();
 
     public void roomTransition();
+
+    public void transitionComplete();
 }
