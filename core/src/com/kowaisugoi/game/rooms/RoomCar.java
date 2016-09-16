@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
+import com.kowaisugoi.game.interactables.scenic.Describable;
+import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
@@ -19,6 +21,9 @@ public class RoomCar extends StandardRoom {
 
         Passage carDoor = new DirectionalPassage(RoomId.CAR, RoomId.ROAD, new Rectangle(140, 0, 20, 200), GameUtil.Direction.RIGHT);
 
+        Describable airFreshener = new GeneralDescribable(Messages.getText("car.airfreshener.description"), new Rectangle(75, 57, 10, 10));
+
+        addDescribable(airFreshener);
         addPassage(carDoor);
     }
 
