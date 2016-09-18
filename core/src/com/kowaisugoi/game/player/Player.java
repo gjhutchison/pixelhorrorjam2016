@@ -5,8 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
+import com.kowaisugoi.game.graphics.PlacementRectangle;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
 import com.kowaisugoi.game.player.thought.ThoughtBox;
 import com.kowaisugoi.game.rooms.Room;
@@ -27,6 +29,8 @@ public final class Player implements Disposable, InputProcessor {
     private boolean _isInInventory = false;
     private boolean _inventoryInteract = false;
     private boolean _itemCombine = false;
+
+    private static PlacementRectangle _placement = new PlacementRectangle();
 
     private CursorType _cursorFlavor = CursorType.REGULAR;
     private CursorType _currentCursorFlavor = null;
@@ -121,15 +125,23 @@ public final class Player implements Disposable, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        // TODO Auto-generated method stub
-        return false;
+        if (PlayGame.getPlacementMode()) {
+            Vector3 pos = _world.screenToWorldPosition(screenX, screenY);
+            setPlacementStart(pos);
+            setPlacementEnd(pos);
+        }
+        return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         if (button == Input.Buttons.LEFT) {
             Vector3 clickPosition = _world.screenToWorldPosition(screenX, screenY);
-
+            if (PlayGame.getPlacementMode()) {
+                setPlacementEnd(clickPosition);
+                think(_placement.getCoordString());
+                return true;
+            }
             if (getInteractionMode() == INVENTORY ||
                     getInteractionMode() == ITEM_INTERACTION) {
                 handleInventoryMouseClick(clickPosition.x, clickPosition.y);
@@ -142,7 +154,11 @@ public final class Player implements Disposable, InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        // TODO Auto-generated method stub
+        if (PlayGame.getPlacementMode()) {
+            Vector3 pos = _world.screenToWorldPosition(screenX, screenY);
+            setPlacementEnd(pos);
+            return true;
+        }
         return false;
     }
 
@@ -314,5 +330,19 @@ public final class Player implements Disposable, InputProcessor {
         if (getInteractionMode() == InteractionMode.ITEM_INTERACTION) {
             getInventory().moveSelectedItemSprite(position.x, position.y);
         }
+    }
+
+    public void setPlacementStart(Vector3 pos) {
+        _placement.setX(pos.x);
+        _placement.setY(pos.y);
+    }
+
+    public void setPlacementEnd(Vector3 pos) {
+        _placement.setWidth(pos.x-_placement.getX());
+        _placement.setHeight(pos.y-_placement.getY());
+    }
+
+    public PlacementRectangle getPlacementRectangle() {
+        return _placement;
     }
 }

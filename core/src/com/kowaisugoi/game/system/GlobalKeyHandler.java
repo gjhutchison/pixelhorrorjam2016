@@ -11,6 +11,7 @@ import com.kowaisugoi.game.screens.PlayGame;
 public final class GlobalKeyHandler {
     static final int FULLSCREEN_KEY = Input.Keys.F4;
     static final int DEBUG_KEY = Input.Keys.F8;
+    static final int PLACEMENT_HELPER = Input.Keys.F9;
     static final int EXIT_KEY = Input.Keys.ESCAPE;
 
     public static boolean keyUp(int keycode) {
@@ -38,6 +39,16 @@ public final class GlobalKeyHandler {
                 PlayGame.setDebug(false);
             } else {
                 PlayGame.setDebug(true);
+            }
+        }
+
+        if (keycode == PLACEMENT_HELPER) {
+            if (PlayGame.getDebug()) {
+                if (!PlayGame.getPlacementMode()) {
+                    PlayGame.setPlacementMode(true);
+                } else {
+                    PlayGame.setPlacementMode(false);
+                }
             }
         }
 
