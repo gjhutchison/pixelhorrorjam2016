@@ -140,6 +140,7 @@ public final class Player implements Disposable, InputProcessor {
             if (PlayGame.getPlacementMode()) {
                 setPlacementEnd(clickPosition);
                 think(_placement.getCoordString());
+                Gdx.app.log("DEBUG PLACEMENT", _currentRoom.name() + " " + _placement.getCoordString());
                 return true;
             }
             if (getInteractionMode() == INVENTORY ||
@@ -338,8 +339,8 @@ public final class Player implements Disposable, InputProcessor {
     }
 
     public void setPlacementEnd(Vector3 pos) {
-        _placement.setWidth(pos.x-_placement.getX());
-        _placement.setHeight(pos.y-_placement.getY());
+        _placement.setWidth(pos.x - _placement.getX());
+        _placement.setHeight(pos.y - _placement.getY());
     }
 
     public PlacementRectangle getPlacementRectangle() {
