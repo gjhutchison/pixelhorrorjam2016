@@ -22,6 +22,7 @@ public class RoomMainHall extends StandardRoom {
     private FireAnimation _fireAnimation;
     int _currentSprite = 0;
     float _deltaBuffer = 0;
+
     /*
     private static final String[] OVERLAY_URLS = {"rooms/mainhall/cozy_overlay_1.png",
             "rooms/mainhall/cozy_overlay_2.png",
@@ -38,8 +39,14 @@ public class RoomMainHall extends StandardRoom {
             _overlays.add(overlay);
         }
         */
-        Passage hallDoor = new DirectionalPassage(RoomId.MAIN_HALL, RoomId.HALLWAY, new Rectangle(5, 25, 30, 40), GameUtil.Direction.LEFT);
-        Passage turnAround = new DirectionalPassage(RoomId.MAIN_HALL, RoomId.FRONTYARD, new Rectangle(55, 0, 50, 10), GameUtil.Direction.DOWN);
+        Passage hallDoor = new DirectionalPassage(RoomId.MAIN_HALL,
+                RoomId.HALLWAY,
+                new Rectangle(5, 25, 30, 40),
+                GameUtil.Direction.LEFT);
+        Passage turnAround = new DirectionalPassage(RoomId.MAIN_HALL,
+                RoomId.FRONTYARD,
+                new Rectangle(55, 0, 50, 10),
+                GameUtil.Direction.DOWN);
 
         Describable paintingDescription = new GeneralDescribable(Messages.getText("mainhall.painting.thought"),
                 new Rectangle(55, 50, 40, 30));
@@ -48,11 +55,11 @@ public class RoomMainHall extends StandardRoom {
         addDescribable(paintingDescription);
         addPassage(hallDoor);
         addPassage(turnAround);
-        _fireAnimation = new FireAnimation(50, 0, 50);
+        _fireAnimation = new FireAnimation(80, 31, 50);
     }
 
     public void drawFx(SpriteBatch batch) {
-        super.draw(batch);
+        //super.draw(batch);
         //_overlays.get(currentSprite).draw(batch, 0.08f);
     }
 
