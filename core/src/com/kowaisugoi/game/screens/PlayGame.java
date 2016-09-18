@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.MusicId;
+import com.kowaisugoi.game.graphics.PlacementRectangle;
 import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
@@ -33,6 +35,7 @@ public class PlayGame implements Screen {
     private ShapeRenderer _shapeRenderer;
     private static Player _player;
     private static boolean _debug = false;
+    private static boolean _placing = false;
     private static Transition _transition;
 
     public static Player getPlayer() {
@@ -141,12 +144,22 @@ public class PlayGame implements Screen {
         Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
+    private void renderPlacementHelper() {
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        _player.getPlacementRectangle().draw(_shapeRenderer);
+        _shapeRenderer.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
+    }
+
     /**
      * Breaks down rendering of game world into different layers
      */
     private void renderGame() {
         renderCurrentRoom();
         renderFX();
+        renderPlacementHelper();
 
         // Draw inventory, if applicable
         _batch.begin();
@@ -179,7 +192,6 @@ public class PlayGame implements Screen {
     @Override
     public void hide() {
         // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -208,5 +220,14 @@ public class PlayGame implements Screen {
 
     public static boolean getDebug() {
         return _debug;
+    }
+
+    public static void setPlacementMode(boolean mode) {
+        _player.think("Placement mode: " + (mode ? "ON" : "OFF"));
+        _placing = mode;
+    }
+
+    public static boolean getPlacementMode() {
+        return _placing;
     }
 }
