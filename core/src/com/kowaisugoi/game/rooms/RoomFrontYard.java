@@ -29,6 +29,7 @@ public class RoomFrontYard extends StandardRoom {
 
         // TODO: Rooms should probably locally store their own id (associated refactoring required)
         Passage backToRoad = new DirectionalPassage(RoomId.FRONTYARD, RoomId.ROAD, new Rectangle(55, 0, 50, 10), Direction.DOWN);
+        Passage toShed = new DirectionalPassage(RoomId.FRONTYARD, RoomId.SHED, new Rectangle(2, 12, 30, 65), Direction.UP);
         Passage frontDoor = new BlockedPassage(RoomId.FRONTYARD,
                 RoomId.MAIN_HALL,
                 new Rectangle(65, 35, 20, 40),
@@ -40,13 +41,14 @@ public class RoomFrontYard extends StandardRoom {
         frontDoor.setSoundEffect(SoundId.DOOR_CREAK);
 
         PickupableItem dankKey = new PickupableItem(new Sprite(new Texture("items/key.png")),
-                new Rectangle(10, 10, 32, 32),
+                new Rectangle(95, 28, 32, 32),
                 ItemId.KEY_HOUSE);
 
         addPickupableItem(dankKey);
 
         addPassage(frontDoor);
         addPassage(backToRoad);
+        addPassage(toShed);
 
         pushEnterRemark("frontyard.enter.thought");
     }

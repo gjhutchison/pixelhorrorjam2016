@@ -5,12 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
-import com.kowaisugoi.game.control.flags.Flag;
-import com.kowaisugoi.game.control.flags.FlagId;
-import com.kowaisugoi.game.control.flags.UncleFlag;
 import com.kowaisugoi.game.graphics.PlacementRectangle;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
 import com.kowaisugoi.game.player.thought.ThoughtBox;
@@ -19,11 +15,6 @@ import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GlobalKeyHandler;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static com.kowaisugoi.game.player.Player.InteractionMode.*;
 
