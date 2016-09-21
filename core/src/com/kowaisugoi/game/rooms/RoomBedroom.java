@@ -13,7 +13,7 @@ import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomBedroom extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/bedroom/sleeptight_gross_draft_2.png";
+    private static final String ROOM_URL = "rooms/bedroom/sleeptight_redo.png";
 
     public RoomBedroom() {
         super(new Sprite(new Texture(ROOM_URL)));
@@ -25,18 +25,18 @@ public class RoomBedroom extends StandardRoom {
 
         Passage passageBathroom = new DirectionalPassage(RoomId.BEDROOM,
                 RoomId.BATHROOM,
-                new Rectangle(60, 10, 30, 40),
+                new Rectangle(70, 17, 27, 41),
                 GameUtil.Direction.UP);
 
         Describable tableDescription = new GeneralDescribable(
                 Messages.getText("bedroom.table.description"),
-                new Rectangle(23, 7, 25, 22));
+                new Rectangle(101, 8, 36, 31));
         Describable artDescription = new GeneralDescribable(
                 Messages.getText("bedroom.art.description"),
-                new Rectangle(28, 36, 20, 20));
+                new Rectangle(110, 42, 20, 23));
         Describable bedDescription = new GeneralDescribable(
                 Messages.getText("bedroom.bed.description"),
-                new Rectangle(100, 0, 60, 40));
+                new Rectangle(0, 2, 72, 49));
 
         addPassage(passageHall);
         addPassage(passageBathroom);
