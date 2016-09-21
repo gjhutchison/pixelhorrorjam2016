@@ -25,7 +25,13 @@ public class RoomHallway extends StandardRoom {
                 new Rectangle(10, 15, 32, 60),
                 GameUtil.Direction.UP);
 
+        Passage passageKitchen = new DirectionalPassage(RoomId.HALLWAY,
+                RoomId.KITCHEN,
+                new Rectangle(117, 6, 26, 60),
+                GameUtil.Direction.UP);
+
         addPassage(passageMainRoom);
         addPassage(passageBedroom);
+        addPassage(passageKitchen);
     }
 }

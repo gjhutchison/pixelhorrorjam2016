@@ -18,6 +18,7 @@ public final class RoomManager {
         _roomMap.put(RoomId.ROAD, new RoomForestPath());
         _roomMap.put(RoomId.BEDROOM, new RoomBedroom());
         _roomMap.put(RoomId.BATHROOM, new RoomBathroomPeek());
+        _roomMap.put(RoomId.KITCHEN, new RoomKitchen());
     }
 
     public static Map<RoomId, Room> getRoomMap() {
