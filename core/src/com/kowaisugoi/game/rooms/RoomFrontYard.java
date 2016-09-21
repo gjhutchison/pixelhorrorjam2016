@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.SoundId;
+import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.graphics.SnowAnimation;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
@@ -20,7 +21,6 @@ public class RoomFrontYard extends StandardRoom {
     private static final String ROOM_URL = "rooms/frontyard/frontyard_v2.png";
 
     private SnowAnimation _snowAnimation;
-    private boolean _firstTime = true;
 
     public RoomFrontYard() {
         super(new Sprite(new Texture(ROOM_URL)));
@@ -47,6 +47,8 @@ public class RoomFrontYard extends StandardRoom {
 
         addPassage(frontDoor);
         addPassage(backToRoad);
+
+        pushEnterRemark("frontyard.enter.thought");
     }
 
     @Override
@@ -59,14 +61,5 @@ public class RoomFrontYard extends StandardRoom {
     public void draw(ShapeRenderer renderer) {
         _snowAnimation.draw(renderer);
         super.draw(renderer);
-    }
-
-    public void enter() {
-        super.enter();
-
-        if (_firstTime) {
-            PlayGame.getPlayer().think(Messages.getText("frontyard.enter.thought"));
-            _firstTime = false;
-        }
     }
 }

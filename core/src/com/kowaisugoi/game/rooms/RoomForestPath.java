@@ -40,6 +40,8 @@ public class RoomForestPath extends StandardRoom {
 
         addDescribable(treesDescription);
         addDescribable(treesDescription2);
+
+        pushEnterRemark("forestpath.enter.thought");
     }
 
     @Override
@@ -52,15 +54,5 @@ public class RoomForestPath extends StandardRoom {
     public void draw(ShapeRenderer renderer) {
         _snowAnimation.draw(renderer);
         super.draw(renderer);
-    }
-
-    @Override
-    public void enter() {
-        super.enter();
-
-        if (_firstTime) {
-            PlayGame.getPlayer().think(Messages.getText("forestpath.enter.thought"));
-            _firstTime = false;
-        }
     }
 }

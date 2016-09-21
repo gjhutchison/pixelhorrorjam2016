@@ -9,11 +9,13 @@ import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
+import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import static com.kowaisugoi.game.screens.PlayGame.GAME_HEIGHT;
 import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
@@ -28,6 +30,7 @@ public abstract class StandardRoom implements Room {
     private List<PickupableItem> _pickupableItemList = new LinkedList<PickupableItem>();
     private List<Passage> _passageList = new LinkedList<Passage>();
     private List<Describable> _describableList = new LinkedList<Describable>();
+    private Queue<String> _enterMessageQueue = new LinkedList<String>();
 
     public StandardRoom(Sprite image) {
         _roomSprite = image;
@@ -36,6 +39,12 @@ public abstract class StandardRoom implements Room {
 
     public void enter() {
         // Think things, animate things, trigger things, etc.
+
+        // Pop an item off the entry observation queue
+        String textId =_enterMessageQueue.poll();
+        if (textId != null) {
+            PlayGame.getPlayer().think(Messages.getText(textId));
+        }
     }
 
     public void addPassage(Passage interactable) {
@@ -137,5 +146,9 @@ public abstract class StandardRoom implements Room {
     @Override
     public void dispose() {
         _roomSprite.getTexture().dispose();
+    }
+
+    public void pushEnterRemark(String textId) {
+        _enterMessageQueue.add(textId);
     }
 }

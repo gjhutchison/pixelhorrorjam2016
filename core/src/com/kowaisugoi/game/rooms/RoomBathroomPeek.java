@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
+import com.kowaisugoi.game.interactables.scenic.Describable;
+import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
+import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomBathroomPeek extends StandardRoom {
@@ -21,5 +24,10 @@ public class RoomBathroomPeek extends StandardRoom {
                 GameUtil.Direction.DOWN);
 
         addPassage(passageBack);
+
+        /*Describable fridge = new FlagDescribable(Messages.getText("kitchen.fridge.thought"),
+                new Rectangle(36, 12, 37, 58));
+
+        addDescribable(sink);*/
     }
 }

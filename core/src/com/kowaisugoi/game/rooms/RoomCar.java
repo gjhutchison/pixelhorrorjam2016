@@ -3,6 +3,7 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
@@ -14,7 +15,6 @@ import com.kowaisugoi.game.system.GameUtil;
 public class RoomCar extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/car_v1.png";
-    private boolean firstTime = true;
 
     public RoomCar() {
         super(new Sprite(new Texture(ROOM_URL)));
@@ -25,15 +25,7 @@ public class RoomCar extends StandardRoom {
 
         addDescribable(airFreshener);
         addPassage(carDoor);
-    }
 
-    @Override
-    public void enter() {
-        super.enter();
-
-        if (firstTime) {
-            PlayGame.getPlayer().think(Messages.getText("car.enter.thought"), 2.0f);
-            firstTime = false;
-        }
+        pushEnterRemark("car.enter.cold");
     }
 }

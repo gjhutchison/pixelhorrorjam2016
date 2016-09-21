@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
+import com.kowaisugoi.game.control.flags.Flag;
+import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.graphics.PlacementRectangle;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
 import com.kowaisugoi.game.player.thought.ThoughtBox;
@@ -17,20 +19,26 @@ import com.kowaisugoi.game.rooms.RoomManager;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GlobalKeyHandler;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static com.kowaisugoi.game.player.Player.InteractionMode.*;
 
 public final class Player implements Disposable, InputProcessor {
     private PlayGame _world;
     private RoomId _currentRoom;
+
+    // TODO: could/should separate this from Player
     private RoomManager _manager;
 
     private PlayerInventory _inventory;
 
-    private boolean _isInInventory = false;
-    private boolean _inventoryInteract = false;
-    private boolean _itemCombine = false;
-
     private static PlacementRectangle _placement = new PlacementRectangle();
+
+    // TODO: Could separate this off as a FlagManager
+    private Map<FlagId, Flag> _flags = new HashMap<FlagId, Flag>();
 
     private CursorType _cursorFlavor = CursorType.REGULAR;
     private CursorType _currentCursorFlavor = null;
@@ -67,6 +75,11 @@ public final class Player implements Disposable, InputProcessor {
         _inventory = inv;
         _manager = manager;
 
+        // Initialize all flags to false, by default
+        for (FlagId id : FlagId.values()) {
+            _flags.put(id, new Flag(id));
+        }
+
         _downArrowTex = new Pixmap(Gdx.files.internal("cursors/down_arrow_cursor.png"));
         _upArrowTex = new Pixmap(Gdx.files.internal("cursors/up_arrow_cursor.png"));
         _leftArrowTex = new Pixmap(Gdx.files.internal("cursors/left_arrow_cursor.png"));
@@ -88,6 +101,14 @@ public final class Player implements Disposable, InputProcessor {
 
     public void startGame(RoomId start) {
         enterRoom(start);
+    }
+
+    public void setFlag(FlagId id, boolean value) {
+        _flags.get(id).setState(value);
+    }
+
+    public Flag getFlag(FlagId id) {
+        return _flags.get(id);
     }
 
     @Override
