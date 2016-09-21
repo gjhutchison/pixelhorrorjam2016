@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
 import com.kowaisugoi.game.control.flags.Flag;
 import com.kowaisugoi.game.control.flags.FlagId;
+import com.kowaisugoi.game.control.flags.UncleFlag;
 import com.kowaisugoi.game.graphics.PlacementRectangle;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
 import com.kowaisugoi.game.player.thought.ThoughtBox;
@@ -36,9 +37,6 @@ public final class Player implements Disposable, InputProcessor {
     private PlayerInventory _inventory;
 
     private static PlacementRectangle _placement = new PlacementRectangle();
-
-    // TODO: Could separate this off as a FlagManager
-    private Map<FlagId, Flag> _flags = new HashMap<FlagId, Flag>();
 
     private CursorType _cursorFlavor = CursorType.REGULAR;
     private CursorType _currentCursorFlavor = null;
@@ -70,15 +68,9 @@ public final class Player implements Disposable, InputProcessor {
         INVISIBLE
     }
 
-    public Player(PlayGame w, RoomManager manager, PlayerInventory inv) {
+    public Player(PlayGame w, PlayerInventory inv) {
         _world = w;
         _inventory = inv;
-        _manager = manager;
-
-        // Initialize all flags to false, by default
-        for (FlagId id : FlagId.values()) {
-            _flags.put(id, new Flag(id));
-        }
 
         _downArrowTex = new Pixmap(Gdx.files.internal("cursors/down_arrow_cursor.png"));
         _upArrowTex = new Pixmap(Gdx.files.internal("cursors/up_arrow_cursor.png"));
@@ -101,14 +93,6 @@ public final class Player implements Disposable, InputProcessor {
 
     public void startGame(RoomId start) {
         enterRoom(start);
-    }
-
-    public void setFlag(FlagId id, boolean value) {
-        _flags.get(id).setState(value);
-    }
-
-    public Flag getFlag(FlagId id) {
-        return _flags.get(id);
     }
 
     @Override
@@ -227,7 +211,7 @@ public final class Player implements Disposable, InputProcessor {
     }
 
     public Room getCurrentRoom() {
-        return _manager.getRoomMap().get(_currentRoom);
+        return RoomManager.getRoomFromId(_currentRoom);
     }
 
     public RoomId getCurrentRoomId() {

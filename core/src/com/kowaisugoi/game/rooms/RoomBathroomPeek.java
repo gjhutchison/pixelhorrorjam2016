@@ -4,9 +4,11 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
+import com.kowaisugoi.game.interactables.scenic.FlagDescribable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.system.GameUtil;
@@ -25,9 +27,19 @@ public class RoomBathroomPeek extends StandardRoom {
 
         addPassage(passageBack);
 
-        /*Describable fridge = new FlagDescribable(Messages.getText("kitchen.fridge.thought"),
-                new Rectangle(36, 12, 37, 58));
+        Describable uncle = new FlagDescribable(Messages.getText("bathroom.uncle.thought.1"),
+                new Rectangle(68, 25, 27, 58), FlagId.FLAG_BODY_FOUND);
 
-        addDescribable(sink);*/
+        addDescribable(uncle);
+    }
+
+    public void swapUncleText() {
+        // TODO: Do this much more elegantly, or deactivate/update describables without removing them
+        _describableList.clear();
+
+        Describable uncle = new GeneralDescribable(Messages.getText("bathroom.uncle.thought.2"),
+                new Rectangle(68, 25, 27, 58));
+
+        addDescribable(uncle);
     }
 }

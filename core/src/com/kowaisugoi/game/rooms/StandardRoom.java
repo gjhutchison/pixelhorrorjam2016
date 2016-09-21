@@ -26,11 +26,11 @@ import static com.kowaisugoi.game.screens.PlayGame.GAME_WIDTH;
  */
 public abstract class StandardRoom implements Room {
 
-    private Sprite _roomSprite;
-    private List<PickupableItem> _pickupableItemList = new LinkedList<PickupableItem>();
-    private List<Passage> _passageList = new LinkedList<Passage>();
-    private List<Describable> _describableList = new LinkedList<Describable>();
-    private Queue<String> _enterMessageQueue = new LinkedList<String>();
+    protected Sprite _roomSprite;
+    protected List<PickupableItem> _pickupableItemList = new LinkedList<PickupableItem>();
+    protected List<Passage> _passageList = new LinkedList<Passage>();
+    protected List<Describable> _describableList = new LinkedList<Describable>();
+    protected Queue<String> _enterMessageQueue = new LinkedList<String>();
 
     public StandardRoom(Sprite image) {
         _roomSprite = image;
@@ -148,6 +148,7 @@ public abstract class StandardRoom implements Room {
         _roomSprite.getTexture().dispose();
     }
 
+    @Override
     public void pushEnterRemark(String textId) {
         _enterMessageQueue.add(textId);
     }

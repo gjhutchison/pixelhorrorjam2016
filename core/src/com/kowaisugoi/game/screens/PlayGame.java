@@ -12,10 +12,12 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.MusicId;
+import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.graphics.PlacementRectangle;
 import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
+import com.kowaisugoi.game.rooms.Room;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
 
@@ -33,18 +35,32 @@ public class PlayGame implements Screen {
     private Viewport _viewport;
     private SpriteBatch _batch;
     private ShapeRenderer _shapeRenderer;
-    private static Player _player;
     private static boolean _debug = false;
     private static boolean _placing = false;
     private static Transition _transition;
+
+    // Global state
+    private static Player _player;
+    private static RoomManager _roomManager;
+    private static FlagManager _flagManager;
 
     public static Player getPlayer() {
         return _player;
     }
 
+    public static RoomManager getRoomManager() {
+        return _roomManager;
+    }
+
+    public static FlagManager getFlagManager() {
+        return _flagManager;
+    }
+
     @Override
     public void show() {
-        RoomManager manager = new RoomManager();
+        _roomManager = new RoomManager();
+        _flagManager = new FlagManager();
+
         PlayerInventory inventory = new PlayerInventory();
 
         _batch = new SpriteBatch();
@@ -53,7 +69,7 @@ public class PlayGame implements Screen {
         _camera.translate(GAME_WIDTH / 2, GAME_HEIGHT / 2);
         _viewport = new StretchViewport(GAME_WIDTH, GAME_HEIGHT, _camera);
 
-        _player = new Player(this, manager, inventory);
+        _player = new Player(this, inventory);
         _player.startGame(RoomId.CAR);
 
         Gdx.input.setInputProcessor(_player);

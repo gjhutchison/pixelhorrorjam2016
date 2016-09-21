@@ -22,4 +22,6 @@ public interface Room extends Disposable {
     public void update(float delta);
 
     public void enter();
+
+    public void pushEnterRemark(String textId);
 }

@@ -24,7 +24,7 @@ public class FlagDescribable extends GeneralDescribable {
     @Override
     public boolean click(float curX, float curY) {
         if (super.click(curX, curY)) {
-            PlayGame.getPlayer().setFlag(_flagId, true);
+            PlayGame.getFlagManager().setFlag(_flagId, true);
             return true;
         }
         return false;

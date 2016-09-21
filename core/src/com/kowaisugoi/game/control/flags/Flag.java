@@ -2,8 +2,8 @@ package com.kowaisugoi.game.control.flags;
 
 public class Flag {
 
-    private FlagId _id;
-    private boolean _state;
+    FlagId _id;
+    boolean _state;
 
     public Flag(FlagId id) {
         _id = id;

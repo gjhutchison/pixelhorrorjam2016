@@ -20,15 +20,11 @@ public final class RoomManager {
         _roomMap.put(RoomId.KITCHEN, new RoomKitchen());
     }
 
-    public static Map<RoomId, Room> getRoomMap() {
-        return _roomMap;
-    }
-
     public static Room getRoomFromId(RoomId roomId) {
         return _roomMap.get(roomId);
     }
 
-    // Clean up all rooms
+    // Clean up all rooms, theoretically on closing the game
     public void cleanUp() {
         for (Room room : _roomMap.values()) {
             room.dispose();
