@@ -3,6 +3,7 @@ package com.kowaisugoi.game.control.flags;
 import com.kowaisugoi.game.rooms.RoomBathroomPeek;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
+import com.kowaisugoi.game.screens.PlayGame;
 
 // TODO: Not sure if Flag is being used as intended
 /**
@@ -16,10 +17,10 @@ public class UncleFlag extends Flag {
     @Override
     public void setState(boolean value) {
         if (value) {
-            RoomManager.getRoomFromId(RoomId.CAR).pushEnterRemark("car.enter.wannaleave");
+            PlayGame.getRoomManager().getRoomFromId(RoomId.CAR).pushEnterRemark("car.enter.wannaleave");
 
             // TODO: Need an elegant way to update Describable descriptions
-            ((RoomBathroomPeek)RoomManager.getRoomFromId(RoomId.BATHROOM)).swapUncleText();
+            ((RoomBathroomPeek)PlayGame.getRoomManager().getRoomFromId(RoomId.BATHROOM)).swapUncleText();
         }
         super.setState(value);
     }

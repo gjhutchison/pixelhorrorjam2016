@@ -7,7 +7,7 @@ import java.util.Map;
  * Room mappings are final and global.
  */
 public final class RoomManager {
-    private static HashMap<RoomId, Room> _roomMap = new HashMap<RoomId, Room>();
+    private HashMap<RoomId, Room> _roomMap = new HashMap<RoomId, Room>();
 
     public RoomManager() {
         _roomMap.put(RoomId.MAIN_HALL, new RoomMainHall());
@@ -20,7 +20,7 @@ public final class RoomManager {
         _roomMap.put(RoomId.KITCHEN, new RoomKitchen());
     }
 
-    public static Room getRoomFromId(RoomId roomId) {
+    public Room getRoomFromId(RoomId roomId) {
         return _roomMap.get(roomId);
     }
 

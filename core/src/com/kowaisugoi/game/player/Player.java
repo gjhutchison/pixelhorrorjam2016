@@ -211,7 +211,7 @@ public final class Player implements Disposable, InputProcessor {
     }
 
     public Room getCurrentRoom() {
-        return RoomManager.getRoomFromId(_currentRoom);
+        return PlayGame.getRoomManager().getRoomFromId(_currentRoom);
     }
 
     public RoomId getCurrentRoomId() {
@@ -224,7 +224,7 @@ public final class Player implements Disposable, InputProcessor {
      * @param newRoom: The room to enter
      */
     public void enterRoom(RoomId newRoom) {
-        RoomManager.getRoomFromId(newRoom).enter();
+        PlayGame.getRoomManager().getRoomFromId(newRoom).enter();
         _currentRoom = newRoom;
     }
 
