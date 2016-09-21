@@ -24,5 +24,26 @@ public class RoomKitchen extends StandardRoom {
                 GameUtil.Direction.DOWN);
 
         addPassage(passageHall);
+
+        Describable sink = new GeneralDescribable(Messages.getText("kitchen.sink.thought"),
+                new Rectangle(103, 31, 25, 18));
+
+        Describable toaster = new GeneralDescribable(Messages.getText("kitchen.toaster.thought"),
+                new Rectangle(76, 34, 13, 14));
+
+        Describable outlet = new GeneralDescribable(Messages.getText("kitchen.outlet.thought"),
+                new Rectangle(80, 56, 4, 7));
+
+        Describable window = new GeneralDescribable(Messages.getText("kitchen.window.thought"),
+                new Rectangle(95, 49, 41, 17));
+
+        Describable fridge = new GeneralDescribable(Messages.getText("kitchen.fridge.thought"),
+                new Rectangle(36, 12, 37, 58));
+
+        addDescribable(sink);
+        addDescribable(toaster);
+        addDescribable(outlet);
+        addDescribable(window);
+        addDescribable(fridge);
     }
 }

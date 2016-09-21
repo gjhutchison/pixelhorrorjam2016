@@ -28,7 +28,6 @@ public abstract class StandardRoom implements Room {
     private List<PickupableItem> _pickupableItemList = new LinkedList<PickupableItem>();
     private List<Passage> _passageList = new LinkedList<Passage>();
     private List<Describable> _describableList = new LinkedList<Describable>();
-    private Transition _transition = null;
 
     public StandardRoom(Sprite image) {
         _roomSprite = image;
@@ -36,12 +35,7 @@ public abstract class StandardRoom implements Room {
     }
 
     public void enter() {
-        // do spooky things here
-    }
-
-    public void enter(Transition t) {
-        enter();
-        _transition = t;
+        // Think things, animate things, trigger things, etc.
     }
 
     public void addPassage(Passage interactable) {
@@ -135,9 +129,6 @@ public abstract class StandardRoom implements Room {
 
     @Override
     public void update(float delta) {
-        if (_transition != null) {
-            _transition.update(delta);
-        }
         for (Interactable interactable : _passageList) {
             interactable.update(delta);
         }

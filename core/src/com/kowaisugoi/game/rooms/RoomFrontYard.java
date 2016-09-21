@@ -12,6 +12,7 @@ import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.messages.Messages;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil.Direction;
 
 public class RoomFrontYard extends StandardRoom {
@@ -19,6 +20,7 @@ public class RoomFrontYard extends StandardRoom {
     private static final String ROOM_URL = "rooms/frontyard/frontyard_v2.png";
 
     private SnowAnimation _snowAnimation;
+    private boolean _firstTime = true;
 
     public RoomFrontYard() {
         super(new Sprite(new Texture(ROOM_URL)));
@@ -57,5 +59,14 @@ public class RoomFrontYard extends StandardRoom {
     public void draw(ShapeRenderer renderer) {
         _snowAnimation.draw(renderer);
         super.draw(renderer);
+    }
+
+    public void enter() {
+        super.enter();
+
+        if (_firstTime) {
+            PlayGame.getPlayer().think(Messages.getText("frontyard.enter.thought"));
+            _firstTime = false;
+        }
     }
 }
