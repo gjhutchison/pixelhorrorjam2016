@@ -10,7 +10,10 @@ public final class FlagManager {
     private Map<FlagId, Flag> _flags = new HashMap<FlagId, Flag>();
 
     public FlagManager() {
-        _flags.put(FlagId.FLAG_BODY_FOUND, new UncleFlag(FlagId.FLAG_BODY_FOUND));
+        // Initialize all flags (to false)
+        for (FlagId id : FlagId.values()) {
+            _flags.put(id, new Flag(id));
+        }
     }
 
     public void setFlag(FlagId id, boolean value) {

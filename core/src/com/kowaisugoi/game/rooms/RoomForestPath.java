@@ -16,7 +16,7 @@ import com.kowaisugoi.game.system.GameUtil;
 public class RoomForestPath extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/path/path.png";
-    private boolean _firstTime = true; //S-s-senpai (≧◡≦) ♡
+    //private boolean _firstTime = true; //S-s-senpai (≧◡≦) ♡
 
     private SnowAnimation _snowAnimation;
 
