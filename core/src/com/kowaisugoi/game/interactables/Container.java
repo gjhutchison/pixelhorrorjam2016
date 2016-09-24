@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.interactables.objects.ItemId;
+import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 
@@ -13,24 +14,36 @@ public class Container implements Interactable {
 
     private Rectangle _interactionBox;
     private Sprite[] _sprites;
-    private int state;
+    private int _state;
     private boolean _unlocked = true;
     private boolean _itemInteractable = false;
 
+    private PickupableItem _item;
 
     private ItemId _keyId;
     private SoundId _soundEffect;
 
+    private String _thoughts[];
+
     public Container(Sprite state1, Sprite state2, Sprite state3, Rectangle interactionBox) {
         _sprites = new Sprite[3];
+        _thoughts = new String[3];
         _sprites[0] = state1;
         _sprites[1] = state2;
         _sprites[2] = state3;
         _interactionBox = interactionBox;
         for (Sprite sprite : _sprites) {
-            sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
+            if (sprite != null) {
+                sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
+            }
         }
-        state = 0;
+        _state = 0;
+    }
+
+    public void setThoughts(String thought1, String thought2, String thought3) {
+        _thoughts[0] = thought1;
+        _thoughts[1] = thought2;
+        _thoughts[2] = thought3;
     }
 
 
@@ -41,26 +54,29 @@ public class Container implements Interactable {
 
     @Override
     public void draw(SpriteBatch batch) {
-        if (_sprites[state] != null) {
-            _sprites[state].draw(batch);
+        if (_sprites[_state] != null) {
+            _sprites[_state].draw(batch);
         }
     }
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        renderer.setColor(0, 0, 1, 0.25f);
-        renderer.rect(_interactionBox.x,
-                _interactionBox.y,
-                _interactionBox.width,
-                _interactionBox.height);
+        if (PlayGame.getDebug()) {
+            renderer.setColor(0, 0, 1, 0.25f);
+            renderer.rect(_interactionBox.x,
+                    _interactionBox.y,
+                    _interactionBox.width,
+                    _interactionBox.height);
+        }
     }
 
     @Override
     public boolean click(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
+            PlayGame.getPlayer().think(_thoughts[_state]);
             if (_unlocked) {
-                if (state < 2) {
-                    state++;
+                if (_state < 2) {
+                    _state++;
                 }
             }
             return true;
@@ -106,5 +122,17 @@ public class Container implements Interactable {
         _keyId = id;
         _unlocked = false;
         _itemInteractable = true;
+    }
+
+    public void setPickupableItem(PickupableItem item) {
+        _item = item;
+    }
+
+    public PickupableItem getPickupableItem() {
+        return _item;
+    }
+
+    public int getState() {
+        return _state;
     }
 }

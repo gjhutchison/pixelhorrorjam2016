@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.kowaisugoi.game.graphics.Transition;
+import com.kowaisugoi.game.interactables.Container;
 import com.kowaisugoi.game.interactables.Interactable;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
@@ -31,6 +32,7 @@ public abstract class StandardRoom implements Room {
     protected List<Passage> _passageList = new LinkedList<Passage>();
     protected List<Describable> _describableList = new LinkedList<Describable>();
     protected Queue<String> _enterMessageQueue = new LinkedList<String>();
+    protected List<Container> _containerList = new LinkedList<Container>();
 
     public StandardRoom(Sprite image) {
         _roomSprite = image;
@@ -41,7 +43,7 @@ public abstract class StandardRoom implements Room {
         // Think things, animate things, trigger things, etc.
 
         // Pop an item off the entry observation queue
-        String textId =_enterMessageQueue.poll();
+        String textId = _enterMessageQueue.poll();
         if (textId != null) {
             PlayGame.getPlayer().think(Messages.getText(textId));
         }
@@ -55,6 +57,10 @@ public abstract class StandardRoom implements Room {
         _pickupableItemList.add(interactable);
     }
 
+    public void addContainer(Container interactable) {
+        _containerList.add(interactable);
+    }
+
     public void addDescribable(Describable describable) {
         _describableList.add(describable);
     }
@@ -63,6 +69,9 @@ public abstract class StandardRoom implements Room {
     public void draw(SpriteBatch batch) {
         _roomSprite.draw(batch);
         for (Interactable interactable : _pickupableItemList) {
+            interactable.draw(batch);
+        }
+        for (Interactable interactable : _containerList) {
             interactable.draw(batch);
         }
     }
@@ -77,6 +86,9 @@ public abstract class StandardRoom implements Room {
         }
         for (Describable describable : _describableList) {
             describable.draw(renderer);
+        }
+        for (Container container : _containerList) {
+            container.draw(renderer);
         }
     }
 
@@ -94,6 +106,9 @@ public abstract class StandardRoom implements Room {
         }
         for (Describable describable : _describableList) {
             describable.beautifyCursor(curX, curY);
+        }
+        for (Container container : _containerList) {
+            container.beautifyCursor(curX, curY);
         }
     }
 
@@ -118,16 +133,38 @@ public abstract class StandardRoom implements Room {
                 return true;
             }
         }
+
+        for (Container container : _containerList) {
+            if (container.getState() == 0) {
+                return container.click(curX, curY);
+            } else {
+                if (container.click(curX, curY)) {
+                    if (container.getPickupableItem() != null) {
+                        PlayGame.getPlayer().getInventory().addItem(container.getPickupableItem());
+                        container.setPickupableItem(null);
+                    }
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public boolean click(float curX, float curY, ItemId itemId) {
         for (Interactable interactable : _passageList) {
-
             if (interactable.getInteractionBox().contains(curX, curY)) {
                 if (interactable.isItemInteractable()) {
                     if (interactable.itemIteract(itemId)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        for (Container container : _containerList) {
+            if (container.getInteractionBox().contains(curX, curY)) {
+                if (container.isItemInteractable()) {
+                    if (container.itemIteract(itemId)) {
                         return true;
                     }
                 }

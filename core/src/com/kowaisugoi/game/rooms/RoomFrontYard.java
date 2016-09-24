@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.graphics.SnowAnimation;
+import com.kowaisugoi.game.interactables.Container;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
@@ -44,8 +45,12 @@ public class RoomFrontYard extends StandardRoom {
                 new Rectangle(95, 28, 32, 32),
                 ItemId.KEY_HOUSE);
 
-        addPickupableItem(dankKey);
+        Container floorMat = new Container(null,new Sprite(new Texture("items/key.png")),null,new Rectangle(65,32,20,3));
 
+        floorMat.setThoughts("Something under the mat?","Looks like he still keeps the spare key under here","There is nothing left to get");
+
+        floorMat.setPickupableItem(dankKey);
+        addContainer(floorMat);
         addPassage(frontDoor);
         addPassage(backToRoad);
         addPassage(toShed);
