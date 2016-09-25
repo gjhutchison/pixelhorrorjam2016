@@ -45,9 +45,14 @@ public class RoomFrontYard extends StandardRoom {
                 new Rectangle(95, 28, 32, 32),
                 ItemId.KEY_HOUSE);
 
-        Container floorMat = new Container(null,new Sprite(new Texture("items/key.png")),null,new Rectangle(65,32,20,3));
+        Container floorMat = new Container(new Sprite(new Texture("fakerock_1.png")),
+                new Sprite(new Texture("fakerock_2.png")),
+                new Sprite(new Texture("fakerock_3.png")),
+                new Rectangle(88, 30, 8, 8));
 
-        floorMat.setThoughts("Something under the mat?","Looks like he still keeps the spare key under here","There is nothing left to get");
+        floorMat.setThoughts(Messages.getText("frontyard.fakerock.interact.container1"),
+                Messages.getText("frontyard.fakerock.interact.container2"),
+                Messages.getText("frontyard.fakerock.interact.container3"));
 
         floorMat.setPickupableItem(dankKey);
         addContainer(floorMat);
