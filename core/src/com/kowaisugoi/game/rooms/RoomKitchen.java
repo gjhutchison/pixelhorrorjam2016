@@ -4,6 +4,8 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.interactables.objects.ItemId;
+import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
@@ -45,5 +47,8 @@ public class RoomKitchen extends StandardRoom {
         addDescribable(outlet);
         addDescribable(window);
         addDescribable(fridge);
+
+        PickupableItem glass = new PickupableItem(new Sprite(new Texture("items/glass.png")), new Rectangle(91, 32, 8, 16), ItemId.GLASS);
+        addPickupableItem(glass);
     }
 }
