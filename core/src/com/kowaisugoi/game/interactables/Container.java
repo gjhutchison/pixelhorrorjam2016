@@ -87,7 +87,11 @@ public class Container implements Interactable {
     @Override
     public void beautifyCursor(float curX, float curY) {
         if (_interactionBox.contains(curX, curY)) {
-            PlayGame.getPlayer().setCursor(Player.CursorType.PICKUP);
+            if (_state < 2) {
+                PlayGame.getPlayer().setCursor(Player.CursorType.PICKUP);
+            } else {
+                PlayGame.getPlayer().setCursor(Player.CursorType.EXAMINE);
+            }
         }
     }
 
