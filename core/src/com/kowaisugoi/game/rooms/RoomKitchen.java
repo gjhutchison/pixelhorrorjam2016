@@ -10,6 +10,7 @@ import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
+import com.kowaisugoi.game.interactables.scenic.ItemInteractableScenic;
 import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.system.GameUtil;
 
@@ -48,7 +49,20 @@ public class RoomKitchen extends StandardRoom {
         addDescribable(window);
         addDescribable(fridge);
 
+
+        PickupableItem glassWater = new PickupableItem(new Sprite(new Texture("items/glass_water.png")),
+                new Rectangle(0, 0, 0, 0),
+                ItemId.GLASS_WATER);
+
+        ItemInteractableScenic stove = new ItemInteractableScenic(Messages.getText("kitchen.stove.thought"),
+                Messages.getText("kitchen.interaction.stove.snowglass"),
+                new Rectangle(13, 26, 22, 8),
+                ItemId.GLASS_SNOW, glassWater);
+
         PickupableItem glass = new PickupableItem(new Sprite(new Texture("items/glass.png")), new Rectangle(91, 32, 8, 16), ItemId.GLASS);
+
+        addDescribable(stove);
+
         addPickupableItem(glass);
     }
 }

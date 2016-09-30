@@ -5,16 +5,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.SoundId;
-import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.graphics.SnowAnimation;
-import com.kowaisugoi.game.interactables.Container;
+import com.kowaisugoi.game.interactables.scenic.Container;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.messages.Messages;
-import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil.Direction;
 
 public class RoomFrontYard extends StandardRoom {

@@ -153,6 +153,16 @@ public class PlayerInventory implements Disposable {
         return _selectedSlot.getItem().getItemId();
     }
 
+    public void removeItem(ItemId id) {
+        for (int i = 0; i < _inventorySlots.size(); i++) {
+            InventorySlot slot = _inventorySlots.get(i);
+            if (slot.getItem().getItemId() == id) {
+                _inventorySlots.remove(i);
+                return;
+            }
+        }
+    }
+
     @Override
     public void dispose() {
         _inventorySprite.getTexture().dispose();

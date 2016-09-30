@@ -3,15 +3,13 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.kowaisugoi.game.graphics.Transition;
-import com.kowaisugoi.game.interactables.Container;
+import com.kowaisugoi.game.interactables.scenic.Container;
 import com.kowaisugoi.game.interactables.Interactable;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.messages.Messages;
-import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 
 import java.util.LinkedList;
@@ -165,6 +163,15 @@ public abstract class StandardRoom implements Room {
             if (container.getInteractionBox().contains(curX, curY)) {
                 if (container.isItemInteractable()) {
                     if (container.itemIteract(itemId)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        for (Describable describable : _describableList) {
+            if (describable.getInteractionBox().contains(curX, curY)) {
+                if (describable.isItemInteractable()) {
+                    if (describable.itemIteract(itemId)) {
                         return true;
                     }
                 }
