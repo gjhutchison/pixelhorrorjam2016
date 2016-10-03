@@ -72,6 +72,7 @@ public class BlockedPassage extends DirectionalPassage {
             _unlocked = true;
             if (GameUtil.isNotNullOrEmpty(_unlockText)) {
                 PlayGame.getPlayer().think(_unlockText);
+                PlayGame.getPlayer().getInventory().removeItem(id);
             }
             return true;
         }
