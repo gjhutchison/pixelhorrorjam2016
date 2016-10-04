@@ -22,6 +22,6 @@ public class RoomShedInterior extends StandardRoom {
 
         addPassage(shedDoor);
 
-        pushEnterRemark(Messages.getText("shedinterior.enter.thought"));
+        pushEnterRemark("shedinterior.enter.thought");
     }
 }
