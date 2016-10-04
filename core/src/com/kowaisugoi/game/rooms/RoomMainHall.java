@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class RoomMainHall extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/mainhall/cozy_room.png";
+    private static final String ROOM_URL = "rooms/mainhall/cozy.png";
     private FireAnimation _fireAnimation;
     int _currentSprite = 0;
     float _deltaBuffer = 0;

@@ -13,7 +13,7 @@ import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomBedroom extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/bedroom/sleeptight_redo.png";
+    private static final String ROOM_URL = "rooms/bedroom/sleeptight3.png";
 
     public RoomBedroom() {
         super(new Sprite(new Texture(ROOM_URL)));
