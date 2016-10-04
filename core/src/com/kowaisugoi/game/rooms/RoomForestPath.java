@@ -33,7 +33,7 @@ public class RoomForestPath extends StandardRoom {
                 new Rectangle(110, 10, 25, 65));
 
         Passage forward = new DirectionalPassage(RoomId.ROAD, RoomId.FRONTYARD, new Rectangle(60, 20, 30, 60), GameUtil.Direction.UP);
-        Passage backward = new DirectionalPassage(RoomId.ROAD, RoomId.CAR, new Rectangle(55, 0, 50, 10), GameUtil.Direction.DOWN);
+        Passage backward = new DirectionalPassage(RoomId.ROAD, RoomId.PARKING_AREA, new Rectangle(55, 0, 50, 10), GameUtil.Direction.DOWN);
 
         addPassage(forward);
         addPassage(backward);

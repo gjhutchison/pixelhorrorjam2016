@@ -2,8 +2,10 @@ package com.kowaisugoi.game.rooms;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.control.flags.FlagId;
+import com.kowaisugoi.game.graphics.SnowAnimation;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
@@ -19,7 +21,7 @@ public class RoomCar extends StandardRoom {
     public RoomCar() {
         super(new Sprite(new Texture(ROOM_URL)));
 
-        Passage carDoor = new DirectionalPassage(RoomId.CAR, RoomId.ROAD, new Rectangle(140, 0, 20, 200), GameUtil.Direction.RIGHT);
+        Passage carDoor = new DirectionalPassage(RoomId.CAR, RoomId.PARKING_AREA, new Rectangle(140, 0, 20, 200), GameUtil.Direction.RIGHT);
 
         Describable airFreshener = new GeneralDescribable(Messages.getText("car.airfreshener.description"), new Rectangle(75, 57, 10, 10));
 
