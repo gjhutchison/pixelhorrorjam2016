@@ -60,6 +60,7 @@ public class RoomKitchen extends StandardRoom {
                 ItemId.GLASS_SNOW, glassWater);
 
         PickupableItem glass = new PickupableItem(new Sprite(new Texture("items/glass.png")), new Rectangle(91, 32, 8, 16), ItemId.GLASS);
+        glass.setPickupText(Messages.getText("kitchen.pickup.glass"));
 
         addDescribable(stove);
 
