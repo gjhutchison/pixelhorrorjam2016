@@ -23,11 +23,17 @@ public class PickupableItem implements Item {
 
     private SoundId _soundId;
 
+    private String _pickupText;
+
     public PickupableItem(Sprite sprite, Rectangle interactionBox, ItemId id) {
         _interactionBox = interactionBox;
         _sprite = sprite;
         _sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
         _id = id;
+    }
+
+    public void setPickupText(String pickupText) {
+        _pickupText = pickupText;
     }
 
     // Draw any world squares (debug interactable areas)
@@ -54,6 +60,9 @@ public class PickupableItem implements Item {
         if (_interactionBox.contains(curX, curY)) {
             notifyListeners();
             AudioManager.playSound(_soundId);
+            if (_pickupText != null) {
+                PlayGame.getPlayer().think(_pickupText);
+            }
             return true;
         }
         return false;
