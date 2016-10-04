@@ -18,6 +18,8 @@ public final class RoomManager {
         _roomMap.put(RoomId.BEDROOM, new RoomBedroom());
         _roomMap.put(RoomId.BATHROOM, new RoomBathroomPeek());
         _roomMap.put(RoomId.KITCHEN, new RoomKitchen());
+        _roomMap.put(RoomId.CRAWLSPACE, new RoomCrawlspace());
+        _roomMap.put(RoomId.PARKING_AREA, new RoomCarPark());
         _roomMap.put(RoomId.SHED, new RoomShed());
         _roomMap.put(RoomId.SHED_INTERIOR, new RoomShedInterior());
     }

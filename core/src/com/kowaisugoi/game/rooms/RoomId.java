@@ -7,6 +7,7 @@ public enum RoomId {
     BEDROOM,
     BATHROOM,
     BACKYARD,
+    CRAWLSPACE,
     FRONTYARD,
     KITCHEN,
     SHED,

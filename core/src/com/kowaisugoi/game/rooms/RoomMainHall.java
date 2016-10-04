@@ -47,6 +47,10 @@ public class RoomMainHall extends StandardRoom {
                 RoomId.FRONTYARD,
                 new Rectangle(55, 0, 50, 10),
                 GameUtil.Direction.DOWN);
+        Passage crawlDoor = new DirectionalPassage(RoomId.MAIN_HALL,
+                RoomId.CRAWLSPACE,
+                new Rectangle(120, 10, 27, 27),
+                GameUtil.Direction.UP);
 
         Describable paintingDescription = new GeneralDescribable(Messages.getText("mainhall.painting.thought"),
                 new Rectangle(55, 50, 40, 30));
@@ -55,6 +59,7 @@ public class RoomMainHall extends StandardRoom {
         addDescribable(paintingDescription);
         addPassage(hallDoor);
         addPassage(turnAround);
+        addPassage(crawlDoor);
         _fireAnimation = new FireAnimation(80, 31, 50);
     }
 
