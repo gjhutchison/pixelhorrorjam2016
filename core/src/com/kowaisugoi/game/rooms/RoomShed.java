@@ -2,8 +2,10 @@ package com.kowaisugoi.game.rooms;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.SoundId;
+import com.kowaisugoi.game.graphics.SnowAnimation;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
@@ -17,8 +19,12 @@ public class RoomShed extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/shed/shed.png";
 
+    private SnowAnimation _snowAnimation;
+
     public RoomShed() {
         super(new Sprite(new Texture(ROOM_URL)));
+
+        _snowAnimation = new SnowAnimation(50, 6);
 
         BlockedPassage shedDoor = new BlockedPassage(RoomId.SHED,
                 RoomId.SHED_INTERIOR,
@@ -42,5 +48,17 @@ public class RoomShed extends StandardRoom {
                 ItemId.GLASS, glassSnow);
 
         addDescribable(looseSnow);
+    }
+
+    @Override
+    public void update(float delta) {
+        _snowAnimation.updateSnow(delta);
+        super.update(delta);
+    }
+
+    @Override
+    public void draw(ShapeRenderer renderer) {
+        _snowAnimation.draw(renderer);
+        super.draw(renderer);
     }
 }
