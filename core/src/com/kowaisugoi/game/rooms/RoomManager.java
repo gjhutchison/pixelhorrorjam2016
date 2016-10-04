@@ -19,6 +19,7 @@ public final class RoomManager {
         _roomMap.put(RoomId.BATHROOM, new RoomBathroomPeek());
         _roomMap.put(RoomId.KITCHEN, new RoomKitchen());
         _roomMap.put(RoomId.SHED, new RoomShed());
+        _roomMap.put(RoomId.SHED_INTERIOR, new RoomShedInterior());
     }
 
     public Room getRoomFromId(RoomId roomId) {
