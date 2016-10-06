@@ -70,7 +70,7 @@ public class PlayGame implements Screen {
         _viewport = new StretchViewport(GAME_WIDTH, GAME_HEIGHT, _camera);
 
         _player = new Player(this, inventory);
-        _player.startGame(RoomId.CAR);
+        _player.startGame(RoomId.SHED_INTERIOR);
 
         Gdx.input.setInputProcessor(_player);
     }

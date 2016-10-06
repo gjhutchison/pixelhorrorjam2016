@@ -19,6 +19,7 @@ public class PickupableItem implements Item {
     private LinkedList<InteractionListener> _listeners = new LinkedList<InteractionListener>();
     private Rectangle _interactionBox;
     private Sprite _sprite;
+    private Sprite _invSprite;
     private ItemId _id;
 
     private SoundId _soundId;
@@ -28,6 +29,15 @@ public class PickupableItem implements Item {
     public PickupableItem(Sprite sprite, Rectangle interactionBox, ItemId id) {
         _interactionBox = interactionBox;
         _sprite = sprite;
+        _invSprite = sprite;
+        _sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
+        _id = id;
+    }
+
+    public PickupableItem(Sprite worldSprite, Sprite invSprite, Rectangle interactionBox, ItemId id) {
+        _interactionBox = interactionBox;
+        _sprite = worldSprite;
+        _invSprite = invSprite;
         _sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
         _id = id;
     }
@@ -36,8 +46,12 @@ public class PickupableItem implements Item {
         _pickupText = pickupText;
     }
 
-    // Draw any world squares (debug interactable areas)
+    // Draw debug areas
     public void draw(ShapeRenderer renderer) {
+        if (PlayGame.getDebug()) {
+            renderer.setColor(0.5f, 0.3f, 0.1f, 0.25f);
+            renderer.rect(_interactionBox.x, _interactionBox.y, _interactionBox.width, _interactionBox.height);
+        }
     }
 
     // Draw the world sprite
@@ -47,7 +61,7 @@ public class PickupableItem implements Item {
 
     // Draw the inventory sprite
     public Sprite getInventorySprite() {
-        return _sprite;
+        return _invSprite;
     }
 
     @Override
