@@ -2,6 +2,7 @@ package com.kowaisugoi.game.system;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.screens.PlayGame;
 
 /**
@@ -15,6 +16,7 @@ public final class GlobalKeyHandler {
     static final int EXIT_KEY = Input.Keys.ESCAPE;
     static final int YES_KEY = Input.Keys.Y;
     static final int NO_KEY = Input.Keys.N;
+    static final int SHED_INTERIOR_KEY = Input.Keys.S;
 
     public static boolean keyUp(int keycode) {
         if (keycode == FULLSCREEN_KEY) {
@@ -37,7 +39,6 @@ public final class GlobalKeyHandler {
                 PlayGame.setPaused(false);
             } else {
                 PlayGame.setPaused(true);
-                // TODO: Display a little "Quit Y/N" sprite on top of things in PlayGame
             }
         }
 
@@ -68,6 +69,12 @@ public final class GlobalKeyHandler {
                 } else {
                     PlayGame.setPlacementMode(false);
                 }
+            }
+        }
+
+        if (keycode == SHED_INTERIOR_KEY) {
+            if (PlayGame.getDebug()) {
+                PlayGame.getPlayer().enterRoom(RoomId.SHED_INTERIOR);
             }
         }
 
