@@ -41,7 +41,7 @@ public class RoomKitchen extends StandardRoom {
                 new Rectangle(95, 49, 41, 17));
 
         Describable fridge = new GeneralDescribable(Messages.getText("kitchen.fridge.thought"),
-                new Rectangle(36, 12, 37, 58));
+                new Rectangle(48, 22, 24, 49));
 
         addDescribable(sink);
         addDescribable(toaster);
@@ -55,7 +55,7 @@ public class RoomKitchen extends StandardRoom {
 
         ItemInteractableScenic stove = new ItemInteractableScenic(Messages.getText("kitchen.stove.thought"),
                 Messages.getText("kitchen.interaction.stove.snowglass"),
-                new Rectangle(13, 26, 22, 8),
+                new Rectangle(13, 24, 35, 12),
                 ItemId.GLASS_SNOW, glassWater);
 
         PickupableItem glass = new PickupableItem(new Sprite(new Texture("items/glass.png")),

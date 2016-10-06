@@ -15,7 +15,7 @@ import com.kowaisugoi.game.system.GameUtil;
 public class RoomCarPark extends StandardRoom {
 
     private SnowAnimation _snowAnimation;
-    private static final String ROOM_URL = "rooms/carpark/carpark.png";
+    private static final String ROOM_URL = "rooms/parking/carpark.png";
 
     public RoomCarPark() {
         super(new Sprite(new Texture(ROOM_URL)));

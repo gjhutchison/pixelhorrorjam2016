@@ -9,7 +9,7 @@ import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomCrawlspace extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/crawlspace/crawlspace.png";
+    private static final String ROOM_URL = "rooms/crawlspace/crawlspace_noclutter.png";
 
     public RoomCrawlspace() {
         super(new Sprite(new Texture(ROOM_URL)));
