@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -43,6 +46,7 @@ public class PlayGame implements Screen {
     private static Player _player;
     private static RoomManager _roomManager;
     private static FlagManager _flagManager;
+    private static boolean _paused;
 
     public static Player getPlayer() {
         return _player;
@@ -75,8 +79,55 @@ public class PlayGame implements Screen {
         Gdx.input.setInputProcessor(_player);
     }
 
+    public static void setPaused(boolean paused) {
+        _paused = paused;
+    }
+
+    public static boolean getPaused() {
+        return _paused;
+    }
+
+    public void renderPauseDialog() {
+        // Fade to black
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        _shapeRenderer.setProjectionMatrix(_camera.combined);
+        _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        _shapeRenderer.setColor(0.05f, 0.05f, 0.05f, 0.5f);
+        _shapeRenderer.rect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        _shapeRenderer.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
+
+        _batch.begin();
+        // TODO: Factor this out (at the very least)
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/raleway/Raleway-Medium.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 32;
+        BitmapFont bfont = generator.generateFont(parameter);
+        GlyphLayout layout = new GlyphLayout();
+        bfont.getData().setScale(0.12f, 0.12f);
+
+        float x_pos = GAME_WIDTH/2;
+        float y_pos = 20 / 2;
+
+        bfont.setColor(1.0f, 1.0f, 1.0f, 0.5f);
+
+        layout.setText(bfont, "Escape to desktop? Y/N");
+
+        x_pos -= layout.width / 2;
+        y_pos += layout.height / 2;
+
+        bfont.draw(_batch, layout, x_pos, y_pos);
+        _batch.end();
+    }
+
     @Override
     public void render(float delta) {
+        if (_paused) {
+            renderPauseDialog();
+            return;
+        }
+
         updateGame(delta);
         renderGame();
     }

@@ -13,6 +13,8 @@ public final class GlobalKeyHandler {
     static final int DEBUG_KEY = Input.Keys.F8;
     static final int PLACEMENT_HELPER = Input.Keys.F9;
     static final int EXIT_KEY = Input.Keys.ESCAPE;
+    static final int YES_KEY = Input.Keys.Y;
+    static final int NO_KEY = Input.Keys.N;
 
     public static boolean keyUp(int keycode) {
         if (keycode == FULLSCREEN_KEY) {
@@ -31,7 +33,24 @@ public final class GlobalKeyHandler {
         }
 
         if (keycode == EXIT_KEY) {
-            Gdx.app.exit();
+            if (PlayGame.getPaused()) {
+                PlayGame.setPaused(false);
+            } else {
+                PlayGame.setPaused(true);
+                // TODO: Display a little "Quit Y/N" sprite on top of things in PlayGame
+            }
+        }
+
+        if (keycode == YES_KEY) {
+            if (PlayGame.getPaused()) {
+                Gdx.app.exit();
+            }
+        }
+
+        if (keycode == NO_KEY) {
+            if (PlayGame.getPaused()) {
+                PlayGame.setPaused(false);
+            }
         }
 
         if (keycode == DEBUG_KEY) {
