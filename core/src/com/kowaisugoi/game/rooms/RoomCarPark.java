@@ -4,18 +4,36 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.control.flags.FlagId;
+import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.graphics.SnowAnimation;
+import com.kowaisugoi.game.interactables.objects.ItemId;
+import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.messages.Messages;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BODY_FOUND;
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_CAR_SNOWREMOVED;
 
 public class RoomCarPark extends StandardRoom {
 
     private SnowAnimation _snowAnimation;
     private static final String ROOM_URL = "rooms/parking/carpark.png";
+    private static final String ROOM_URL2 = "rooms/parking/snowed_car.png";
+
+    private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
+    private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
+
+    private List<Passage> _passageList1;
+    private List<Passage> _passageList2;
 
     public RoomCarPark() {
         super(new Sprite(new Texture(ROOM_URL)));
@@ -29,9 +47,26 @@ public class RoomCarPark extends StandardRoom {
                 RoomId.ROAD,
                 new Rectangle(97, 15, 36, 62),
                 GameUtil.Direction.UP);
-
         addPassage(enterCar);
         addPassage(toPath);
+
+        BlockedPassage snowCar = new BlockedPassage(RoomId.PARKING_AREA,
+                RoomId.CAR,
+                new Rectangle(31, 11, 45, 34),
+                GameUtil.Direction.UP,
+                ItemId.SHOVEL,
+                Messages.getText("carpark.snow.interact.locked"),
+                Messages.getText("carpark.snow.interact.unlocked"),
+                null);
+        snowCar.setUnlockedToggleFlag(FLAG_CAR_SNOWREMOVED);
+
+        _passageList1 = new LinkedList<Passage>();
+        _passageList1.add(enterCar);
+        _passageList1.add(toPath);
+
+        _passageList2 = new LinkedList<Passage>();
+        _passageList2.add(toPath);
+        _passageList2.add(snowCar);
     }
 
     @Override
@@ -44,5 +79,20 @@ public class RoomCarPark extends StandardRoom {
     public void draw(ShapeRenderer renderer) {
         _snowAnimation.draw(renderer);
         super.draw(renderer);
+    }
+
+    @Override
+    public void flagUpdate() {
+        if (PlayGame.getFlagManager().getFlag(FLAG_BODY_FOUND).getState()
+                && !PlayGame.getFlagManager().getFlag(FLAG_CAR_SNOWREMOVED).getState()) {
+            setPassageList(_passageList2);
+            _roomSprite = _roomSprite2;
+            pushEnterRemark("carpark.enter.snowcovered");
+        } else if (PlayGame.getFlagManager().getFlag(FLAG_CAR_SNOWREMOVED).getState()) {
+            _roomSprite = _roomSprite1;
+        } else {
+            setPassageList(_passageList1);
+            _roomSprite = _roomSprite1;
+        }
     }
 }

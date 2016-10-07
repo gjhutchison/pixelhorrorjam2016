@@ -63,6 +63,10 @@ public abstract class StandardRoom implements Room {
         _describableList.add(describable);
     }
 
+    public void setPassageList(List<Passage> passageList) {
+        _passageList = passageList;
+    }
+
     @Override
     public void draw(SpriteBatch batch) {
         _roomSprite.draw(batch);
@@ -195,5 +199,9 @@ public abstract class StandardRoom implements Room {
     @Override
     public void pushEnterRemark(String textId) {
         _enterMessageQueue.add(textId);
+    }
+
+    @Override
+    public void flagUpdate() {
     }
 }

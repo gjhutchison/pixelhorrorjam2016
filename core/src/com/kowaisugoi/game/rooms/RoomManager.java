@@ -28,6 +28,11 @@ public final class RoomManager {
         return _roomMap.get(roomId);
     }
 
+    public void flagUpdate(){
+        for (RoomId id : _roomMap.keySet()){
+            _roomMap.get(id).flagUpdate();
+        }
+    }
     // Clean up all rooms, theoretically on closing the game
     public void cleanUp() {
         for (Room room : _roomMap.values()) {

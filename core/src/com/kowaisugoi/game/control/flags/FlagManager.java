@@ -1,5 +1,7 @@
 package com.kowaisugoi.game.control.flags;
 
+import com.kowaisugoi.game.screens.PlayGame;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +19,21 @@ public final class FlagManager {
     }
 
     public void setFlag(FlagId id, boolean value) {
+        if (!_flags.containsKey(id)) {
+            return;
+        }
+
         _flags.get(id).setState(value);
+        PlayGame.getRoomManager().flagUpdate();
+    }
+
+    public void toggleFlag(FlagId id) {
+        if (!_flags.containsKey(id)) {
+            return;
+        }
+
+        _flags.get(id).toggleState();
+        PlayGame.getRoomManager().flagUpdate();
     }
 
     public Flag getFlag(FlagId id) {

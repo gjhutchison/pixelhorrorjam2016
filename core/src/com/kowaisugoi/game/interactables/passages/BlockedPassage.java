@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.control.flags.Flag;
+import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.player.thought.ThoughtBox;
 import com.kowaisugoi.game.rooms.RoomId;
@@ -17,6 +18,8 @@ public class BlockedPassage extends DirectionalPassage {
     private ItemId _interactionItemId;
 
     private SoundId _lockedSoundId;
+
+    private FlagId _unlockFlag;
 
     public BlockedPassage(RoomId src,
                           RoomId dest,
@@ -44,6 +47,10 @@ public class BlockedPassage extends DirectionalPassage {
 
     public void setLockedSoundId(SoundId id) {
         _lockedSoundId = id;
+    }
+
+    public void setUnlockedToggleFlag(FlagId unlockFlag) {
+        _unlockFlag = unlockFlag;
     }
 
     @Override
@@ -74,6 +81,7 @@ public class BlockedPassage extends DirectionalPassage {
                 PlayGame.getPlayer().think(_unlockText);
                 PlayGame.getPlayer().getInventory().removeItem(id);
             }
+            PlayGame.getFlagManager().toggleFlag(_unlockFlag);
             return true;
         }
         return false;

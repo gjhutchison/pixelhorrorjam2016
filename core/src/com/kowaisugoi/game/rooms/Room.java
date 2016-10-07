@@ -24,4 +24,6 @@ public interface Room extends Disposable {
     public void enter();
 
     public void pushEnterRemark(String textId);
+
+    public void flagUpdate();
 }
