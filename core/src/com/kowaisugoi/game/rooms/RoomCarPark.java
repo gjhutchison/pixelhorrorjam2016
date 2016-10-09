@@ -28,12 +28,17 @@ public class RoomCarPark extends StandardRoom {
     private SnowAnimation _snowAnimation;
     private static final String ROOM_URL = "rooms/parking/carpark.png";
     private static final String ROOM_URL2 = "rooms/parking/snowed_car.png";
+    private static final String ROOM_URL3 = "rooms/parking/cardamaged.png";
 
     private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
     private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
+    private final Sprite _roomSprite3 = new Sprite(new Texture(ROOM_URL3));
 
     private List<Passage> _passageList1;
     private List<Passage> _passageList2;
+    private List<Passage> _passageList3;
+
+    private List<Describable> _descriptionList1;
 
     public RoomCarPark() {
         super(new Sprite(new Texture(ROOM_URL)));
@@ -60,6 +65,21 @@ public class RoomCarPark extends StandardRoom {
                 null);
         snowCar.setUnlockedToggleFlag(FLAG_CAR_SNOWREMOVED);
 
+        BlockedPassage jammedCar = new BlockedPassage(RoomId.PARKING_AREA,
+                RoomId.CAR,
+                new Rectangle(66, 18, 23, 21),
+                GameUtil.Direction.UP,
+                ItemId.SHOVEL,
+                Messages.getText("carpark.jammeddoor.interact.locked"),
+                Messages.getText("carpark.jammeddoor.interact.unlocked"),
+                null);
+
+        Describable carDamageDescription = new GeneralDescribable(Messages.getText("carpark.damage.description"),
+                new Rectangle(25, 22, 30, 13));
+
+        _descriptionList1 = new LinkedList<Describable>();
+        _descriptionList1.add(carDamageDescription);
+
         _passageList1 = new LinkedList<Passage>();
         _passageList1.add(enterCar);
         _passageList1.add(toPath);
@@ -67,6 +87,10 @@ public class RoomCarPark extends StandardRoom {
         _passageList2 = new LinkedList<Passage>();
         _passageList2.add(toPath);
         _passageList2.add(snowCar);
+
+        _passageList3 = new LinkedList<Passage>();
+        _passageList3.add(toPath);
+        _passageList3.add(jammedCar);
     }
 
     @Override
@@ -86,10 +110,12 @@ public class RoomCarPark extends StandardRoom {
         if (PlayGame.getFlagManager().getFlag(FLAG_BODY_FOUND).getState()
                 && !PlayGame.getFlagManager().getFlag(FLAG_CAR_SNOWREMOVED).getState()) {
             setPassageList(_passageList2);
-            _roomSprite = _roomSprite2;
+            setSprite(_roomSprite2);
             pushEnterRemark("carpark.enter.snowcovered");
         } else if (PlayGame.getFlagManager().getFlag(FLAG_CAR_SNOWREMOVED).getState()) {
-            _roomSprite = _roomSprite1;
+            setPassageList(_passageList3);
+            setSprite(_roomSprite3);
+            setDescriptionList(_descriptionList1);
         } else {
             setPassageList(_passageList1);
             _roomSprite = _roomSprite1;

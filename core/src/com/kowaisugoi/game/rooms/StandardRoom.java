@@ -67,6 +67,14 @@ public abstract class StandardRoom implements Room {
         _passageList = passageList;
     }
 
+    public void setDescriptionList(List<Describable> descriptionList) {
+        _describableList = descriptionList;
+    }
+
+    public void setSprite(Sprite sprite) {
+        _roomSprite = sprite;
+    }
+
     @Override
     public void draw(SpriteBatch batch) {
         _roomSprite.draw(batch);
