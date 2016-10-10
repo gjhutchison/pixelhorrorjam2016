@@ -28,6 +28,8 @@ public class PickupableItem implements Item {
 
     private String _pickupText;
 
+    private boolean _pickedUp;
+
     private Map<ItemId, String> _itemInteractionMessages;
 
     public PickupableItem(Sprite sprite, Rectangle interactionBox, ItemId id) {
@@ -36,6 +38,8 @@ public class PickupableItem implements Item {
         _invSprite = sprite;
         _sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
         _id = id;
+
+        _pickedUp = false;
 
         _itemInteractionMessages = new HashMap<ItemId, String>();
     }
@@ -71,6 +75,10 @@ public class PickupableItem implements Item {
         return _invSprite;
     }
 
+    public boolean isPickedUp() {
+        return _pickedUp;
+    }
+
     @Override
     public Rectangle getInteractionBox() {
         return _interactionBox;
@@ -83,6 +91,7 @@ public class PickupableItem implements Item {
             AudioManager.playSound(_soundId);
             if (_pickupText != null) {
                 PlayGame.getPlayer().think(_pickupText);
+                _pickedUp = true;
             }
             return true;
         }

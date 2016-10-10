@@ -23,16 +23,22 @@ public class RoomShedInterior extends StandardRoom {
                 new Rectangle(2, 56, 78, 25),
                 ItemId.SHOVEL);
 
+        PickupableItem hammer = new PickupableItem(new Sprite(new Texture("rooms/shedinterior/hammer.png")),
+                new Sprite(new Texture("items/hammericon.png")),
+                new Rectangle(87,15,15,8),
+                ItemId.HAMMER);
+
         Passage shedDoor = new DirectionalPassage(RoomId.SHED_INTERIOR,
                 RoomId.SHED,
                 new Rectangle(55, 0, 50, 10),
                 GameUtil.Direction.DOWN);
 
         shovel.setPickupText(Messages.getText("shedinterior.pickup.shovel"));
-
+        hammer.setPickupText(Messages.getText("shedinterior.pickup.hammer"));
         addPassage(shedDoor);
 
         pushEnterRemark("shedinterior.enter.thought");
         addPickupableItem(shovel);
+        addPickupableItem(hammer);
     }
 }

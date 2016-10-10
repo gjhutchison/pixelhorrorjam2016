@@ -6,11 +6,11 @@ public enum ItemId {
     GLASS_SNOW,
     GLASS_WATER,
     SHOVEL,
+    HAMMER,
     STICK,
-    RAGS,
-    ALCOHOL,
+    STICK_RAGS,
+    STICK_RAGS_ALCOHOL,
     TORCH,
-    AXE,
     PRYBAR,
     KEYS
 }

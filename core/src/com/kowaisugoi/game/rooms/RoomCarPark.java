@@ -8,6 +8,7 @@ import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.graphics.SnowAnimation;
 import com.kowaisugoi.game.interactables.objects.ItemId;
+import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
@@ -40,6 +41,8 @@ public class RoomCarPark extends StandardRoom {
 
     private List<Describable> _descriptionList1;
 
+    private PickupableItem _stick;
+
     public RoomCarPark() {
         super(new Sprite(new Texture(ROOM_URL)));
         _snowAnimation = new SnowAnimation(50, 6);
@@ -69,10 +72,11 @@ public class RoomCarPark extends StandardRoom {
                 RoomId.CAR,
                 new Rectangle(66, 18, 23, 21),
                 GameUtil.Direction.UP,
-                ItemId.SHOVEL,
+                ItemId.PRYBAR,
                 Messages.getText("carpark.jammeddoor.interact.locked"),
                 Messages.getText("carpark.jammeddoor.interact.unlocked"),
                 null);
+        jammedCar.setItemInteractionMessage(ItemId.HAMMER, Messages.getText("carpark.interaction.hammer.cardoor"));
 
         Describable carDamageDescription = new GeneralDescribable(Messages.getText("carpark.damage.description"),
                 new Rectangle(25, 22, 30, 13));
@@ -91,6 +95,12 @@ public class RoomCarPark extends StandardRoom {
         _passageList3 = new LinkedList<Passage>();
         _passageList3.add(toPath);
         _passageList3.add(jammedCar);
+
+        _stick = new PickupableItem(new Sprite(new Texture("rooms/parking/stick.png")),
+                new Sprite(new Texture("items/stickicon.png")),
+                new Rectangle(60, 4, 19, 6),
+                ItemId.STICK);
+        _stick.setPickupText(Messages.getText("carpark.pickup.stick"));
     }
 
     @Override
@@ -116,6 +126,10 @@ public class RoomCarPark extends StandardRoom {
             setPassageList(_passageList3);
             setSprite(_roomSprite3);
             setDescriptionList(_descriptionList1);
+            if (!_stick.isPickedUp()) {
+                _pickupableItemList.clear();
+                addPickupableItem(_stick);
+            }
         } else {
             setPassageList(_passageList1);
             _roomSprite = _roomSprite1;
