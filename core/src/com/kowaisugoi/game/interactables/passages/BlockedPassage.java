@@ -6,6 +6,7 @@ import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.control.flags.Flag;
 import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.interactables.objects.ItemId;
+import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.player.thought.ThoughtBox;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.screens.PlayGame;
@@ -85,5 +86,16 @@ public class BlockedPassage extends DirectionalPassage {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void beautifyCursor(float curX, float curY) {
+        super.beautifyCursor(curX, curY);
+        if (PlayGame.getPlayer().getInteractionMode() != Player.InteractionMode.ITEM_INTERACTION) {
+            return;
+        }
+        if (getInteractionBox().contains(curX, curY)) {
+            PlayGame.getPlayer().setCursor(Player.CursorType.PICKUP);
+        }
     }
 }

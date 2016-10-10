@@ -18,6 +18,7 @@ import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.graphics.PlacementRectangle;
 import com.kowaisugoi.game.graphics.Transition;
+import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
 import com.kowaisugoi.game.rooms.Room;
@@ -107,12 +108,12 @@ public class PlayGame implements Screen {
         GlyphLayout layout = new GlyphLayout();
         bfont.getData().setScale(0.12f, 0.12f);
 
-        float x_pos = GAME_WIDTH/2;
+        float x_pos = GAME_WIDTH / 2;
         float y_pos = 20 / 2;
 
         bfont.setColor(1.0f, 1.0f, 1.0f, 0.5f);
 
-        layout.setText(bfont, "Escape to desktop? Y/N");
+        layout.setText(bfont, Messages.getText("system.exit"));
 
         x_pos -= layout.width / 2;
         y_pos += layout.height / 2;

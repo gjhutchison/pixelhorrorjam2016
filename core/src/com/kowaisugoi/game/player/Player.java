@@ -309,7 +309,8 @@ public final class Player implements Disposable, InputProcessor {
         // Default cursor, in case nobody else wants to set it
         setCursor(CursorType.REGULAR);
 
-        if (getInteractionMode() == InteractionMode.NORMAL) {
+        if (getInteractionMode() == InteractionMode.NORMAL ||
+                getInteractionMode() == InteractionMode.ITEM_INTERACTION) {
             getCurrentRoom().beautifyCursor(position.x, position.y);
         }
 

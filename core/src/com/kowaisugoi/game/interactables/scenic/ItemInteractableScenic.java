@@ -3,6 +3,7 @@ package com.kowaisugoi.game.interactables.scenic;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
+import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 
 //TODO: make this into it's own unique class but for now it will just be an extension of GeneralDescribable
@@ -45,5 +46,16 @@ public class ItemInteractableScenic extends GeneralDescribable {
         }
 
         return false;
+    }
+
+    @Override
+    public void beautifyCursor(float curX, float curY) {
+        super.beautifyCursor(curX, curY);
+        if (PlayGame.getPlayer().getInteractionMode() != Player.InteractionMode.ITEM_INTERACTION) {
+            return;
+        }
+        if (getInteractionBox().contains(curX, curY)) {
+            PlayGame.getPlayer().setCursor(Player.CursorType.PICKUP);
+        }
     }
 }
