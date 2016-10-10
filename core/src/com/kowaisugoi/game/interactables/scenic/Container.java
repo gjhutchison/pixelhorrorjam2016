@@ -12,6 +12,9 @@ import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Container implements Interactable {
 
     private Rectangle _interactionBox;
@@ -27,6 +30,8 @@ public class Container implements Interactable {
 
     private String _thoughts[];
 
+    private Map<ItemId, String> _itemInteractionMessages;
+
     public Container(Sprite state1, Sprite state2, Sprite state3, Rectangle interactionBox) {
         _sprites = new Sprite[3];
         _thoughts = new String[3];
@@ -34,6 +39,9 @@ public class Container implements Interactable {
         _sprites[1] = state2;
         _sprites[2] = state3;
         _interactionBox = interactionBox;
+
+        _itemInteractionMessages = new HashMap<ItemId, String>();
+
         for (Sprite sprite : _sprites) {
             if (sprite != null) {
                 sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
@@ -122,6 +130,19 @@ public class Container implements Interactable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String getItemInteractionMessage(ItemId id) {
+        if (_itemInteractionMessages.containsKey(id)) {
+            return _itemInteractionMessages.get(id);
+        }
+        return "";
+    }
+
+    @Override
+    public void setItemInteractionMessage(ItemId id, String message) {
+        _itemInteractionMessages.put(id, message);
     }
 
     public void setUnlockableItem(ItemId id) {

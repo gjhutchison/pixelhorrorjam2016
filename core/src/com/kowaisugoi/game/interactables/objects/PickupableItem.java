@@ -10,7 +10,9 @@ import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Items which can be picked up, and therefore require an inventory sprite
@@ -26,12 +28,16 @@ public class PickupableItem implements Item {
 
     private String _pickupText;
 
+    private Map<ItemId, String> _itemInteractionMessages;
+
     public PickupableItem(Sprite sprite, Rectangle interactionBox, ItemId id) {
         _interactionBox = interactionBox;
         _sprite = sprite;
         _invSprite = sprite;
         _sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
         _id = id;
+
+        _itemInteractionMessages = new HashMap<ItemId, String>();
     }
 
     public PickupableItem(Sprite worldSprite, Sprite invSprite, Rectangle interactionBox, ItemId id) {
@@ -113,6 +119,19 @@ public class PickupableItem implements Item {
     @Override
     public boolean itemIteract(ItemId id) {
         return false;
+    }
+
+    @Override
+    public String getItemInteractionMessage(ItemId id) {
+        if (_itemInteractionMessages.containsKey(id)) {
+            return _itemInteractionMessages.get(id);
+        }
+        return "";
+    }
+
+    @Override
+    public void setItemInteractionMessage(ItemId id, String message) {
+        _itemInteractionMessages.put(id, message);
     }
 
     public void notifyListeners() {

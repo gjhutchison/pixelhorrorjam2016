@@ -26,4 +26,8 @@ public interface Interactable {
     public boolean isItemInteractable();
 
     public boolean itemIteract(ItemId id);
+
+    public String getItemInteractionMessage(ItemId id);
+
+    public void setItemInteractionMessage(ItemId id, String message);
 }

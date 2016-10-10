@@ -55,8 +55,12 @@ public class RoomMainHall extends StandardRoom {
         Describable paintingDescription = new GeneralDescribable(Messages.getText("mainhall.painting.thought"),
                 new Rectangle(55, 50, 40, 30));
 
+        Describable fireDescription = new GeneralDescribable(Messages.getText("mainhall.fireplace.thought"),
+                new Rectangle(70, 28, 21, 13));
+
         turnAround.setSoundEffect(SoundId.DOOR_CREAK);
         addDescribable(paintingDescription);
+        addDescribable(fireDescription);
         addPassage(hallDoor);
         addPassage(turnAround);
         addPassage(crawlDoor);

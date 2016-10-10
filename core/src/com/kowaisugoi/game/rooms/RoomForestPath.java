@@ -26,11 +26,16 @@ public class RoomForestPath extends StandardRoom {
         _snowAnimation = new SnowAnimation(50, 6);
 
         Describable treesDescription = new GeneralDescribable(
-                Messages.getText("forestpath.trees.description"),
+                Messages.getText("forestpath.trees.description1_1"),
                 new Rectangle(0, 10, 25, 65));
+        treesDescription.addDescription(Messages.getText("forestpath.trees.description1_2"));
+        treesDescription.addDescription(Messages.getText("forestpath.trees.description1_3"));
+
         Describable treesDescription2 = new GeneralDescribable(
-                Messages.getText("forestpath.trees.description2"),
+                Messages.getText("forestpath.trees.description2_1"),
                 new Rectangle(110, 10, 25, 65));
+        treesDescription2.addDescription(Messages.getText("forestpath.trees.description2_2"));
+        treesDescription2.addDescription(Messages.getText("forestpath.trees.description2_3"));
 
         Passage forward = new DirectionalPassage(RoomId.ROAD, RoomId.FRONTYARD, new Rectangle(60, 20, 30, 60), GameUtil.Direction.UP);
         Passage backward = new DirectionalPassage(RoomId.ROAD, RoomId.PARKING_AREA, new Rectangle(55, 0, 50, 10), GameUtil.Direction.DOWN);

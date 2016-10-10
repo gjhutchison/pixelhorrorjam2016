@@ -14,7 +14,9 @@ import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil.Direction;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class DirectionalPassage implements Passage {
     private LinkedList<InteractionListener> _listeners = new LinkedList<InteractionListener>();
@@ -24,11 +26,15 @@ public class DirectionalPassage implements Passage {
 
     private SoundId _soundId;
 
+    private Map<ItemId, String> _itemInteractionMessages;
+
     public DirectionalPassage(RoomId src, RoomId dest, Rectangle interactionBox, Direction direction) {
         _source = src;
         _destination = dest;
         _interactionBox = interactionBox;
         _direction = direction;
+
+        _itemInteractionMessages = new HashMap<ItemId, String>();
     }
 
     @Override
@@ -125,6 +131,19 @@ public class DirectionalPassage implements Passage {
     @Override
     public void setSoundEffect(SoundId soundId) {
         _soundId = soundId;
+    }
+
+    @Override
+    public String getItemInteractionMessage(ItemId id) {
+        if (_itemInteractionMessages.containsKey(id)) {
+            return _itemInteractionMessages.get(id);
+        }
+        return "";
+    }
+
+    @Override
+    public void setItemInteractionMessage(ItemId id, String message) {
+        _itemInteractionMessages.put(id, message);
     }
 
     @Override

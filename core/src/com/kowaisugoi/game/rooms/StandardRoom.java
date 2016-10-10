@@ -169,6 +169,10 @@ public abstract class StandardRoom implements Room {
                         return true;
                     }
                 }
+                if (!"".equals(interactable.getItemInteractionMessage(itemId))) {
+                    PlayGame.getPlayer().think(interactable.getItemInteractionMessage(itemId));
+                    return false;
+                }
             }
         }
         for (Container container : _containerList) {
@@ -177,6 +181,11 @@ public abstract class StandardRoom implements Room {
                     if (container.itemIteract(itemId)) {
                         return true;
                     }
+                }
+
+                if (!"".equals(container.getItemInteractionMessage(itemId))) {
+                    PlayGame.getPlayer().think(container.getItemInteractionMessage(itemId));
+                    return false;
                 }
             }
         }
@@ -187,8 +196,13 @@ public abstract class StandardRoom implements Room {
                         return true;
                     }
                 }
+                if (!"".equals(describable.getItemInteractionMessage(itemId))) {
+                    PlayGame.getPlayer().think(describable.getItemInteractionMessage(itemId));
+                    return false;
+                }
             }
         }
+        PlayGame.getPlayer().think(Messages.getText("interaction.invalid"));
         return false;
     }
 

@@ -34,6 +34,12 @@ public class RoomShed extends StandardRoom {
                 Messages.getText("shed.door.interact.locked"),
                 Messages.getText("shed.door.interact.unlocked"),
                 SoundId.DOOR_LOCKED);
+
+        shedDoor.setItemInteractionMessage(ItemId.GLASS,
+                Messages.getText("shed.interaction.glass.doorfrozen"));
+        shedDoor.setItemInteractionMessage(ItemId.GLASS_SNOW,
+                Messages.getText("shed.interaction.glasssnow.doorfrozen"));
+
         Passage backToFront = new DirectionalPassage(RoomId.SHED, RoomId.FRONTYARD, new Rectangle(55, 0, 50, 10), GameUtil.Direction.DOWN);
         addPassage(backToFront);
         addPassage(shedDoor);
