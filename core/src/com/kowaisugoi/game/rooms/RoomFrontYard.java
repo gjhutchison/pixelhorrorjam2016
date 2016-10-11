@@ -17,7 +17,7 @@ import com.kowaisugoi.game.system.GameUtil.Direction;
 
 public class RoomFrontYard extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/frontyard/frontyard_v2.png";
+    private static final String ROOM_URL = "rooms/frontyard/frontyard_v3.png";
 
     private SnowAnimation _snowAnimation;
 
