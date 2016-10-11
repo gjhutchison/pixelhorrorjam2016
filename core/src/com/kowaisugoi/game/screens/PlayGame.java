@@ -92,7 +92,6 @@ public class PlayGame implements Screen {
         // Fade to black
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        _shapeRenderer.setProjectionMatrix(_camera.combined);
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         _shapeRenderer.setColor(0.05f, 0.05f, 0.05f, 0.5f);
         _shapeRenderer.rect(0, 0, GAME_WIDTH, GAME_HEIGHT);
@@ -124,6 +123,10 @@ public class PlayGame implements Screen {
 
     @Override
     public void render(float delta) {
+        _camera.update();
+        _batch.setProjectionMatrix(_camera.combined);
+        _shapeRenderer.setProjectionMatrix(_camera.combined);
+
         if (_paused) {
             renderPauseDialog();
             return;
@@ -150,8 +153,6 @@ public class PlayGame implements Screen {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
         // Draw room sprites
-        _camera.update();
-        _batch.setProjectionMatrix(_camera.combined);
         _batch.begin();
         getPlayer().getCurrentRoom().draw(_batch);
         getPlayer().getInventory().drawInventory(_batch);
@@ -161,7 +162,6 @@ public class PlayGame implements Screen {
         // Draw room shapes
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        _shapeRenderer.setProjectionMatrix(_camera.combined);
         _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         getPlayer().getCurrentRoom().draw(_shapeRenderer);
         _shapeRenderer.end();
@@ -179,7 +179,9 @@ public class PlayGame implements Screen {
     }
 
     private void renderInventory() {
+        _batch.begin();
         getPlayer().getInventory().drawSelectedItemSprite(_batch);
+        _batch.end();
     }
 
     private void renderTransitions() {
@@ -230,11 +232,9 @@ public class PlayGame implements Screen {
         renderPlacementHelper();
 
         // Draw inventory, if applicable
-        _batch.begin();
         if (getPlayer().getInteractionMode() == ITEM_INTERACTION) {
             renderInventory();
         }
-        _batch.end();
 
         renderTransitions();
         renderHUD();

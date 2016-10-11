@@ -33,8 +33,7 @@ public abstract class StandardRoom implements Room {
     protected List<Container> _containerList = new LinkedList<Container>();
 
     public StandardRoom(Sprite image) {
-        _roomSprite = image;
-        _roomSprite.setSize(GAME_WIDTH, GAME_HEIGHT);
+        setSprite(image);
     }
 
     public void enter() {
@@ -73,6 +72,7 @@ public abstract class StandardRoom implements Room {
 
     public void setSprite(Sprite sprite) {
         _roomSprite = sprite;
+        _roomSprite.setSize(PlayGame.GAME_WIDTH, PlayGame.GAME_HEIGHT);
     }
 
     @Override
@@ -162,6 +162,7 @@ public abstract class StandardRoom implements Room {
 
     @Override
     public boolean click(float curX, float curY, ItemId itemId) {
+        // TODO: Combine these?
         for (Interactable interactable : _passageList) {
             if (interactable.getInteractionBox().contains(curX, curY)) {
                 if (interactable.isItemInteractable()) {

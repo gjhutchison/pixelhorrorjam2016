@@ -2,6 +2,12 @@ package com.kowaisugoi.game.system;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.interactables.objects.Item;
+import com.kowaisugoi.game.interactables.objects.ItemId;
+import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.screens.PlayGame;
 
@@ -74,6 +80,10 @@ public final class GlobalKeyHandler {
 
         if (keycode == SHED_INTERIOR_KEY) {
             if (PlayGame.getDebug()) {
+                PickupableItem glassWater = new PickupableItem(new Sprite(new Texture("items/glass_water.png")),
+                        new Rectangle(0, 0, 0, 0),
+                        ItemId.GLASS_WATER);
+                PlayGame.getPlayer().getInventory().addItem(glassWater);
                 PlayGame.getPlayer().enterRoom(RoomId.SHED_INTERIOR);
             }
         }

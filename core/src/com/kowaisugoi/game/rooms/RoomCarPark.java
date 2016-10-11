@@ -45,6 +45,7 @@ public class RoomCarPark extends StandardRoom {
 
     public RoomCarPark() {
         super(new Sprite(new Texture(ROOM_URL)));
+
         _snowAnimation = new SnowAnimation(50, 6);
 
         Passage enterCar = new DirectionalPassage(RoomId.PARKING_AREA,
@@ -70,7 +71,7 @@ public class RoomCarPark extends StandardRoom {
 
         BlockedPassage jammedCar = new BlockedPassage(RoomId.PARKING_AREA,
                 RoomId.CAR,
-                new Rectangle(66, 18, 23, 21),
+                new Rectangle(47, 7, 44, 41),
                 GameUtil.Direction.UP,
                 ItemId.PRYBAR,
                 Messages.getText("carpark.jammeddoor.interact.locked"),
@@ -79,7 +80,7 @@ public class RoomCarPark extends StandardRoom {
         jammedCar.setItemInteractionMessage(ItemId.HAMMER, Messages.getText("carpark.interaction.hammer.cardoor"));
 
         Describable carDamageDescription = new GeneralDescribable(Messages.getText("carpark.damage.description"),
-                new Rectangle(25, 22, 30, 13));
+                new Rectangle(15, 19, 28, 10));
 
         _descriptionList1 = new LinkedList<Describable>();
         _descriptionList1.add(carDamageDescription);
@@ -132,7 +133,7 @@ public class RoomCarPark extends StandardRoom {
             }
         } else {
             setPassageList(_passageList1);
-            _roomSprite = _roomSprite1;
+            setSprite(_roomSprite1);
         }
     }
 }

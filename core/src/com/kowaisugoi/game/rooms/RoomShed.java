@@ -2,6 +2,7 @@ package com.kowaisugoi.game.rooms;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.SoundId;
@@ -13,11 +14,17 @@ import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.ItemInteractableScenic;
 import com.kowaisugoi.game.messages.Messages;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_SHED_OPENED;
 
 public class RoomShed extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/shed/shed.png";
+    private static final String ROOM_URL = "rooms/shed/shed_v2_frozen.png";
+    private static final String ROOM_URL2 = "rooms/shed/shed_v2.png";
+
+    private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
+    private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
 
     private SnowAnimation _snowAnimation;
 
@@ -34,6 +41,7 @@ public class RoomShed extends StandardRoom {
                 Messages.getText("shed.door.interact.locked"),
                 Messages.getText("shed.door.interact.unlocked"),
                 SoundId.DOOR_LOCKED);
+        shedDoor.setUnlockedToggleFlag(FLAG_SHED_OPENED);
 
         shedDoor.setItemInteractionMessage(ItemId.GLASS,
                 Messages.getText("shed.interaction.glass.doorfrozen"));
@@ -50,7 +58,7 @@ public class RoomShed extends StandardRoom {
 
         ItemInteractableScenic looseSnow = new ItemInteractableScenic(Messages.getText("shed.snow.thought"),
                 Messages.getText("shed.interaction.snow.glass"),
-                new Rectangle(110, 4, 23, 16),
+                new Rectangle(98, 4, 61, 45),
                 ItemId.GLASS, glassSnow);
 
         addDescribable(looseSnow);
@@ -66,5 +74,14 @@ public class RoomShed extends StandardRoom {
     public void draw(ShapeRenderer renderer) {
         _snowAnimation.draw(renderer);
         super.draw(renderer);
+    }
+
+    @Override
+    public void flagUpdate() {
+        if (PlayGame.getFlagManager().getFlag(FLAG_SHED_OPENED).getState()) {
+            setSprite(_roomSprite2);
+        } else {
+            setSprite(_roomSprite1);
+        }
     }
 }

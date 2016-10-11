@@ -5,6 +5,7 @@ import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.control.flags.Flag;
 import com.kowaisugoi.game.control.flags.FlagId;
+import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.player.thought.ThoughtBox;
@@ -17,6 +18,7 @@ public class BlockedPassage extends DirectionalPassage {
     private String _unlockText = "";
     private boolean _unlocked = false;
     private ItemId _interactionItemId;
+    private FlagId _onUnlock = null;
 
     private SoundId _lockedSoundId;
 
@@ -35,15 +37,6 @@ public class BlockedPassage extends DirectionalPassage {
         _unlockText = unlockText;
         _interactionItemId = id;
         _lockedSoundId = soundId;
-    }
-
-    public BlockedPassage(RoomId src,
-                          RoomId dest,
-                          Rectangle interactionBox,
-                          GameUtil.Direction direction,
-                          Flag controlFlag) {
-
-        super(src, dest, interactionBox, direction);
     }
 
     public void setLockedSoundId(SoundId id) {
