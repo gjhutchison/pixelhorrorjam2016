@@ -16,7 +16,7 @@ import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomBathroomPeek extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/bathroom/uncle3.png";
+    private static final String ROOM_URL = "rooms/bathroom/uncle_cabinet_boards.png";
     private Describable _uncle;
 
     public RoomBathroomPeek() {
