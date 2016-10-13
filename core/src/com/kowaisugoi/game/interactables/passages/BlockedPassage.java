@@ -3,12 +3,9 @@ package com.kowaisugoi.game.interactables.passages;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.SoundId;
-import com.kowaisugoi.game.control.flags.Flag;
 import com.kowaisugoi.game.control.flags.FlagId;
-import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.player.Player;
-import com.kowaisugoi.game.player.thought.ThoughtBox;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
@@ -84,6 +81,12 @@ public class BlockedPassage extends DirectionalPassage {
     @Override
     public void beautifyCursor(float curX, float curY) {
         super.beautifyCursor(curX, curY);
+        //TODO:Fix this mess
+        if (PlayGame.getPlayer().getInteractionMode() == Player.InteractionMode.NORMAL
+                && !_unlocked
+                && getInteractionBox().contains(curX, curY)) {
+            PlayGame.getPlayer().setCursor(Player.CursorType.PICKUP);
+        }
         if (PlayGame.getPlayer().getInteractionMode() != Player.InteractionMode.ITEM_INTERACTION) {
             return;
         }

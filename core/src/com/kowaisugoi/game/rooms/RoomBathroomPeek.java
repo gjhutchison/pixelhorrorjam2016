@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.control.flags.FlagId;
-import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
@@ -14,9 +13,15 @@ import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BOARDS_REMOVED;
+
 public class RoomBathroomPeek extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/bathroom/uncle_cabinet_boards.png";
+    private static final String ROOM_URL2 = "rooms/bathroom/uncle_cabinet.png";
+
+    private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
+
     private Describable _uncle;
 
     public RoomBathroomPeek() {
@@ -48,5 +53,12 @@ public class RoomBathroomPeek extends StandardRoom {
         }
 
         return super.click(curX, curY);
+    }
+
+    @Override
+    public void flagUpdate() {
+        if (PlayGame.getFlagManager().getFlag(FLAG_BOARDS_REMOVED).getState()) {
+            setSprite(_roomSprite2);
+        }
     }
 }
