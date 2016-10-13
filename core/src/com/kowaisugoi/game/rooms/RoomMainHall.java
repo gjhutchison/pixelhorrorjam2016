@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.graphics.FireAnimation;
+import com.kowaisugoi.game.interactables.objects.ItemId;
+import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
+import com.kowaisugoi.game.interactables.scenic.ItemInteractableScenic;
 import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.system.GameUtil;
 
@@ -53,8 +56,17 @@ public class RoomMainHall extends StandardRoom {
         Describable paintingDescription = new GeneralDescribable(Messages.getText("mainhall.painting.thought"),
                 new Rectangle(55, 50, 40, 30));
 
-        Describable fireDescription = new GeneralDescribable(Messages.getText("mainhall.fireplace.thought"),
-                new Rectangle(70, 28, 21, 13));
+        /*Describable fireDescription = new GeneralDescribable(Messages.getText("mainhall.fireplace.thought"),
+                new Rectangle(70, 28, 21, 13));*/
+
+        PickupableItem torch = new PickupableItem(new Sprite(new Texture("items/stickicon_fire.png")),
+                new Rectangle(0, 0, 0, 0),
+                ItemId.TORCH);
+
+        ItemInteractableScenic fireDescription = new ItemInteractableScenic(Messages.getText("mainhall.fireplace.thought"),
+                Messages.getText("shedinterior.interaction.stickdoused.fireplace"),
+                new Rectangle(70, 28, 21, 13),
+                ItemId.STICK_RAGS_ALCOHOL, torch);
 
         turnAround.setSoundEffect(SoundId.DOOR_CREAK);
         addDescribable(paintingDescription);
