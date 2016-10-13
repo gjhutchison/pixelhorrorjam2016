@@ -6,6 +6,7 @@ public enum RoomId {
     FRONT_DOOR_INTERIOR,
     BEDROOM,
     BATHROOM,
+    BATHROOM_CABINET,
     BACKYARD,
     CRAWLSPACE,
     FRONTYARD,
