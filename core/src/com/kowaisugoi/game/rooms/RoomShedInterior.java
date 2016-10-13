@@ -8,12 +8,11 @@ import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.messages.Messages;
-import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomShedInterior extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/shedinterior/shedinterior_noshovel.png";
+    private static final String ROOM_URL = "rooms/shedinterior/shedinterior.png";
 
     public RoomShedInterior() {
         super(new Sprite(new Texture(ROOM_URL)));

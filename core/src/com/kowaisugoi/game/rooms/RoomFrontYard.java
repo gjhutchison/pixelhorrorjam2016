@@ -6,18 +6,18 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.graphics.SnowAnimation;
-import com.kowaisugoi.game.interactables.scenic.Container;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
+import com.kowaisugoi.game.interactables.scenic.Container;
 import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.system.GameUtil.Direction;
 
 public class RoomFrontYard extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/frontyard/frontyard_v3.png";
+    private static final String ROOM_URL = "rooms/frontyard/frontyard.png";
 
     private SnowAnimation _snowAnimation;
 

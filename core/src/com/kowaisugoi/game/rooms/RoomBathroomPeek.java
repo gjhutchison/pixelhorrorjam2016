@@ -17,8 +17,8 @@ import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BOARDS_REMOVED;
 
 public class RoomBathroomPeek extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/bathroom/uncle_cabinet_boards.png";
-    private static final String ROOM_URL2 = "rooms/bathroom/uncle_cabinet.png";
+    private static final String ROOM_URL = "rooms/bathroom/bathroom_entrance_boards.png";
+    private static final String ROOM_URL2 = "rooms/bathroom/bathroom_entrance.png";
 
     private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
 

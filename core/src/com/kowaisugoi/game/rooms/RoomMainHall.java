@@ -14,11 +14,9 @@ import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.system.GameUtil;
 
-import java.util.ArrayList;
-
 public class RoomMainHall extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/mainhall/cozy.png";
+    private static final String ROOM_URL = "rooms/mainhall/mainhall.png";
     private FireAnimation _fireAnimation;
     int _currentSprite = 0;
     float _deltaBuffer = 0;
