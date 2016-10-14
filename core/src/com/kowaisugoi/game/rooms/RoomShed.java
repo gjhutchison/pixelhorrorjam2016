@@ -52,6 +52,8 @@ public class RoomShed extends StandardRoom {
         addPassage(backToFront);
         addPassage(shedDoor);
 
+        backToFront.setSoundEffect(SoundId.SNOW_CRUNCH);
+
         PickupableItem glassSnow = new PickupableItem(new Sprite(new Texture("items/glass_snow.png")),
                 new Rectangle(0, 0, 0, 0),
                 ItemId.GLASS_SNOW);

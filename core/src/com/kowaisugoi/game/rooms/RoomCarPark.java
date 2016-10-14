@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.audio.AudioManager;
+import com.kowaisugoi.game.audio.MusicId;
+import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.graphics.SnowAnimation;
@@ -56,6 +59,7 @@ public class RoomCarPark extends StandardRoom {
                 RoomId.ROAD,
                 new Rectangle(97, 15, 36, 62),
                 GameUtil.Direction.UP);
+        toPath.setSoundEffect(SoundId.SNOW_CRUNCH);
         addPassage(enterCar);
         addPassage(toPath);
 
@@ -102,6 +106,12 @@ public class RoomCarPark extends StandardRoom {
                 new Rectangle(60, 4, 19, 6),
                 ItemId.STICK);
         _stick.setPickupText(Messages.getText("carpark.pickup.stick"));
+    }
+
+    @Override
+    public void enter() {
+        // TODO: Some gentle wind noises?
+        //AudioManager.playMusic(MusicId)
     }
 
     @Override
