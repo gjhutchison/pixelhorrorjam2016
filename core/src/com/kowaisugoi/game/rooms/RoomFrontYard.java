@@ -37,6 +37,8 @@ public class RoomFrontYard extends StandardRoom {
                 Messages.getText("frontyard.interaction.key.door"),
                 SoundId.DOOR_LOCKED);
 
+        backToRoad.setSoundEffect(SoundId.SNOW_CRUNCH);
+        toShed.setSoundEffect(SoundId.SNOW_CRUNCH);
         frontDoor.setSoundEffect(SoundId.DOOR_CREAK);
 
         PickupableItem dankKey = new PickupableItem(new Sprite(new Texture("items/key.png")),

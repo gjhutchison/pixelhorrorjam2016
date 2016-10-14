@@ -13,7 +13,7 @@ import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomShedInterior extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/shedinterior/shedinterior_temp.png";
+    private static final String ROOM_URL = "rooms/shedinterior/shedinterior.png";
 
     public RoomShedInterior() {
         super(new Sprite(new Texture(ROOM_URL)));

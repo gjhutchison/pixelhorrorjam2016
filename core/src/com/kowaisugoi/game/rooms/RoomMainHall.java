@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.audio.AudioManager;
+import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.graphics.FireAnimation;
 import com.kowaisugoi.game.interactables.objects.ItemId;
@@ -80,6 +82,12 @@ public class RoomMainHall extends StandardRoom {
     public void drawFx(SpriteBatch batch) {
         //super.draw(batch);
         //_overlays.get(currentSprite).draw(batch, 0.08f);
+    }
+
+    @Override
+    public void enter() {
+        // Stop now if we haven't already
+        AudioManager.stopSong(MusicId.MAIN_MENU);
     }
 
     @Override

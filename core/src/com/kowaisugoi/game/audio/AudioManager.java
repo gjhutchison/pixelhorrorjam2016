@@ -17,6 +17,7 @@ public class AudioManager implements Disposable {
     public static void initSounds() {
         _soundMap.put(SoundId.DOOR_CREAK, Gdx.audio.newSound(Gdx.files.internal("audio/effects/Door.mp3")));
         _soundMap.put(SoundId.DOOR_LOCKED, Gdx.audio.newSound(Gdx.files.internal("audio/effects/Door Locked.mp3")));
+        _soundMap.put(SoundId.SNOW_CRUNCH, Gdx.audio.newSound(Gdx.files.internal("audio/effects/snowsteps_2.mp3")));
 
         _musicMap.put(MusicId.MAIN_MENU, Gdx.audio.newMusic(Gdx.files.internal("audio/music/bensound-betterdays.mp3")));
     }
@@ -45,7 +46,7 @@ public class AudioManager implements Disposable {
 
     public static void stopSong(MusicId id) {
         if (_currentSong != MusicId.NONE) {
-            _musicMap.get(_currentSong).stop();
+            _musicMap.get(id).stop();
             _currentSong = MusicId.NONE;
         }
     }
