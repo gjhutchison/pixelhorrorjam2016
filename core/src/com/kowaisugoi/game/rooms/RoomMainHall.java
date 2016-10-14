@@ -88,8 +88,7 @@ public class RoomMainHall extends StandardRoom {
 
     @Override
     public void enter() {
-        // Stop now if we haven't already
-        AudioManager.stopSong(MusicId.MAIN_MENU);
+        AudioManager.playMusic(MusicId.COZY, false);
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.audio.AudioManager;
+import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
@@ -21,5 +23,10 @@ public class RoomCrawlspace extends StandardRoom {
                 GameUtil.Direction.DOWN);
         turnAround.setSoundEffect(SoundId.CLICK);
         addPassage(turnAround);
+    }
+
+    @Override
+    public void enter() {
+        AudioManager.playMusic(MusicId.CRAWLSPACE, false);
     }
 }

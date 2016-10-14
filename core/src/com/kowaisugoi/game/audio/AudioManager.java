@@ -22,6 +22,30 @@ public class AudioManager implements Disposable {
         _soundMap.put(SoundId.CLICK, Gdx.audio.newSound(Gdx.files.internal("audio/effects/caclick.mp3")));
 
         _musicMap.put(MusicId.MAIN_MENU, Gdx.audio.newMusic(Gdx.files.internal("audio/music/bensound-betterdays.mp3")));
+
+        Music dark = Gdx.audio.newMusic(Gdx.files.internal("audio/music/244961__patricklieberkind__dark-ambience.mp3"));
+        dark.setLooping(true);
+        _musicMap.put(MusicId.DARK, dark);
+
+        Music drone = Gdx.audio.newMusic(Gdx.files.internal("audio/music/144921__thesoundcatcher__deepdrone.mp3"));
+        drone.setLooping(true);
+        _musicMap.put(MusicId.DRONE, drone);
+
+        Music bedroom = Gdx.audio.newMusic(Gdx.files.internal("audio/music/simpleloops/bedroom.mp3"));
+        bedroom.setLooping(true);
+        _musicMap.put(MusicId.BEDROOM, bedroom);
+
+        Music cozy = Gdx.audio.newMusic(Gdx.files.internal("audio/music/simpleloops/cozy.mp3"));
+        cozy.setLooping(true);
+        _musicMap.put(MusicId.COZY, cozy);
+
+        Music crawlspace = Gdx.audio.newMusic(Gdx.files.internal("audio/music/simpleloops/crawlspace.mp3"));
+        crawlspace.setLooping(true);
+        _musicMap.put(MusicId.CRAWLSPACE, crawlspace);
+
+        Music howl = Gdx.audio.newMusic(Gdx.files.internal("audio/music/simpleloops/howl.mp3"));
+        howl.setLooping(true);
+        _musicMap.put(MusicId.HOWL, howl);
     }
 
     public static void playSound(SoundId id) {
@@ -34,16 +58,21 @@ public class AudioManager implements Disposable {
         }
     }
 
-    public static void playMusic(MusicId id) {
+    public static void playMusic(MusicId id, boolean restart) {
         if (id == null) {
             return;
         }
-        if (_musicMap.containsKey(id)) {
-            stopSong(_currentSong);
-
-            _musicMap.get(id).play();
-            _currentSong = id;
+        if (_currentSong == id && !restart) {
+            return;
         }
+
+        stopSong(_currentSong);
+        _musicMap.get(id).play();
+        _currentSong = id;
+    }
+
+    public static void playMusic(MusicId id) {
+        playMusic(id, true);
     }
 
     public static void stopSong(MusicId id) {
