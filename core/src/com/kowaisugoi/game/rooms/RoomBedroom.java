@@ -4,6 +4,7 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
@@ -44,6 +45,9 @@ public class RoomBedroom extends StandardRoom {
                 RoomId.BATHROOM,
                 new Rectangle(70, 17, 27, 41),
                 GameUtil.Direction.UP);
+
+        passageHall.setSoundEffect(SoundId.FLOOR_STEP);
+        passageBathroom.setSoundEffect(SoundId.CLICK);
 
         Describable tableDescription = new GeneralDescribable(
                 Messages.getText("bedroom.table.description"),

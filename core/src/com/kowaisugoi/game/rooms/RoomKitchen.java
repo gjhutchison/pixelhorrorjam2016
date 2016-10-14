@@ -4,6 +4,7 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
@@ -26,6 +27,7 @@ public class RoomKitchen extends StandardRoom {
                 new Rectangle(50, 0, 50, 15),
                 GameUtil.Direction.DOWN);
 
+        passageHall.setSoundEffect(SoundId.FLOOR_STEP);
         addPassage(passageHall);
 
         Describable sink = new GeneralDescribable(Messages.getText("kitchen.sink.thought"),

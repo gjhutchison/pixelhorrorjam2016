@@ -3,6 +3,7 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.system.GameUtil;
@@ -18,6 +19,7 @@ public class RoomCrawlspace extends StandardRoom {
                 RoomId.MAIN_HALL,
                 new Rectangle(55, 0, 50, 10),
                 GameUtil.Direction.DOWN);
+        turnAround.setSoundEffect(SoundId.CLICK);
         addPassage(turnAround);
     }
 }

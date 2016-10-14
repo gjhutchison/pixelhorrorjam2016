@@ -4,6 +4,7 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
@@ -43,6 +44,8 @@ public class RoomBathroomEntrance extends StandardRoom {
                 RoomId.BATHROOM_CABINET,
                 new Rectangle(100, 16, 22, 61),
                 GameUtil.Direction.UP);
+
+        passageBack.setSoundEffect(SoundId.CLICK);
 
         addPassage(passageBack);
 

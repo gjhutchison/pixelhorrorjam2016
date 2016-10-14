@@ -71,6 +71,8 @@ public class RoomMainHall extends StandardRoom {
                 ItemId.STICK_RAGS_ALCOHOL, torch);
 
         turnAround.setSoundEffect(SoundId.DOOR_CREAK);
+        hallDoor.setSoundEffect(SoundId.DOOR_CREAK);
+        crawlDoor.setSoundEffect(SoundId.CLICK);
         addDescribable(paintingDescription);
         addDescribable(fireDescription);
         addPassage(hallDoor);

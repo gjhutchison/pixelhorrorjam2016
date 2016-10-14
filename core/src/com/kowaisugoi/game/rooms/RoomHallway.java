@@ -4,6 +4,7 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.system.GameUtil;
@@ -30,6 +31,9 @@ public class RoomHallway extends StandardRoom {
                 new Rectangle(117, 6, 26, 60),
                 GameUtil.Direction.UP);
 
+        passageBedroom.setSoundEffect(SoundId.FLOOR_STEP);
+        passageMainRoom.setSoundEffect(SoundId.DOOR_CREAK);
+        passageKitchen.setSoundEffect(SoundId.FLOOR_STEP);
         addPassage(passageMainRoom);
         addPassage(passageBedroom);
         addPassage(passageKitchen);
