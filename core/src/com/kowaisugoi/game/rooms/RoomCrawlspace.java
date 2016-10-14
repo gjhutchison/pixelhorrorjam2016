@@ -27,6 +27,7 @@ public class RoomCrawlspace extends StandardRoom {
 
     @Override
     public void enter() {
+        super.enter();
         AudioManager.playMusic(MusicId.CRAWLSPACE, false);
     }
 }

@@ -8,6 +8,7 @@ import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.control.flags.FlagId;
+import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
@@ -20,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BOARDS_REMOVED;
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BODY_FOUND;
 
 public class RoomBathroomEntrance extends StandardRoom {
 
@@ -85,6 +87,12 @@ public class RoomBathroomEntrance extends StandardRoom {
 
     @Override
     public void enter() {
+        super.enter();
+
+        if (!PlayGame.getFlagManager().getFlag(FLAG_BODY_FOUND).getState()) {
+            PlayGame.getPlayer().think(Messages.getText("bathroom.uncle.clickhimdammit"));
+        }
+
         AudioManager.playMusic(MusicId.DRONE, false);
     }
 }

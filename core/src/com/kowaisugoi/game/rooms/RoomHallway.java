@@ -43,6 +43,7 @@ public class RoomHallway extends StandardRoom {
 
     @Override
     public void enter() {
+        super.enter();
         AudioManager.playMusic(MusicId.HOWL, false);
     }
 }

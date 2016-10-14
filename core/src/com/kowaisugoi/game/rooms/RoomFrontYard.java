@@ -79,6 +79,7 @@ public class RoomFrontYard extends StandardRoom {
 
     @Override
     public void enter() {
+        super.enter();
         AudioManager.playMusic(MusicId.WIND, false);
     }
 }

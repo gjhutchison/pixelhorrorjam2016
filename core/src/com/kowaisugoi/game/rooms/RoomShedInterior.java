@@ -57,6 +57,7 @@ public class RoomShedInterior extends StandardRoom {
 
     @Override
     public void enter() {
+        super.enter();
         AudioManager.playMusic(MusicId.HOWL, false);
     }
 }

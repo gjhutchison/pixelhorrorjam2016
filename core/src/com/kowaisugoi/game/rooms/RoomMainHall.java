@@ -79,6 +79,7 @@ public class RoomMainHall extends StandardRoom {
         addPassage(turnAround);
         addPassage(crawlDoor);
         _fireAnimation = new FireAnimation(80, 31, 50);
+        pushEnterRemark("mainhall.enter.whereuncle");
     }
 
     public void drawFx(SpriteBatch batch) {
@@ -88,6 +89,7 @@ public class RoomMainHall extends StandardRoom {
 
     @Override
     public void enter() {
+        super.enter();
         AudioManager.playMusic(MusicId.COZY, false);
     }
 
