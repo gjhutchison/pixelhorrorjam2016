@@ -55,6 +55,7 @@ public class RoomBathroomEntrance extends StandardRoom {
 
         _uncle = new GeneralDescribable(Messages.getText("bathroom.uncle.thought.1"),
                 new Rectangle(68, 25, 27, 58));
+        _uncle.addDescription(Messages.getText("bathroom.uncle.thought.2"));
 
         addDescribable(_uncle);
 
@@ -64,16 +65,6 @@ public class RoomBathroomEntrance extends StandardRoom {
 
     @Override
     public boolean click(float curX, float curY) {
-        if (_uncle.click(curX, curY)) {
-            if (!PlayGame.getFlagManager().getFlag(FlagId.FLAG_BODY_FOUND).getState()) {
-                PlayGame.getFlagManager().setFlag(FlagId.FLAG_BODY_FOUND, true);
-                _uncle.setDescription(Messages.getText("bathroom.uncle.thought.2"));
-                PlayGame.getRoomManager().getRoomFromId(RoomId.CAR).pushEnterRemark("car.enter.wannaleave");
-            }
-
-            return true;
-        }
-
         return super.click(curX, curY);
     }
 
@@ -89,8 +80,10 @@ public class RoomBathroomEntrance extends StandardRoom {
     public void enter() {
         super.enter();
 
-        if (!PlayGame.getFlagManager().getFlag(FLAG_BODY_FOUND).getState()) {
+        if (!PlayGame.getFlagManager().getFlag(FlagId.FLAG_BODY_FOUND).getState()) {
             PlayGame.getPlayer().think(Messages.getText("bathroom.uncle.clickhimdammit"));
+            PlayGame.getFlagManager().setFlag(FlagId.FLAG_BODY_FOUND, true);
+            PlayGame.getRoomManager().getRoomFromId(RoomId.CAR).pushEnterRemark("car.enter.wannaleave");
         }
 
         AudioManager.playMusic(MusicId.DRONE, false);
