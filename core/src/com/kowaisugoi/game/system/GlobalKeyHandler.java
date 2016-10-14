@@ -23,6 +23,7 @@ public final class GlobalKeyHandler {
     static final int YES_KEY = Input.Keys.Y;
     static final int NO_KEY = Input.Keys.N;
     static final int SHED_INTERIOR_KEY = Input.Keys.S;
+    static final int CABINET_KEY = Input.Keys.C;
 
     public static boolean keyUp(int keycode) {
         if (keycode == FULLSCREEN_KEY) {
@@ -85,6 +86,12 @@ public final class GlobalKeyHandler {
                         ItemId.GLASS_WATER);
                 PlayGame.getPlayer().getInventory().addItem(glassWater);
                 PlayGame.getPlayer().enterRoom(RoomId.SHED_INTERIOR);
+            }
+        }
+
+        if (keycode == CABINET_KEY) {
+            if (PlayGame.getDebug()) {
+                PlayGame.getPlayer().enterRoom(RoomId.BATHROOM_CABINET);
             }
         }
 
