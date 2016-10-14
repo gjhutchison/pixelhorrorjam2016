@@ -48,6 +48,9 @@ public class RoomBedroom extends StandardRoom {
                 new Rectangle(70, 17, 27, 41),
                 GameUtil.Direction.UP);
 
+        passageBathroom.setItemInteractionMessage(ItemId.HAMMER,
+                Messages.getText("bedroom.door.interact.hammer"));
+
         passageHall.setSoundEffect(SoundId.FLOOR_STEP);
         passageBathroom.setSoundEffect(SoundId.CLICK);
 
