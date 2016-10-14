@@ -3,6 +3,8 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.audio.AudioManager;
+import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
@@ -51,5 +53,10 @@ public class RoomShedInterior extends StandardRoom {
         addPickupableItem(hammer);
 
         addDescribable(lighterFluid);
+    }
+
+    @Override
+    public void enter() {
+        AudioManager.playMusic(MusicId.HOWL, false);
     }
 }

@@ -110,8 +110,7 @@ public class RoomCarPark extends StandardRoom {
 
     @Override
     public void enter() {
-        // TODO: Some gentle wind noises?
-        //AudioManager.playMusic(MusicId)
+        AudioManager.playMusic(MusicId.WIND, false);
     }
 
     @Override

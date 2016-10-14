@@ -111,6 +111,6 @@ public class RoomBedroom extends StandardRoom {
 
     @Override
     public void enter() {
-        AudioManager.playMusic(MusicId.BEDROOM, false);
+        AudioManager.playMusic(MusicId.HOWL, false);
     }
 }

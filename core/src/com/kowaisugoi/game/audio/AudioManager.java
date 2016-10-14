@@ -46,6 +46,10 @@ public class AudioManager implements Disposable {
         Music howl = Gdx.audio.newMusic(Gdx.files.internal("audio/music/simpleloops/howl.mp3"));
         howl.setLooping(true);
         _musicMap.put(MusicId.HOWL, howl);
+
+        Music wind = Gdx.audio.newMusic(Gdx.files.internal("audio/music/simpleloops/wind.mp3"));
+        wind.setLooping(true);
+        _musicMap.put(MusicId.WIND, wind);
     }
 
     public static void playSound(SoundId id) {
