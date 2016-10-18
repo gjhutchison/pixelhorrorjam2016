@@ -4,6 +4,7 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Timer;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.audio.SoundId;
@@ -14,6 +15,7 @@ import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.messages.Messages;
+import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
@@ -27,8 +29,11 @@ public class RoomBathroomEntrance extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/bathroom/bathroom_entrance_boards.png";
     private static final String ROOM_URL2 = "rooms/bathroom/bathroom_entrance.png";
+    private static final String ROOM_URL3 = "rooms/bathroom/bathroom_entrance_2.png";
 
+    private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
     private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
+    private final Sprite _roomSprite3 = new Sprite(new Texture(ROOM_URL3));
 
     private Describable _uncle;
 
@@ -79,10 +84,54 @@ public class RoomBathroomEntrance extends StandardRoom {
     @Override
     public void enter() {
         super.enter();
+        PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
 
         if (!PlayGame.getFlagManager().getFlag(FlagId.FLAG_BODY_FOUND).getState()) {
+            PlayGame.getPlayer().setCursor(Player.CursorType.INVISIBLE);
             PlayGame.getPlayer().think(Messages.getText("bathroom.uncle.clickhimdammit"));
+
+            // TODO: Need a fix for room transitions cursor interaction
+
+            // Big reveal timer
+            Timer.schedule(new Timer.Task() {
+                               @Override
+                               public void run() {
+                                   AudioManager.playSound(SoundId.CLICK);
+                                   setSprite(_roomSprite3);
+                               }
+                           }
+                    , 3.0f // Initial delay
+                    , 0 // Fire every X seconds
+                    , 1 // Number of times to fire
+            );
+
+            // Un-reveal
+            Timer.schedule(new Timer.Task() {
+                               @Override
+                               public void run() {
+                                   AudioManager.playSound(SoundId.CLICK);
+                                   setSprite(_roomSprite1);
+                               }
+                           }
+                    , 5.0f // Initial delay
+                    , 0 // Fire every X seconds
+                    , 1 // Number of times to fire
+            );
+
+            // Re-allow interaction
+            Timer.schedule(new Timer.Task() {
+                               @Override
+                               public void run() {
+                                   PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+                               }
+                           }
+                    , 6.0f // Initial delay
+                    , 0 // Fire every X seconds
+                    , 1 // Number of times to fire
+            );
+
             PlayGame.getFlagManager().setFlag(FlagId.FLAG_BODY_FOUND, true);
+
             PlayGame.getRoomManager().getRoomFromId(RoomId.CAR).pushEnterRemark("car.enter.wannaleave");
         }
 

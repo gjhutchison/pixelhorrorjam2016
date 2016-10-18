@@ -14,6 +14,7 @@ import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.messages.Messages;
+import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
