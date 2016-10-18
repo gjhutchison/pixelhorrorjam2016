@@ -98,7 +98,7 @@ public class RoomBathroomEntrance extends StandardRoom {
                                    setSprite(_roomSprite3);
                                }
                            }
-                    , 3.0f // Initial delay
+                    , 3.5f // Initial delay
                     , 0 // Fire every X seconds
                     , 1 // Number of times to fire
             );
@@ -112,7 +112,7 @@ public class RoomBathroomEntrance extends StandardRoom {
                                    setSprite(_roomSprite1);
                                }
                            }
-                    , 4.4f // Initial delay
+                    , 5.5f // Initial delay
                     , 0 // Fire every X seconds
                     , 1 // Number of times to fire
             );
@@ -124,7 +124,7 @@ public class RoomBathroomEntrance extends StandardRoom {
                                    PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
                                }
                            }
-                    , 5.0f // Initial delay
+                    , 6.5f // Initial delay
                     , 0 // Fire every X seconds
                     , 1 // Number of times to fire
             );
@@ -147,8 +147,6 @@ public class RoomBathroomEntrance extends StandardRoom {
 
             PlayGame.getFlagManager().setFlag(FlagId.FLAG_BODY_FOUND, true);
         }
-
-        System.out.println("hye");
 
         AudioManager.playMusic(MusicId.DRONE, false);
     }
