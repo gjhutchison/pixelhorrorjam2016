@@ -21,6 +21,8 @@ public class SlideTransition implements Transition {
     private static final float HALF_TIME_VERTICAL = (PlayGame.GAME_HEIGHT / SPEED_VERTICAL);
 
     private float _animationLength;
+    private boolean _alreadySwapped;
+    private boolean _alreadyComplete;
 
     private static final float MAX_X = PlayGame.GAME_WIDTH;
     private static final float MIN_X = -PlayGame.GAME_WIDTH;
@@ -35,6 +37,8 @@ public class SlideTransition implements Transition {
         _yPosition = 0;
         _animating = false;
         _direction = direction;
+        _alreadySwapped = false;
+        _alreadyComplete = false;
 
         switch (_direction) {
             case UP:
@@ -60,8 +64,11 @@ public class SlideTransition implements Transition {
     }
 
     private void swapRoom() {
-        if (_passage != null) {
-            _passage.roomTransition();
+        if (!_alreadySwapped) {
+            if (_passage != null) {
+                _alreadySwapped = true;
+                _passage.roomTransition();
+            }
         }
     }
 
@@ -102,7 +109,11 @@ public class SlideTransition implements Transition {
             if ((_xPosition > MAX_X || _xPosition < MIN_X) ||
                     (_yPosition > MAX_Y || _yPosition < MIN_Y)) {
                 _animating = false;
-                _passage.transitionComplete();
+
+                if (!_alreadyComplete) {
+                    _alreadyComplete = true;
+                    _passage.transitionComplete();
+                }
             }
         }
     }

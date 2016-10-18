@@ -23,6 +23,7 @@ public class DirectionalPassage implements Passage {
     protected Rectangle _interactionBox;
     private RoomId _source, _destination;
     protected Direction _direction;
+    private boolean _release = true;
 
     private SoundId _soundId;
 
@@ -57,7 +58,9 @@ public class DirectionalPassage implements Passage {
         Timer.schedule(new Timer.Task() {
                            @Override
                            public void run() {
-                               PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+                               if (_release) {
+                                   PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+                               }
                            }
                        }
                 , 0.4f // Initial delay
@@ -68,6 +71,10 @@ public class DirectionalPassage implements Passage {
 
     @Override
     public void draw(SpriteBatch batch) {
+    }
+
+    public void setAutoRelease(boolean release) {
+        _release = release;
     }
 
     @Override

@@ -44,7 +44,7 @@ public class RoomBedroom extends StandardRoom {
                 new Rectangle(50, 0, 50, 15),
                 GameUtil.Direction.DOWN);
 
-        Passage passageBathroom = new DirectionalPassage(RoomId.BEDROOM,
+        DirectionalPassage passageBathroom = new DirectionalPassage(RoomId.BEDROOM,
                 RoomId.BATHROOM,
                 new Rectangle(70, 17, 27, 41),
                 GameUtil.Direction.UP);
@@ -54,6 +54,7 @@ public class RoomBedroom extends StandardRoom {
 
         passageHall.setSoundEffect(SoundId.FLOOR_STEP);
         passageBathroom.setSoundEffect(SoundId.CLICK);
+        passageBathroom.setAutoRelease(false);
 
         Describable tableDescription = new GeneralDescribable(
                 Messages.getText("bedroom.table.description"),

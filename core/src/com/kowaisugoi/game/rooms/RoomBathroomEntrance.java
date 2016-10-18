@@ -87,15 +87,13 @@ public class RoomBathroomEntrance extends StandardRoom {
         PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
 
         if (!PlayGame.getFlagManager().getFlag(FlagId.FLAG_BODY_FOUND).getState()) {
-            PlayGame.getPlayer().setCursor(Player.CursorType.INVISIBLE);
             PlayGame.getPlayer().think(Messages.getText("bathroom.uncle.clickhimdammit"));
-
-            // TODO: Need a fix for room transitions cursor interaction
 
             // Big reveal timer
             Timer.schedule(new Timer.Task() {
                                @Override
                                public void run() {
+                                   PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
                                    AudioManager.playSound(SoundId.CLICK);
                                    setSprite(_roomSprite3);
                                }
@@ -109,11 +107,12 @@ public class RoomBathroomEntrance extends StandardRoom {
             Timer.schedule(new Timer.Task() {
                                @Override
                                public void run() {
+                                   PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
                                    AudioManager.playSound(SoundId.CLICK);
                                    setSprite(_roomSprite1);
                                }
                            }
-                    , 5.0f // Initial delay
+                    , 4.4f // Initial delay
                     , 0 // Fire every X seconds
                     , 1 // Number of times to fire
             );
@@ -125,7 +124,7 @@ public class RoomBathroomEntrance extends StandardRoom {
                                    PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
                                }
                            }
-                    , 6.0f // Initial delay
+                    , 5.0f // Initial delay
                     , 0 // Fire every X seconds
                     , 1 // Number of times to fire
             );
@@ -133,7 +132,23 @@ public class RoomBathroomEntrance extends StandardRoom {
             PlayGame.getFlagManager().setFlag(FlagId.FLAG_BODY_FOUND, true);
 
             PlayGame.getRoomManager().getRoomFromId(RoomId.CAR).pushEnterRemark("car.enter.wannaleave");
+        } else {
+            // Re-allow interaction in normal cases
+            Timer.schedule(new Timer.Task() {
+                               @Override
+                               public void run() {
+                                   PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+                               }
+                           }
+                    , 0.4f // Initial delay TODO: Should make global, or shouldn't set this here
+                    , 0 // Fire every X seconds
+                    , 1 // Number of times to fire
+            );
+
+            PlayGame.getFlagManager().setFlag(FlagId.FLAG_BODY_FOUND, true);
         }
+
+        System.out.println("hye");
 
         AudioManager.playMusic(MusicId.DRONE, false);
     }
