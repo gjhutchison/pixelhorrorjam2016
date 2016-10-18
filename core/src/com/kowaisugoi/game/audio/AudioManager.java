@@ -35,7 +35,7 @@ public class AudioManager implements Disposable {
         bedroom.setLooping(true);
         _musicMap.put(MusicId.BEDROOM, bedroom);
 
-        Music cozy = Gdx.audio.newMusic(Gdx.files.internal("audio/music/simpleloops/cozy.mp3"));
+        Music cozy = Gdx.audio.newMusic(Gdx.files.internal("audio/music/simpleloops/cozy_2.mp3"));
         cozy.setLooping(true);
         _musicMap.put(MusicId.COZY, cozy);
 
