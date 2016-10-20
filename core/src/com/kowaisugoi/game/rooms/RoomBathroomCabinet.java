@@ -54,10 +54,6 @@ public class RoomBathroomCabinet extends StandardRoom {
         Describable towardsBody = new GeneralDescribable(Messages.getText("bathroomcabinet.towardsbody.thought"),
                 new Rectangle(2, 3, 23, 82));
 
-        _descriptionList2 = new LinkedList<Describable>();
-        _descriptionList2.add(pills);
-        _descriptionList2.add(towardsBody);
-
         PickupableItem stickWrapped = new PickupableItem(new Sprite(new Texture("items/stickicon_wrapped.png")),
                 new Rectangle(0, 0, 0, 0),
                 ItemId.STICK_RAGS);
@@ -66,6 +62,11 @@ public class RoomBathroomCabinet extends StandardRoom {
                 Messages.getText("bathroomcabinet.interaction.stick.bandage"),
                 new Rectangle(88, 1, 33, 19),
                 ItemId.STICK, stickWrapped);
+
+        _descriptionList2 = new LinkedList<Describable>();
+        _descriptionList2.add(pills);
+        _descriptionList2.add(towardsBody);
+        _descriptionList2.add(bandages);
 
         addPassage(passageBackScare);
         addDescribable(pills);
