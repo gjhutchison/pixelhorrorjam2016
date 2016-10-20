@@ -1,11 +1,13 @@
 package com.kowaisugoi.game.interactables.passages;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Timer;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.SoundId;
+import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.graphics.SlideTransition;
 import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.interactables.objects.ItemId;
@@ -25,7 +27,13 @@ public class DirectionalPassage implements Passage {
     protected Direction _direction;
     private boolean _release = true;
 
+    private FlagId _travelFlag;
+
     private SoundId _soundId;
+
+    private Sprite _transitionSprite;
+
+    private float _travelSpeed = SlideTransition.DEFAULT_SPEED;
 
     private Map<ItemId, String> _itemInteractionMessages;
 
@@ -70,6 +78,21 @@ public class DirectionalPassage implements Passage {
     }
 
     @Override
+    public void setTransitionImage(Sprite sprite) {
+        _transitionSprite = sprite;
+    }
+
+    @Override
+    public void setTravelFlag(FlagId flag) {
+        _travelFlag = flag;
+    }
+
+    @Override
+    public void setTravelSpeed(float speed) {
+        _travelSpeed = speed;
+    }
+
+    @Override
     public void draw(SpriteBatch batch) {
     }
 
@@ -97,9 +120,15 @@ public class DirectionalPassage implements Passage {
             notifyListeners();
 
             PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
-            PlayGame.playTransition(new SlideTransition(this, _direction));
+            PlayGame.playTransition(_transitionSprite == null ?
+                    new SlideTransition(this, _direction, _travelSpeed) :
+                    new SlideTransition(this, _direction, _transitionSprite, _travelSpeed));
 
             AudioManager.playSound(_soundId);
+
+            if (_travelFlag != null && !PlayGame.getFlagManager().getFlag(_travelFlag).getState()) {
+                PlayGame.getFlagManager().toggleFlag(_travelFlag);
+            }
 
             return true;
         }

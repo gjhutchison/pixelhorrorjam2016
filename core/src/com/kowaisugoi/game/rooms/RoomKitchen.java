@@ -4,9 +4,8 @@ package com.kowaisugoi.game.rooms;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
-import com.kowaisugoi.game.audio.AudioManager;
-import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.audio.SoundId;
+import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
@@ -15,6 +14,7 @@ import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.interactables.scenic.ItemInteractableScenic;
 import com.kowaisugoi.game.messages.Messages;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomKitchen extends StandardRoom {
@@ -63,7 +63,17 @@ public class RoomKitchen extends StandardRoom {
                 ItemId.GLASS_SNOW, glassWater);
 
         PickupableItem glass = new PickupableItem(new Sprite(new Texture("items/glass.png")),
-                new Rectangle(91, 32, 8, 16), ItemId.GLASS);
+                new Rectangle(91, 32, 8, 16), ItemId.GLASS) {
+            @Override
+            public boolean click(float curX, float curY) {
+                if (!PlayGame.getFlagManager().getFlag(FlagId.FLAG_BODY_FOUND).getState()) {
+                    PlayGame.getPlayer().think(Messages.getText("kitchen.glass.thought"));
+                    return false;
+                } else {
+                    return super.click(curX, curY);
+                }
+            }
+        };
         glass.setPickupText(Messages.getText("kitchen.pickup.glass"));
 
         addDescribable(stove);

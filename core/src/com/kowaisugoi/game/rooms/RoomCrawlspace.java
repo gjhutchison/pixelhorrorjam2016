@@ -26,7 +26,7 @@ import static com.kowaisugoi.game.control.flags.FlagId.FLAG_TORCH_PLACED;
 
 public class RoomCrawlspace extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/crawlspace/crawlspace_noclutter.png";
+    private static final String ROOM_URL = "rooms/crawlspace/crawlspace_dark.png";
     private static final String ROOM_URL2 = "rooms/crawlspace/crawlspace_torch.png";
 
     private Sprite _roomSprite2;

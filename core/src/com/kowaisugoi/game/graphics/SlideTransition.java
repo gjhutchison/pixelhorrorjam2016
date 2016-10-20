@@ -1,6 +1,7 @@
 package com.kowaisugoi.game.graphics;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.kowaisugoi.game.interactables.passages.Passage;
@@ -12,13 +13,17 @@ public class SlideTransition implements Transition {
     private Passage _passage;
     private Direction _direction;
 
+    private Sprite _sprite;
+
     private float _xPosition, _yPosition;
 
-    private static final float SPEED_HORIZONTAL = 540f;
-    private static final float SPEED_VERTICAL = SPEED_HORIZONTAL * (PlayGame.GAME_HEIGHT / PlayGame.GAME_WIDTH);
+    public static final float DEFAULT_SPEED = 540f;
 
-    private static final float HALF_TIME_HORIZONTAL = (PlayGame.GAME_WIDTH / SPEED_HORIZONTAL);
-    private static final float HALF_TIME_VERTICAL = (PlayGame.GAME_HEIGHT / SPEED_VERTICAL);
+    private float _speedHorizontal = DEFAULT_SPEED;
+    private float _speedVertical = _speedHorizontal * (PlayGame.GAME_HEIGHT / PlayGame.GAME_WIDTH);
+
+    private float _halfTimeHorizontal = (PlayGame.GAME_WIDTH / _speedHorizontal);
+    private float _halfTimeVertical = (PlayGame.GAME_HEIGHT / _speedVertical);
 
     private float _animationLength;
     private boolean _alreadySwapped;
@@ -63,6 +68,30 @@ public class SlideTransition implements Transition {
         }
     }
 
+    public SlideTransition(Passage p, Direction direction, Sprite image) {
+        this(p, direction);
+        _sprite = image;
+    }
+
+    public SlideTransition(Passage p, Direction direction, float speed) {
+        this(p, direction);
+        initSpeeds(speed);
+    }
+
+    public SlideTransition(Passage p, Direction direction, Sprite image, float speed) {
+        this(p, direction);
+        _sprite = image;
+        initSpeeds(speed);
+    }
+
+    private void initSpeeds(float horizontalSpeed) {
+        _speedHorizontal = horizontalSpeed;
+        _speedVertical = _speedHorizontal * (PlayGame.GAME_HEIGHT / PlayGame.GAME_WIDTH);
+
+        _halfTimeHorizontal = (PlayGame.GAME_WIDTH / _speedHorizontal);
+        _halfTimeVertical = (PlayGame.GAME_HEIGHT / _speedVertical);
+    }
+
     private void swapRoom() {
         if (!_alreadySwapped) {
             if (_passage != null) {
@@ -76,16 +105,16 @@ public class SlideTransition implements Transition {
         _animationLength += delta;
         switch (_direction) {
             case UP:
-                _yPosition += SPEED_VERTICAL * delta;
+                _yPosition += _speedVertical * delta;
                 break;
             case DOWN:
-                _yPosition -= SPEED_VERTICAL * delta;
+                _yPosition -= _speedVertical * delta;
                 break;
             case LEFT:
-                _xPosition += SPEED_HORIZONTAL * delta;
+                _xPosition += _speedHorizontal * delta;
                 break;
             case RIGHT:
-                _xPosition -= SPEED_HORIZONTAL * delta;
+                _xPosition -= _speedHorizontal * delta;
                 break;
             default:
                 return;
@@ -97,11 +126,11 @@ public class SlideTransition implements Transition {
         if (_animating) {
             this.animateTransition(delta);
             if (_direction == Direction.UP || _direction == Direction.DOWN) {
-                if (_animationLength > HALF_TIME_VERTICAL) {
+                if (_animationLength > _halfTimeVertical) {
                     swapRoom();
                 }
             } else if (_direction == Direction.LEFT || _direction == Direction.RIGHT) {
-                if (_animationLength > HALF_TIME_HORIZONTAL) {
+                if (_animationLength > _halfTimeHorizontal) {
                     swapRoom();
                 }
             }
@@ -125,6 +154,10 @@ public class SlideTransition implements Transition {
 
     @Override
     public void draw(SpriteBatch batch) {
+        if (_sprite != null && _animating) {
+            _sprite.setPosition(_xPosition, _yPosition);
+            _sprite.draw(batch);
+        }
     }
 
     @Override
