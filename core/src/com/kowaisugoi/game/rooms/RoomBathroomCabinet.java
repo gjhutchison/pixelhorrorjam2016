@@ -26,6 +26,7 @@ public class RoomBathroomCabinet extends StandardRoom {
     private static final String ROOM_URL = "rooms/bathroomCabinet/bathroomCabinet.png";
     private static final String TRANSITION_URL = "rooms/bathroomCabinet/uncle_transition.png";
     private List<Passage> _passageList2;
+    private List<Describable> _descriptionList2;
 
     public RoomBathroomCabinet() {
         super(new Sprite(new Texture(ROOM_URL)));
@@ -33,8 +34,8 @@ public class RoomBathroomCabinet extends StandardRoom {
         //TODO: Have dead uncle swing by on transition screen?
         Passage passageBack = new DirectionalPassage(RoomId.BATHROOM_CABINET,
                 RoomId.BATHROOM,
-                new Rectangle(2, 3, 23, 82),
-                GameUtil.Direction.LEFT);
+                new Rectangle(135, 2, 23, 77),
+                GameUtil.Direction.RIGHT);
 
         Passage passageBackScare = new DirectionalPassage(RoomId.BATHROOM_CABINET,
                 RoomId.BATHROOM,
@@ -50,6 +51,12 @@ public class RoomBathroomCabinet extends StandardRoom {
 
         Describable pills = new GeneralDescribable(Messages.getText("bathroomcabinet.pills.thought"),
                 new Rectangle(48, 2, 15, 18));
+        Describable towardsBody = new GeneralDescribable(Messages.getText("bathroomcabinet.towardsbody.thought"),
+                new Rectangle(2, 3, 23, 82));
+
+        _descriptionList2 = new LinkedList<Describable>();
+        _descriptionList2.add(pills);
+        _descriptionList2.add(towardsBody);
 
         PickupableItem stickWrapped = new PickupableItem(new Sprite(new Texture("items/stickicon_wrapped.png")),
                 new Rectangle(0, 0, 0, 0),
@@ -69,6 +76,7 @@ public class RoomBathroomCabinet extends StandardRoom {
     public void flagUpdate() {
         if (PlayGame.getFlagManager().getFlag(FLAG_ENTERED_BATHROOM).getState()) {
             setPassageList(_passageList2);
+            setDescriptionList(_descriptionList2);
         }
     }
 
