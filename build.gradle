@@ -52,6 +52,7 @@ project(":core") {
         compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:0.13.2"
         compile "net.dermetfan.libgdx-utils:libgdx-utils:0.13.2"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        compile fileTree(dir: "libs", include: "*.jar")
     }
 }
 
