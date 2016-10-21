@@ -15,8 +15,8 @@ public class AudioManager implements Disposable {
     private static MusicId _currentSong = MusicId.NONE;
 
     public static void initSounds() {
-        _soundMap.put(SoundId.DOOR_CREAK, Gdx.audio.newSound(Gdx.files.internal("audio/effects/Door.mp3")));
-        _soundMap.put(SoundId.DOOR_LOCKED, Gdx.audio.newSound(Gdx.files.internal("audio/effects/Door Locked.mp3")));
+        _soundMap.put(SoundId.DOOR_CREAK, Gdx.audio.newSound(Gdx.files.internal("audio/effects/door.mp3")));
+        _soundMap.put(SoundId.DOOR_LOCKED, Gdx.audio.newSound(Gdx.files.internal("audio/effects/door_locked.mp3")));
         _soundMap.put(SoundId.SNOW_CRUNCH, Gdx.audio.newSound(Gdx.files.internal("audio/effects/snowsteps_2.mp3")));
         _soundMap.put(SoundId.FLOOR_STEP, Gdx.audio.newSound(Gdx.files.internal("audio/effects/footsteps_floor.mp3")));
         _soundMap.put(SoundId.CLICK, Gdx.audio.newSound(Gdx.files.internal("audio/effects/caclick.mp3")));
