@@ -124,7 +124,7 @@ public class Container implements Interactable {
     }
 
     @Override
-    public boolean itemIteract(ItemId id) {
+    public boolean itemInteract(ItemId id) {
         if (_keyId == id) {
             _unlocked = true;
             return true;
@@ -143,6 +143,11 @@ public class Container implements Interactable {
     @Override
     public void setItemInteractionMessage(ItemId id, String message) {
         _itemInteractionMessages.put(id, message);
+    }
+
+    @Override
+    public boolean checkInteraction(float curX, float curY) {
+        return _interactionBox.contains(curX, curY);
     }
 
     public void setUnlockableItem(ItemId id) {

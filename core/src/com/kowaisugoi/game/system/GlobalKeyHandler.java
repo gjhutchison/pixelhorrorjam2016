@@ -23,6 +23,7 @@ public final class GlobalKeyHandler {
     static final int YES_KEY = Input.Keys.Y;
     static final int NO_KEY = Input.Keys.N;
     static final int SHED_INTERIOR_KEY = Input.Keys.S;
+    static final int TORCH_KEY = Input.Keys.T;
     static final int CABINET_KEY = Input.Keys.C;
 
     public static boolean keyUp(int keycode) {
@@ -93,6 +94,16 @@ public final class GlobalKeyHandler {
             if (PlayGame.getDebug()) {
                 PlayGame.getPlayer().enterRoom(RoomId.BATHROOM_CABINET);
             }
+        }
+
+        if (keycode == TORCH_KEY) {
+            PickupableItem torch = new PickupableItem(new Sprite(new Texture("items/stickicon_fire.png")),
+                    new Rectangle(0, 0, 0, 0),
+                    ItemId.TORCH);
+            if (PlayGame.getDebug()) {
+                PlayGame.getPlayer().getInventory().addItem(torch);
+            }
+
         }
 
         return false;

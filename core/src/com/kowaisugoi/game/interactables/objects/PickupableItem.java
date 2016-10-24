@@ -127,7 +127,7 @@ public class PickupableItem implements Item {
     }
 
     @Override
-    public boolean itemIteract(ItemId id) {
+    public boolean itemInteract(ItemId id) {
         return false;
     }
 
@@ -153,5 +153,10 @@ public class PickupableItem implements Item {
     @Override
     public ItemId getItemId() {
         return _id;
+    }
+
+    @Override
+    public boolean checkInteraction(float curX, float curY) {
+        return _interactionBox.contains(curX, curY);
     }
 }

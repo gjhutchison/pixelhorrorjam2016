@@ -36,7 +36,7 @@ public class ItemInteractableScenic extends GeneralDescribable {
     }
 
     @Override
-    public boolean itemIteract(ItemId id) {
+    public boolean itemInteract(ItemId id) {
 
         if (id == _interactableItem) {
             PlayGame.getPlayer().getInventory().addItem(_returnItem);
