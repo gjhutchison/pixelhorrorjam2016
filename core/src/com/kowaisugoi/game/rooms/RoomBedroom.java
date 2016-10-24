@@ -26,7 +26,7 @@ import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BOARDS_REMOVED;
 public class RoomBedroom extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/bedroom/bedroom.png";
-    private static final String ROOM_URL2 = "rooms/bedroom/bedroom_brokenboards.png";
+    private static final String ROOM_URL2 = "rooms/bedroom/broken_boards_night.png";
 
     private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
 

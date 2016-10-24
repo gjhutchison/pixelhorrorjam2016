@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/desktop/desktop.iml" filepath="$PROJECT_DIR$/desktop/desktop.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pixelhorrorjam2016.iml" filepath="$PROJECT_DIR$/pixelhorrorjam2016.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/core.iml" group="core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/core_main.iml" filepath="$PROJECT_DIR$/.idea/modules/core/core_main.iml" group="core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/core_test.iml" filepath="$PROJECT_DIR$/.idea/modules/core/core_test.iml" group="core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/desktop.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/desktop.iml" group="desktop" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/desktop_main.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/desktop_main.iml" group="desktop" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/desktop_test.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/desktop_test.iml" group="desktop" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pixelhorrorjam2016.iml" filepath="$PROJECT_DIR$/.idea/modules/pixelhorrorjam2016.iml" />
     </modules>
   </component>
 </project>

@@ -19,7 +19,7 @@ import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomKitchen extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/kitchen/kitchen_draft.png";
+    private static final String ROOM_URL = "rooms/kitchen/kitchen.png";
 
     public RoomKitchen() {
         super(new Sprite(new Texture(ROOM_URL)));
