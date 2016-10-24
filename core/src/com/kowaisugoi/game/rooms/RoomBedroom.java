@@ -22,13 +22,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BOARDS_REMOVED;
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_NIGHT_TIME;
 
 public class RoomBedroom extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/bedroom/bedroom.png";
     private static final String ROOM_URL2 = "rooms/bedroom/broken_boards_night.png";
+    private static final String ROOM_URL3 = "rooms/bedroom/bedroom_night.png";
 
+    private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
     private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
+    private final Sprite _roomSprite3 = new Sprite(new Texture(ROOM_URL3));
 
     private List<Describable> _describableList1;
     private List<Passage> _passageList1;
@@ -111,6 +115,12 @@ public class RoomBedroom extends StandardRoom {
             setSprite(_roomSprite2);
             setDescriptionList(_describableList1);
             setPassageList(_passageList1);
+        } else {
+            if (PlayGame.getFlagManager().getFlag(FLAG_NIGHT_TIME).getState()) {
+                setSprite(_roomSprite3);
+            } else {
+                setSprite(_roomSprite1);
+            }
         }
     }
 

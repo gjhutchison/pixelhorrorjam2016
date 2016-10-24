@@ -12,11 +12,18 @@ import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.messages.Messages;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
+
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_NIGHT_TIME;
 
 public class RoomForestPath extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/path/path.png";
+    private static final String ROOM_URL2 = "rooms/path/path_night.png";
+
+    private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
+    private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
     //private boolean _firstTime = true; //S-s-senpai (≧◡≦) ♡
 
     private SnowAnimation _snowAnimation;
@@ -65,5 +72,14 @@ public class RoomForestPath extends StandardRoom {
     public void draw(ShapeRenderer renderer) {
         _snowAnimation.draw(renderer);
         super.draw(renderer);
+    }
+
+    @Override
+    public void flagUpdate() {
+        if (PlayGame.getFlagManager().getFlag(FLAG_NIGHT_TIME).getState()) {
+            setSprite(_roomSprite2); // NIGHTTIME
+        } else {
+            setSprite(_roomSprite1);
+        }
     }
 }

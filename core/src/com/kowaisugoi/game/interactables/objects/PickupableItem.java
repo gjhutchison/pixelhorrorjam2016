@@ -36,6 +36,7 @@ public class PickupableItem implements Item {
         _interactionBox = interactionBox;
         _sprite = sprite;
         _invSprite = sprite;
+        _sprite.setSize(_interactionBox.getWidth(), _interactionBox.getHeight());
         _sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
         _id = id;
 

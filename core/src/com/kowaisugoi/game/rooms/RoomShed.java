@@ -18,15 +18,19 @@ import com.kowaisugoi.game.interactables.scenic.ItemInteractableScenic;
 import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
+
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_NIGHT_TIME;
 import static com.kowaisugoi.game.control.flags.FlagId.FLAG_SHED_OPENED;
 
 public class RoomShed extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/shed/shed_v2_frozen.png";
     private static final String ROOM_URL2 = "rooms/shed/shed_v2.png";
+    private static final String ROOM_URL3 = "rooms/shed/shed_v2_night.png";
 
     private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
     private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
+    private final Sprite _roomSprite3 = new Sprite(new Texture(ROOM_URL3));
 
     private SnowAnimation _snowAnimation;
 
@@ -89,7 +93,11 @@ public class RoomShed extends StandardRoom {
     @Override
     public void flagUpdate() {
         if (PlayGame.getFlagManager().getFlag(FLAG_SHED_OPENED).getState()) {
-            setSprite(_roomSprite2);
+            if (PlayGame.getFlagManager().getFlag(FLAG_NIGHT_TIME).getState()) {
+                setSprite(_roomSprite3);
+            } else {
+                setSprite(_roomSprite2);
+            }
         } else {
             setSprite(_roomSprite1);
         }

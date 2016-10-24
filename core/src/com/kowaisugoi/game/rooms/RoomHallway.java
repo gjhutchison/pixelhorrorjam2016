@@ -9,18 +9,25 @@ import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
+
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_NIGHT_TIME;
 
 public class RoomHallway extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/hallway/hallway.png";
+    private static final String ROOM_URL2 = "rooms/hallway/hallway_night.png";
+
+    private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
+    private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
 
     public RoomHallway() {
         super(new Sprite(new Texture(ROOM_URL)));
 
         Passage passageMainRoom = new DirectionalPassage(RoomId.HALLWAY,
                 RoomId.MAIN_HALL,
-                new Rectangle(51, 0, 54, 20),
+                new Rectangle(51, 0, 54, 10),
                 GameUtil.Direction.DOWN);
 
         Passage passageBedroom = new DirectionalPassage(RoomId.HALLWAY,
@@ -45,5 +52,14 @@ public class RoomHallway extends StandardRoom {
     public void enter() {
         super.enter();
         AudioManager.playMusic(MusicId.HOWL, false);
+    }
+
+    @Override
+    public void flagUpdate() {
+        if (PlayGame.getFlagManager().getFlag(FLAG_NIGHT_TIME).getState()) {
+            setSprite(_roomSprite2);
+        } else {
+            setSprite(_roomSprite1);
+        }
     }
 }
