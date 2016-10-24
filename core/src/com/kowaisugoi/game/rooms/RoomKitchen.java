@@ -57,26 +57,30 @@ public class RoomKitchen extends StandardRoom {
                 new Rectangle(0, 0, 0, 0),
                 ItemId.GLASS_WATER);
 
-        ItemInteractableScenic stove = new ItemInteractableScenic(Messages.getText("kitchen.stove.thought"),
+        ItemInteractableScenic kettle = new ItemInteractableScenic(Messages.getText("kitchen.stove.thought"),
                 Messages.getText("kitchen.interaction.stove.snowglass"),
-                new Rectangle(13, 24, 35, 12),
+                new Rectangle(26, 31, 15, 15),
                 ItemId.GLASS_SNOW, glassWater);
 
         PickupableItem glass = new PickupableItem(new Sprite(new Texture("items/glass.png")),
                 new Rectangle(91, 32, 8, 16), ItemId.GLASS) {
             @Override
             public boolean click(float curX, float curY) {
-                if (!PlayGame.getFlagManager().getFlag(FlagId.FLAG_BODY_FOUND).getState()) {
-                    PlayGame.getPlayer().think(Messages.getText("kitchen.glass.thought"));
-                    return false;
+                if (getInteractionBox().contains(curX, curY)) {
+                    if (!PlayGame.getFlagManager().getFlag(FlagId.FLAG_BODY_FOUND).getState()) {
+                        PlayGame.getPlayer().think(Messages.getText("kitchen.glass.thought"));
+                        return false;
+                    } else {
+                        return super.click(curX, curY);
+                    }
                 } else {
-                    return super.click(curX, curY);
+                    return false;
                 }
             }
         };
         glass.setPickupText(Messages.getText("kitchen.pickup.glass"));
 
-        addDescribable(stove);
+        addDescribable(kettle);
 
         addPickupableItem(glass);
     }
