@@ -20,17 +20,17 @@ public class RoomHallway extends StandardRoom {
 
         Passage passageMainRoom = new DirectionalPassage(RoomId.HALLWAY,
                 RoomId.MAIN_HALL,
-                new Rectangle(50, 0, 50, 15),
+                new Rectangle(51, 0, 54, 20),
                 GameUtil.Direction.DOWN);
 
         Passage passageBedroom = new DirectionalPassage(RoomId.HALLWAY,
                 RoomId.BEDROOM,
-                new Rectangle(10, 15, 32, 60),
+                new Rectangle(15, 11, 30, 56),
                 GameUtil.Direction.UP);
 
         Passage passageKitchen = new DirectionalPassage(RoomId.HALLWAY,
                 RoomId.KITCHEN,
-                new Rectangle(117, 6, 26, 60),
+                new Rectangle(115, 7, 30, 58),
                 GameUtil.Direction.UP);
 
         passageBedroom.setSoundEffect(SoundId.FLOOR_STEP);
