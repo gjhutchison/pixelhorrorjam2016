@@ -29,7 +29,7 @@ public class RoomCarPark extends StandardRoom {
     private SnowAnimation _snowAnimation;
     private static final String ROOM_URL = "rooms/parking/carpark.png";
     private static final String ROOM_URL2 = "rooms/parking/snowed_car.png";
-    private static final String ROOM_URL3 = "rooms/parking/cardamaged.png";
+    private static final String ROOM_URL3 = "rooms/parking/damaged_car_night.png";
 
     private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
     private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
