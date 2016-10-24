@@ -17,7 +17,13 @@ import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.interactables.scenic.ItemInteractableScenic;
 import com.kowaisugoi.game.messages.Messages;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_KEYS_MISSING;
 
 public class RoomMainHall extends StandardRoom {
 
@@ -25,6 +31,10 @@ public class RoomMainHall extends StandardRoom {
     private FireAnimation _fireAnimation;
     int _currentSprite = 0;
     float _deltaBuffer = 0;
+
+    private PickupableItem _carkeys;
+
+    private List<Describable> _describableList2;
 
     /*
     private static final String[] OVERLAY_URLS = {"rooms/mainhall/cozy_overlay_1.png",
@@ -42,6 +52,8 @@ public class RoomMainHall extends StandardRoom {
             _overlays.add(overlay);
         }
         */
+        _describableList2 = new LinkedList<Describable>();
+
         Passage hallDoor = new DirectionalPassage(RoomId.MAIN_HALL,
                 RoomId.HALLWAY,
                 new Rectangle(5, 25, 30, 40),
@@ -58,12 +70,18 @@ public class RoomMainHall extends StandardRoom {
         Describable paintingDescription = new GeneralDescribable(Messages.getText("mainhall.painting.thought"),
                 new Rectangle(55, 50, 40, 30));
 
-        /*Describable fireDescription = new GeneralDescribable(Messages.getText("mainhall.fireplace.thought"),
-                new Rectangle(70, 28, 21, 13));*/
+        Describable extinguishedFireDescription = new GeneralDescribable(Messages.getText("mainhall.extinguishedfire.thought"),
+                new Rectangle(72, 35, 18, 7));
 
         PickupableItem torch = new PickupableItem(new Sprite(new Texture("items/stickicon_fire.png")),
                 new Rectangle(0, 0, 0, 0),
                 ItemId.TORCH);
+
+        _carkeys = new PickupableItem(new Sprite(new Texture("rooms/mainhall/key.png")),
+                new Sprite(new Texture("items/carkeyicon.png")),
+                new Rectangle(75, 28, 8, 5),
+                ItemId.CAR_KEYS);
+        _carkeys.setPickupText(Messages.getText("mainhall.pickup.carkeys"));
 
         ItemInteractableScenic fireDescription = new ItemInteractableScenic(Messages.getText("mainhall.fireplace.thought"),
                 Messages.getText("shedinterior.interaction.stickdoused.fireplace"),
@@ -78,8 +96,12 @@ public class RoomMainHall extends StandardRoom {
         addPassage(hallDoor);
         addPassage(turnAround);
         addPassage(crawlDoor);
-        _fireAnimation = new FireAnimation(80, 31, 50);
+        _fireAnimation = new FireAnimation(80, 31, 150);
         pushEnterRemark("mainhall.enter.whereuncle");
+
+        _describableList2.add(paintingDescription);
+        _describableList2.add(extinguishedFireDescription);
+        //_describableList2.add()
     }
 
     public void drawFx(SpriteBatch batch) {
@@ -95,13 +117,30 @@ public class RoomMainHall extends StandardRoom {
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        _fireAnimation.draw(renderer);
+        if (!PlayGame.getFlagManager().getFlag(FLAG_KEYS_MISSING).getState()) {
+            _fireAnimation.draw(renderer);
+        }
         super.draw(renderer);
+    }
+
+    @Override
+    public void flagUpdate() {
+        if (PlayGame.getFlagManager().getFlag(FLAG_KEYS_MISSING).getState()) {
+            setDescriptionList(_describableList2);
+            if (!_carkeys.isPickedUp()) {
+                _pickupableItemList.clear();
+                _pickupableItemList.add(_carkeys);
+            }
+        }
     }
 
     public void update(float delta) {
         super.update(delta);
-        _fireAnimation.update(delta);
+
+        if (!PlayGame.getFlagManager().getFlag(FLAG_KEYS_MISSING).getState()) {
+            _fireAnimation.update(delta);
+        }
+
         /*
         deltaBuffer += delta;
         if (deltaBuffer >= 0.25) { // TODO: Randomly change this max value

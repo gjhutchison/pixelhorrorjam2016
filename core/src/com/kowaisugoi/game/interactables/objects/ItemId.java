@@ -12,5 +12,5 @@ public enum ItemId {
     STICK_RAGS_ALCOHOL,
     TORCH,
     PRYBAR,
-    KEYS
+    CAR_KEYS
 }

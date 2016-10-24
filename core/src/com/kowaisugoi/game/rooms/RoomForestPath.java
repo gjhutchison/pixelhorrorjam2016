@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.graphics.SnowAnimation;
+import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.messages.Messages;
-import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomForestPath extends StandardRoom {
@@ -37,6 +37,9 @@ public class RoomForestPath extends StandardRoom {
                 new Rectangle(110, 10, 25, 65));
         treesDescription2.addDescription(Messages.getText("forestpath.trees.description2_2"));
         treesDescription2.addDescription(Messages.getText("forestpath.trees.description2_3"));
+
+        treesDescription.setItemInteractionMessage(ItemId.STICK, Messages.getText("forestpath.interaction.stick.trees"));
+        treesDescription2.setItemInteractionMessage(ItemId.STICK, Messages.getText("forestpath.interaction.stick.trees"));
 
         Passage forward = new DirectionalPassage(RoomId.ROAD, RoomId.FRONTYARD, new Rectangle(60, 20, 30, 60), GameUtil.Direction.UP);
         Passage backward = new DirectionalPassage(RoomId.ROAD, RoomId.PARKING_AREA, new Rectangle(55, 0, 50, 10), GameUtil.Direction.DOWN);
