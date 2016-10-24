@@ -7,8 +7,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.audio.SoundId;
-import com.kowaisugoi.game.control.flags.FlagId;
-import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.graphics.SnowAnimation;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
@@ -24,8 +22,7 @@ import com.kowaisugoi.game.system.GameUtil;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BODY_FOUND;
-import static com.kowaisugoi.game.control.flags.FlagId.FLAG_CAR_SNOWREMOVED;
+import static com.kowaisugoi.game.control.flags.FlagId.*;
 
 public class RoomCarPark extends StandardRoom {
 
@@ -72,6 +69,9 @@ public class RoomCarPark extends StandardRoom {
                 Messages.getText("carpark.snow.interact.unlocked"),
                 null);
         snowCar.setUnlockedToggleFlag(FLAG_CAR_SNOWREMOVED);
+        snowCar.setItemInteractionMessage(ItemId.GLASS, Messages.getText("carpark.interaction.glass.snow"));
+        snowCar.setItemInteractionMessage(ItemId.GLASS_SNOW, Messages.getText("carpark.interaction.glasssnow.snow"));
+        snowCar.setItemInteractionMessage(ItemId.GLASS_WATER, Messages.getText("carpark.interaction.glasswater.snow"));
 
         BlockedPassage jammedCar = new BlockedPassage(RoomId.PARKING_AREA,
                 RoomId.CAR,
@@ -82,6 +82,8 @@ public class RoomCarPark extends StandardRoom {
                 Messages.getText("carpark.jammeddoor.interact.unlocked"),
                 null);
         jammedCar.setItemInteractionMessage(ItemId.HAMMER, Messages.getText("carpark.interaction.hammer.cardoor"));
+        jammedCar.setItemInteractionMessage(ItemId.STICK, Messages.getText("carpark.interaction.stick.cardoor"));
+        jammedCar.setTravelFlag(FLAG_KEYS_MISSING);
 
         Describable carDamageDescription = new GeneralDescribable(Messages.getText("carpark.damage.description"),
                 new Rectangle(15, 19, 28, 10));

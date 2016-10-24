@@ -9,7 +9,6 @@ import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.control.flags.FlagId;
-import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
@@ -23,7 +22,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BOARDS_REMOVED;
-import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BODY_FOUND;
 
 public class RoomBathroomEntrance extends StandardRoom {
 
@@ -131,7 +129,7 @@ public class RoomBathroomEntrance extends StandardRoom {
 
             PlayGame.getFlagManager().setFlag(FlagId.FLAG_BODY_FOUND, true);
 
-            PlayGame.getRoomManager().getRoomFromId(RoomId.CAR).pushEnterRemark("car.enter.wannaleave");
+            //PlayGame.getRoomManager().getRoomFromId(RoomId.CAR).pushEnterRemark("car.enter.wannaleave");
         } else {
             // Re-allow interaction in normal cases
             Timer.schedule(new Timer.Task() {

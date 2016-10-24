@@ -2,10 +2,8 @@ package com.kowaisugoi.game.rooms;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.control.flags.FlagId;
-import com.kowaisugoi.game.graphics.SnowAnimation;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
@@ -29,5 +27,12 @@ public class RoomCar extends StandardRoom {
         addPassage(carDoor);
 
         pushEnterRemark("car.enter.cold");
+    }
+
+    @Override
+    public void flagUpdate() {
+        if (PlayGame.getFlagManager().getFlag(FlagId.FLAG_KEYS_MISSING).getState()) {
+            pushEnterRemark("car.keysmissing");
+        }
     }
 }
