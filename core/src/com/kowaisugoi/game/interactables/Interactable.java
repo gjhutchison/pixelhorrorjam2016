@@ -7,6 +7,7 @@ import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 
 public interface Interactable {
+    // TODO: In a perfect world, the interaction box should probably be private.
     public Rectangle getInteractionBox();
 
     public void draw(SpriteBatch batch);
@@ -25,9 +26,11 @@ public interface Interactable {
 
     public boolean isItemInteractable();
 
-    public boolean itemIteract(ItemId id);
+    public boolean itemInteract(ItemId id);
 
     public String getItemInteractionMessage(ItemId id);
 
     public void setItemInteractionMessage(ItemId id, String message);
+
+    public boolean checkInteraction(float curX, float curY);
 }

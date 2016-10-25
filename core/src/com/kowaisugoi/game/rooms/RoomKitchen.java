@@ -17,9 +17,15 @@ import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_NIGHT_TIME;
+
 public class RoomKitchen extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/kitchen/kitchen.png";
+    private static final String ROOM_URL2 = "rooms/kitchen/kitchen_night.png";
+
+    private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
+    private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
 
     public RoomKitchen() {
         super(new Sprite(new Texture(ROOM_URL)));
@@ -63,7 +69,7 @@ public class RoomKitchen extends StandardRoom {
                 ItemId.GLASS_SNOW, glassWater);
 
         PickupableItem glass = new PickupableItem(new Sprite(new Texture("items/glass.png")),
-                new Rectangle(91, 32, 8, 16), ItemId.GLASS) {
+                new Rectangle(91, 32, 12, 12), ItemId.GLASS) {
             @Override
             public boolean click(float curX, float curY) {
                 if (getInteractionBox().contains(curX, curY)) {
@@ -83,5 +89,14 @@ public class RoomKitchen extends StandardRoom {
         addDescribable(kettle);
 
         addPickupableItem(glass);
+    }
+
+    @Override
+    public void flagUpdate() {
+        if (PlayGame.getFlagManager().getFlag(FLAG_NIGHT_TIME).getState()) {
+            setSprite(_roomSprite2);
+        } else {
+            setSprite(_roomSprite1);
+        }
     }
 }

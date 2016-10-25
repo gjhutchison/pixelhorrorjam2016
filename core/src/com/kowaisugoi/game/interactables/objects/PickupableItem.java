@@ -36,6 +36,7 @@ public class PickupableItem implements Item {
         _interactionBox = interactionBox;
         _sprite = sprite;
         _invSprite = sprite;
+        _sprite.setSize(_interactionBox.getWidth(), _interactionBox.getHeight());
         _sprite.setPosition(_interactionBox.getX(), _interactionBox.getY());
         _id = id;
 
@@ -126,7 +127,7 @@ public class PickupableItem implements Item {
     }
 
     @Override
-    public boolean itemIteract(ItemId id) {
+    public boolean itemInteract(ItemId id) {
         return false;
     }
 
@@ -152,5 +153,10 @@ public class PickupableItem implements Item {
     @Override
     public ItemId getItemId() {
         return _id;
+    }
+
+    @Override
+    public boolean checkInteraction(float curX, float curY) {
+        return _interactionBox.contains(curX, curY);
     }
 }

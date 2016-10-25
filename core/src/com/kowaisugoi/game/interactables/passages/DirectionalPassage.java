@@ -23,6 +23,7 @@ import java.util.Map;
 public class DirectionalPassage implements Passage {
     private LinkedList<InteractionListener> _listeners = new LinkedList<InteractionListener>();
     protected Rectangle _interactionBox;
+    protected Rectangle _silentInteractionBox;
     private RoomId _source, _destination;
     protected Direction _direction;
     private boolean _release = true;
@@ -41,6 +42,17 @@ public class DirectionalPassage implements Passage {
         _source = src;
         _destination = dest;
         _interactionBox = interactionBox;
+        _silentInteractionBox = interactionBox;
+        _direction = direction;
+
+        _itemInteractionMessages = new HashMap<ItemId, String>();
+    }
+
+    public DirectionalPassage(RoomId src, RoomId dest, Rectangle interactionBox, Rectangle silentInteractionBox, Direction direction) {
+        _source = src;
+        _destination = dest;
+        _interactionBox = interactionBox;
+        _silentInteractionBox = silentInteractionBox;
         _direction = direction;
 
         _itemInteractionMessages = new HashMap<ItemId, String>();
@@ -116,7 +128,7 @@ public class DirectionalPassage implements Passage {
 
     @Override
     public boolean click(float curX, float curY) {
-        if (_interactionBox.contains(curX, curY)) {
+        if (_interactionBox.contains(curX, curY) || _silentInteractionBox.contains(curX, curY)) {
             notifyListeners();
 
             PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
@@ -188,7 +200,7 @@ public class DirectionalPassage implements Passage {
     }
 
     @Override
-    public boolean itemIteract(ItemId id) {
+    public boolean itemInteract(ItemId id) {
         return false;
     }
 
@@ -196,5 +208,10 @@ public class DirectionalPassage implements Passage {
         for (InteractionListener listener : _listeners) {
             listener.notifyListener();
         }
+    }
+
+    @Override
+    public boolean checkInteraction(float curX, float curY) {
+        return _interactionBox.contains(curX, curY);
     }
 }

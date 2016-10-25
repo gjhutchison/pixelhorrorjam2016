@@ -162,24 +162,25 @@ public abstract class StandardRoom implements Room {
 
     @Override
     public boolean click(float curX, float curY, ItemId itemId) {
-        // TODO: Combine these?
-        for (Interactable interactable : _passageList) {
-            if (interactable.getInteractionBox().contains(curX, curY)) {
-                if (interactable.isItemInteractable()) {
-                    if (interactable.itemIteract(itemId)) {
+        // TODO: Much of this logic really belongs in the respective interactable. Should be a way to combine these
+        for (Passage passage : _passageList) {
+            if (passage.checkInteraction(curX, curY)) {
+                if (passage.isItemInteractable()) {
+                    if (passage.itemInteract(itemId)) {
                         return true;
                     }
                 }
-                if (!"".equals(interactable.getItemInteractionMessage(itemId))) {
-                    PlayGame.getPlayer().think(interactable.getItemInteractionMessage(itemId));
+                if (!"".equals(passage.getItemInteractionMessage(itemId))) {
+                    PlayGame.getPlayer().think(passage.getItemInteractionMessage(itemId));
                     return false;
                 }
             }
         }
+
         for (Container container : _containerList) {
-            if (container.getInteractionBox().contains(curX, curY)) {
+            if (container.checkInteraction(curX, curY)) {
                 if (container.isItemInteractable()) {
-                    if (container.itemIteract(itemId)) {
+                    if (container.itemInteract(itemId)) {
                         return true;
                     }
                 }
@@ -191,9 +192,9 @@ public abstract class StandardRoom implements Room {
             }
         }
         for (Describable describable : _describableList) {
-            if (describable.getInteractionBox().contains(curX, curY)) {
+            if (describable.checkInteraction(curX, curY)) {
                 if (describable.isItemInteractable()) {
-                    if (describable.itemIteract(itemId)) {
+                    if (describable.itemInteract(itemId)) {
                         return true;
                     }
                 }

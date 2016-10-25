@@ -15,11 +15,18 @@ import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Container;
 import com.kowaisugoi.game.messages.Messages;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil.Direction;
+
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_NIGHT_TIME;
 
 public class RoomFrontYard extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/frontyard/frontyard.png";
+    private static final String ROOM_URL2 = "rooms/frontyard/frontyard_night.png";
+
+    private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
+    private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
 
     private SnowAnimation _snowAnimation;
 
@@ -81,5 +88,14 @@ public class RoomFrontYard extends StandardRoom {
     public void enter() {
         super.enter();
         AudioManager.playMusic(MusicId.WIND, false);
+    }
+
+    @Override
+    public void flagUpdate() {
+        if (PlayGame.getFlagManager().getFlag(FLAG_NIGHT_TIME).getState()) {
+            setSprite(_roomSprite2);
+        } else {
+            setSprite(_roomSprite1);
+        }
     }
 }

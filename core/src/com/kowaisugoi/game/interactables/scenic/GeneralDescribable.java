@@ -126,7 +126,12 @@ public class GeneralDescribable implements Describable {
     }
 
     @Override
-    public boolean itemIteract(ItemId id) {
+    public boolean itemInteract(ItemId id) {
         return false;
+    }
+
+    @Override
+    public boolean checkInteraction(float curX, float curY) {
+        return _interactionBox.contains(curX, curY);
     }
 }

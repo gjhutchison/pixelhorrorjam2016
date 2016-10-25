@@ -5,12 +5,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.MusicId;
+import com.kowaisugoi.game.control.flags.FlagId;
+import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.ItemInteractableScenic;
 import com.kowaisugoi.game.messages.Messages;
+import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomShedInterior extends StandardRoom {
@@ -59,5 +62,10 @@ public class RoomShedInterior extends StandardRoom {
     public void enter() {
         super.enter();
         AudioManager.playMusic(MusicId.HOWL, false);
+
+        if (!PlayGame.getFlagManager().getFlag(FlagId.FLAG_NIGHT_TIME).getState()) {
+            PlayGame.getFlagManager().setFlag(FlagId.FLAG_NIGHT_TIME, true);
+            PlayGame.getRoomManager().getRoomFromId(RoomId.SHED).pushEnterRemark("shed.enter.night");
+        }
     }
 }

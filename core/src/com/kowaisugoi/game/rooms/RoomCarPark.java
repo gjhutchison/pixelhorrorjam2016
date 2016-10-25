@@ -29,11 +29,13 @@ public class RoomCarPark extends StandardRoom {
     private SnowAnimation _snowAnimation;
     private static final String ROOM_URL = "rooms/parking/carpark.png";
     private static final String ROOM_URL2 = "rooms/parking/snowed_car.png";
-    private static final String ROOM_URL3 = "rooms/parking/cardamaged.png";
+    private static final String ROOM_URL3 = "rooms/parking/damaged_car_night.png";
+    private static final String ROOM_URL4 = "rooms/parking/snowed_car_night.png";
 
     private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
     private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
     private final Sprite _roomSprite3 = new Sprite(new Texture(ROOM_URL3));
+    private final Sprite _roomSprite4 = new Sprite(new Texture(ROOM_URL4));
 
     private List<Passage> _passageList1;
     private List<Passage> _passageList2;
@@ -133,8 +135,12 @@ public class RoomCarPark extends StandardRoom {
         if (PlayGame.getFlagManager().getFlag(FLAG_BODY_FOUND).getState()
                 && !PlayGame.getFlagManager().getFlag(FLAG_CAR_SNOWREMOVED).getState()) {
             setPassageList(_passageList2);
-            setSprite(_roomSprite2);
-            pushEnterRemark("carpark.enter.snowcovered");
+
+            if (PlayGame.getFlagManager().getFlag(FLAG_NIGHT_TIME).getState()) {
+                setSprite(_roomSprite4);
+            } else {
+                setSprite(_roomSprite2);
+            }
         } else if (PlayGame.getFlagManager().getFlag(FLAG_CAR_SNOWREMOVED).getState()) {
             setPassageList(_passageList3);
             setSprite(_roomSprite3);

@@ -129,7 +129,8 @@ public class RoomBathroomEntrance extends StandardRoom {
 
             PlayGame.getFlagManager().setFlag(FlagId.FLAG_BODY_FOUND, true);
 
-            //PlayGame.getRoomManager().getRoomFromId(RoomId.CAR).pushEnterRemark("car.enter.wannaleave");
+            PlayGame.getRoomManager().getRoomFromId(RoomId.CAR).pushEnterRemark("car.enter.wannaleave");
+            PlayGame.getRoomManager().getRoomFromId(RoomId.PARKING_AREA).pushEnterRemark("carpark.enter.snowcovered");
         } else {
             // Re-allow interaction in normal cases
             Timer.schedule(new Timer.Task() {

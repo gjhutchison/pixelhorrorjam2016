@@ -59,6 +59,7 @@ public class RoomCrawlspace extends StandardRoom {
         BlockedPassage dirtPatch = new BlockedPassage(RoomId.CRAWLSPACE,
                 RoomId.CRAWLSPACE,
                 new Rectangle(116, 5, 20, 14),
+                new Rectangle(0, 0, PlayGame.GAME_WIDTH, PlayGame.GAME_HEIGHT),
                 GameUtil.Direction.UP,
                 ItemId.TORCH,
                 Messages.getText("crawlspace.dirtpatch.locked"),
