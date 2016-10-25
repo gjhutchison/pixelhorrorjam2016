@@ -50,7 +50,7 @@ public class RoomBathroomCabinet extends StandardRoom {
         _passageList2.add(passageBack);
 
         Describable pills = new GeneralDescribable(Messages.getText("bathroomcabinet.pills.thought"),
-                new Rectangle(48, 2, 15, 18));
+                new Rectangle(46, 30, 21, 26));
         Describable towardsBody = new GeneralDescribable(Messages.getText("bathroomcabinet.towardsbody.thought"),
                 new Rectangle(2, 3, 23, 82));
 
