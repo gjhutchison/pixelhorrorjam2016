@@ -1,5 +1,7 @@
 package com.kowaisugoi.game.rooms;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -16,6 +18,8 @@ import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.messages.Messages;
+import com.kowaisugoi.game.player.Player;
+import com.kowaisugoi.game.screens.EndingScreen;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
@@ -82,7 +86,20 @@ public class RoomCarPark extends StandardRoom {
                 ItemId.PRYBAR,
                 Messages.getText("carpark.jammeddoor.interact.locked"),
                 Messages.getText("carpark.jammeddoor.interact.unlocked"),
-                null);
+                null) {
+            @Override
+            public boolean click(float curX, float curY) {
+                if (PlayGame.getFlagManager().getFlag(FLAG_KEYS_FOUND).getState()) {
+                    if (_interactionBox.contains(curX, curY)) {
+                        PlayGame.getPlayer().setCursor(Player.CursorType.INVISIBLE);
+                        PlayGame.getPlayer().changeCursor();
+                        ((Game) Gdx.app.getApplicationListener()).setScreen(new EndingScreen());
+                        return true;
+                    }
+                }
+                return super.click(curX, curY);
+            }
+        };
         jammedCar.setItemInteractionMessage(ItemId.HAMMER, Messages.getText("carpark.interaction.hammer.cardoor"));
         jammedCar.setItemInteractionMessage(ItemId.STICK, Messages.getText("carpark.interaction.stick.cardoor"));
         jammedCar.setTravelFlag(FLAG_KEYS_MISSING);
