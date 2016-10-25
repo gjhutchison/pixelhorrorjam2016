@@ -1,0 +1,10 @@
+Cozy
+A Game by Graham Hutchison and Evan Crothers
+
+Audio assets provided by:
+<audio sites>
+Testing Provided By:
+<Testers>
+
+Thanks for Playing!
+ESC to exit.

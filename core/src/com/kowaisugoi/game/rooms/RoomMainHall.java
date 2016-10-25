@@ -23,6 +23,7 @@ import com.kowaisugoi.game.system.GameUtil;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_KEYS_FOUND;
 import static com.kowaisugoi.game.control.flags.FlagId.FLAG_KEYS_MISSING;
 
 public class RoomMainHall extends StandardRoom {
@@ -80,7 +81,16 @@ public class RoomMainHall extends StandardRoom {
         _carkeys = new PickupableItem(new Sprite(new Texture("rooms/mainhall/key.png")),
                 new Sprite(new Texture("items/carkeyicon.png")),
                 new Rectangle(75, 28, 8, 5),
-                ItemId.CAR_KEYS);
+                ItemId.CAR_KEYS) {
+            @Override
+            public boolean click(float curX, float curY) {
+                if (super.click(curX, curY)) {
+                    PlayGame.getFlagManager().setFlag(FLAG_KEYS_FOUND, true);
+                    return true;
+                }
+                return false;
+            }
+        };
         _carkeys.setPickupText(Messages.getText("mainhall.pickup.carkeys"));
 
         ItemInteractableScenic fireDescription = new ItemInteractableScenic(Messages.getText("mainhall.fireplace.thought"),
