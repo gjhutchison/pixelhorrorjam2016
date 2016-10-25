@@ -52,7 +52,7 @@ public class RoomCrawlspace extends StandardRoom {
 
         _prybar = new PickupableItem(new Sprite(new Texture("rooms/crawlspace/prybar.png")),
                 new Sprite(new Texture("items/prybaricon.png")),
-                new Rectangle(31, 25, 15, 8),
+                new Rectangle(47, 36, 11, 28),
                 ItemId.PRYBAR);
         _prybar.setPickupText(Messages.getText("crawlspace.pickup.prybar"));
 
