@@ -94,8 +94,8 @@ public class SlideTransition implements Transition {
 
     private void swapRoom() {
         if (!_alreadySwapped) {
+            _alreadySwapped = true;
             if (_passage != null) {
-                _alreadySwapped = true;
                 _passage.roomTransition();
             }
         }
@@ -141,7 +141,9 @@ public class SlideTransition implements Transition {
 
                 if (!_alreadyComplete) {
                     _alreadyComplete = true;
-                    _passage.transitionComplete();
+                    if (_passage != null) {
+                        _passage.transitionComplete();
+                    }
                 }
             }
         }
@@ -166,5 +168,13 @@ public class SlideTransition implements Transition {
             renderer.setColor(Color.BLACK);
             renderer.rect(_xPosition, _yPosition, PlayGame.GAME_WIDTH, PlayGame.GAME_HEIGHT);
         }
+    }
+
+    public boolean isSwapped() {
+        return _alreadySwapped;
+    }
+
+    public boolean isComplete() {
+        return _alreadyComplete;
     }
 }

@@ -21,6 +21,9 @@ public class AudioManager implements Disposable {
         _soundMap.put(SoundId.FLOOR_STEP, Gdx.audio.newSound(Gdx.files.internal("audio/effects/footsteps_floor.mp3")));
         _soundMap.put(SoundId.CLICK, Gdx.audio.newSound(Gdx.files.internal("audio/effects/caclick.mp3")));
         _soundMap.put(SoundId.UNCLE_GASP, Gdx.audio.newSound(Gdx.files.internal("audio/effects/uncleNoise.mp3")));
+        _soundMap.put(SoundId.ENGINE_START, Gdx.audio.newSound(Gdx.files.internal("audio/effects/car_ignition.mp3")));
+        _soundMap.put(SoundId.SCARE, Gdx.audio.newSound(Gdx.files.internal("audio/effects/jump-scare.mp3")));
+
 
         _musicMap.put(MusicId.MAIN_MENU, Gdx.audio.newMusic(Gdx.files.internal("audio/music/bensound-betterdays.mp3")));
 

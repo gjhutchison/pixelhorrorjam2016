@@ -93,7 +93,7 @@ public class RoomCarPark extends StandardRoom {
                     if (_interactionBox.contains(curX, curY)) {
                         PlayGame.getPlayer().setCursor(Player.CursorType.INVISIBLE);
                         PlayGame.getPlayer().changeCursor();
-                        ((Game) Gdx.app.getApplicationListener()).setScreen(new EndingScreen());
+                        ((Game) Gdx.app.getApplicationListener()).setScreen(new EndingScreen(_snowAnimation));
                         return true;
                     }
                 }

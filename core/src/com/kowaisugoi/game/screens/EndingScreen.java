@@ -15,6 +15,11 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.kowaisugoi.game.audio.AudioManager;
+import com.kowaisugoi.game.audio.SoundId;
+import com.kowaisugoi.game.graphics.SlideTransition;
+import com.kowaisugoi.game.graphics.SnowAnimation;
+import com.kowaisugoi.game.system.GameUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,19 +37,35 @@ public class EndingScreen implements Screen, InputProcessor {
     private static final float ENDING_WIDTH = 160;
     private static final float ENDING_HEIGHT = 90;
 
-    private Sprite _carSprite;
-    private Sprite _scarySprite;
-    private Sprite _roadSprite;
+    private Sprite _carPark;
+    private Sprite _carInterrior;
+    private Sprite _carInterriorScare;
+    private SnowAnimation _snowAnimation;
 
     private String _credits;
 
     private float _scareTimer = 0.0f;
-    private static final float SCARE_TIME = 1.5f;
+    private static final float SCARE_TIME = 4;
 
+    private float _engineTimer = 0.0f;
+    private static final float ENGINE_START_TIME = 0.5f;
+
+    private float _endTimer = 0.0f;
+    private static final float END_TIME = 1.5f;
+
+    private BitmapFont _creditsFont;
+
+    private SlideTransition _slideTransition;
+
+    private boolean _roomSwitch = false;
     private boolean _scarySwitch = false;
     private boolean _endOfCarAnimation = false;
 
-    private BitmapFont _creditsFont;
+    private boolean _scare = false;
+
+    public EndingScreen(SnowAnimation animation) {
+        _snowAnimation = animation;
+    }
 
     @Override
     public void show() {
@@ -55,11 +76,12 @@ public class EndingScreen implements Screen, InputProcessor {
         _batch = new SpriteBatch();
         _shapeRenderer = new ShapeRenderer();
 
-        _roadSprite = new Sprite(new Texture("endingCutScene/background.png"));
-        _roadSprite.setPosition(-ENDING_WIDTH / 2, -ENDING_HEIGHT / 2);
-        _scarySprite = new Sprite(new Texture("endingCutScene/background_scare.png"));
-        _scarySprite.setPosition(-ENDING_WIDTH / 2, -ENDING_HEIGHT / 2);
-        _carSprite = new Sprite(new Texture("endingCutScene/car.png"));
+        _carPark = new Sprite(new Texture("rooms/parking/damaged_car_night.png"));
+        _carPark.setSize(ENDING_WIDTH, ENDING_HEIGHT);
+        _carInterrior = new Sprite(new Texture("rooms/car_v1.png"));
+        _carInterrior.setSize(ENDING_WIDTH, ENDING_HEIGHT);
+        _carInterriorScare = new Sprite(new Texture("rooms/car_scary.png"));
+        _carInterriorScare.setSize(ENDING_WIDTH, ENDING_HEIGHT);
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/raleway/Raleway-Medium.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -71,7 +93,6 @@ public class EndingScreen implements Screen, InputProcessor {
         _creditsFont.setColor(1, 1, 1, 0);
         _creditsFont.getData().setScale(0.12f);
 
-        //Load in the credits
         _credits = "";
         try {
             File creditFile = new File("credits.txt");
@@ -87,6 +108,9 @@ public class EndingScreen implements Screen, InputProcessor {
         }
 
         Gdx.input.setInputProcessor(this);
+
+        _slideTransition = new SlideTransition(null, GameUtil.Direction.UP);
+        _slideTransition.play();
     }
 
     @Override
@@ -101,34 +125,73 @@ public class EndingScreen implements Screen, InputProcessor {
 
         _batch.begin();
         if (!_endOfCarAnimation) {
-            if (_scarySwitch) {
-                _scarySprite.draw(_batch);
+            if (_slideTransition.isSwapped() && !_scarySwitch) {
+                _carInterrior.draw(_batch);
+            } else if (!_scarySwitch) {
+                _carPark.draw(_batch);
             } else {
-                _roadSprite.draw(_batch);
+                _carInterriorScare.draw(_batch);
             }
-            _carSprite.draw(_batch);
+
         } else {
             _creditsFont.draw(_batch, _credits, 3, 87);
         }
         _batch.end();
+
+        if (!_endOfCarAnimation) {
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
+            _shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            if (!_slideTransition.isSwapped()) {
+                _snowAnimation.draw(_shapeRenderer);
+            }
+            _slideTransition.draw(_shapeRenderer);
+            _shapeRenderer.end();
+        }
+
     }
 
     private void updateAnimation(float delta) {
-        float scaleAnimation = 0.15f * delta;
-        float creditsFade = 0.20f * delta;
+        if (!_roomSwitch) {
+            if (!_slideTransition.isComplete()) {
+                _slideTransition.update(delta);
+                if (!_slideTransition.isSwapped()) {
+                    _snowAnimation.updateSnow(delta);
+                }
 
-        if (_roadSprite.getScaleX() > 0.5f) {
-            _roadSprite.scale(-scaleAnimation);
-            _scarySprite.setScale(_roadSprite.getScaleX(), _roadSprite.getScaleY());
-            _scareTimer += delta;
-
-            if (_scareTimer >= SCARE_TIME) {
-                _scarySwitch = true;
+                if (_slideTransition.isComplete()) {
+                    _roomSwitch = true;
+                }
             }
         } else {
-            _endOfCarAnimation = true;
-            _creditsFont.setColor(1, 1, 1, _creditsFont.getColor().a + creditsFade);
+            if (_engineTimer < ENGINE_START_TIME) {
+                _engineTimer += delta;
+
+                if (_engineTimer > ENGINE_START_TIME) {
+                    AudioManager.playSound(SoundId.ENGINE_START);
+                }
+            } else if (_scareTimer < SCARE_TIME) {
+                _scareTimer += delta;
+
+                if (_scareTimer > SCARE_TIME) {
+                    _scarySwitch = true;
+                    AudioManager.playSound(SoundId.SCARE);
+                }
+            } else if (_endTimer < END_TIME) {
+                _endTimer += delta;
+
+                if (_endTimer > END_TIME) {
+                    _endOfCarAnimation = true;
+                }
+            } else {
+                _creditsFont.setColor(1, 1, 1, _creditsFont.getColor().a + (delta * 0.15f));
+            }
+
+
         }
+
+
     }
 
     @Override
