@@ -53,6 +53,9 @@ public class EndingScreen implements Screen, InputProcessor {
     private float _endTimer = 0.0f;
     private static final float END_TIME = 1.5f;
 
+    private float _creditDelayTimer = 0.0f;
+    private static final float CREDIT_DELAY_TIMER = 1.5f;
+
     private BitmapFont _creditsFont;
 
     private SlideTransition _slideTransition;
@@ -60,8 +63,6 @@ public class EndingScreen implements Screen, InputProcessor {
     private boolean _roomSwitch = false;
     private boolean _scarySwitch = false;
     private boolean _endOfCarAnimation = false;
-
-    private boolean _scare = false;
 
     public EndingScreen(SnowAnimation animation) {
         _snowAnimation = animation;
@@ -149,7 +150,6 @@ public class EndingScreen implements Screen, InputProcessor {
             _slideTransition.draw(_shapeRenderer);
             _shapeRenderer.end();
         }
-
     }
 
     private void updateAnimation(float delta) {
@@ -184,14 +184,12 @@ public class EndingScreen implements Screen, InputProcessor {
                 if (_endTimer > END_TIME) {
                     _endOfCarAnimation = true;
                 }
+            } else if (_creditDelayTimer < CREDIT_DELAY_TIMER) {
+                _creditDelayTimer += delta;
             } else {
                 _creditsFont.setColor(1, 1, 1, _creditsFont.getColor().a + (delta * 0.15f));
             }
-
-
         }
-
-
     }
 
     @Override
