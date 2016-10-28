@@ -51,6 +51,8 @@ public class RoomBathroomCabinet extends StandardRoom {
 
         Describable pills = new GeneralDescribable(Messages.getText("bathroomcabinet.pills.thought"),
                 new Rectangle(46, 30, 21, 26));
+        Describable scissors = new GeneralDescribable(Messages.getText("bathroomcabinet.scissors.thought"),
+                new Rectangle(82, 31, 30, 16));
         Describable towardsBody = new GeneralDescribable(Messages.getText("bathroomcabinet.towardsbody.thought"),
                 new Rectangle(2, 3, 23, 82));
 
@@ -71,6 +73,7 @@ public class RoomBathroomCabinet extends StandardRoom {
         addPassage(passageBackScare);
         addDescribable(pills);
         addDescribable(bandages);
+        addDescribable(scissors);
     }
 
     @Override

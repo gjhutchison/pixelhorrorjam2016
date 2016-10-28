@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.control.flags.FlagId;
-import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
@@ -46,6 +45,8 @@ public class RoomShedInterior extends StandardRoom {
                 Messages.getText("shedinterior.interaction.stickrags.lighterfluid"),
                 new Rectangle(97, 58, 9, 15),
                 ItemId.STICK_RAGS, stickDoused);
+        lighterFluid.setItemInteractionMessage(ItemId.STICK, Messages.getText("shedinterior.interaction.stick.lighterfluid"));
+        lighterFluid.setItemInteractionMessage(ItemId.STICK_RAGS_ALCOHOL, Messages.getText("shedinterior.interaction.stickdoused.lighterfluid"));
 
         shovel.setPickupText(Messages.getText("shedinterior.pickup.shovel"));
         hammer.setPickupText(Messages.getText("shedinterior.pickup.hammer"));

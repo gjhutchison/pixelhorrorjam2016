@@ -9,6 +9,7 @@ import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.control.flags.FlagId;
+import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
@@ -66,6 +67,7 @@ public class RoomBathroomEntrance extends StandardRoom {
         _uncle = new GeneralDescribable(Messages.getText("bathroom.uncle.thought.1"),
                 new Rectangle(68, 25, 27, 58));
         _uncle.addDescription(Messages.getText("bathroom.uncle.thought.2"));
+        _uncle.setItemInteractionMessage(ItemId.STICK, Messages.getText("bathroom.interaction.stick.uncle"));
 
         _descriptionList1.add(_uncle);
         setDescriptionList(_descriptionList1);
