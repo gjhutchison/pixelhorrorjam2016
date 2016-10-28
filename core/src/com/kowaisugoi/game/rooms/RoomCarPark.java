@@ -60,7 +60,7 @@ public class RoomCarPark extends StandardRoom {
                 GameUtil.Direction.UP);
         Passage toPath = new DirectionalPassage(RoomId.PARKING_AREA,
                 RoomId.ROAD,
-                new Rectangle(97, 15, 36, 62),
+                new Rectangle(89, 29, 37, 44),
                 GameUtil.Direction.UP);
         toPath.setSoundEffect(SoundId.SNOW_CRUNCH);
         addPassage(enterCar);
@@ -69,6 +69,7 @@ public class RoomCarPark extends StandardRoom {
         BlockedPassage snowCar = new BlockedPassage(RoomId.PARKING_AREA,
                 RoomId.CAR,
                 new Rectangle(31, 11, 45, 34),
+                new Rectangle(0, 0, PlayGame.GAME_WIDTH, PlayGame.GAME_HEIGHT),
                 GameUtil.Direction.UP,
                 ItemId.SHOVEL,
                 Messages.getText("carpark.snow.interact.locked"),
@@ -124,7 +125,7 @@ public class RoomCarPark extends StandardRoom {
 
         _stick = new PickupableItem(new Sprite(new Texture("rooms/parking/stick.png")),
                 new Sprite(new Texture("items/stickicon.png")),
-                new Rectangle(60, 4, 19, 6),
+                new Rectangle(88, 8, 24, 19),
                 ItemId.STICK);
         _stick.setPickupText(Messages.getText("carpark.pickup.stick"));
     }

@@ -2,8 +2,8 @@ package com.kowaisugoi.game.messages;
 
 import com.badlogic.gdx.Gdx;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class Messages {
@@ -13,7 +13,7 @@ public class Messages {
     private static Properties init() {
         Properties properties = new Properties();
         try {
-            FileInputStream in = new FileInputStream("properties/descriptions.properties");
+            InputStream in = Gdx.files.internal("properties/descriptions.properties").read();
             properties.load(in);
             in.close();
         } catch (IOException e) {
