@@ -1,10 +1,19 @@
 Cozy
 A Game by Graham Hutchison and Evan Crothers
 
-Audio assets provided by:
-<audio sites>
 Testing Provided By:
-<Testers>
+Joshua Eastly
+Annie Feng
+
+Creative Commons Audio Assets by:
+Car Ignition - InspectorJ
+Dark Ambience - PatrickLieberkin
+Deep Drone - TheSoundcatcher
+Snow Crunch - Luminadii
+Wind Noise - Jorge0000
+Windy Window - PedalingPrince
+
+Music: Better Days - BenSound (www.bensound.com)
 
 Thanks for Playing!
 ESC to exit.
