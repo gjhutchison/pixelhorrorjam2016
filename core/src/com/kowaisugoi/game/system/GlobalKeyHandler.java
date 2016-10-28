@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.kowaisugoi.game.control.flags.FlagId;
 import com.kowaisugoi.game.interactables.objects.Item;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
@@ -25,6 +26,7 @@ public final class GlobalKeyHandler {
     static final int SHED_INTERIOR_KEY = Input.Keys.S;
     static final int TORCH_KEY = Input.Keys.T;
     static final int CABINET_KEY = Input.Keys.C;
+    static final int ENDGAME_KEY = Input.Keys.E;
 
     public static boolean keyUp(int keycode) {
         if (keycode == FULLSCREEN_KEY) {
@@ -67,6 +69,21 @@ public final class GlobalKeyHandler {
                 PlayGame.setDebug(false);
             } else {
                 PlayGame.setDebug(true);
+            }
+        }
+
+        if (keycode == ENDGAME_KEY) {
+            if (PlayGame.getDebug()) {
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_BODY_FOUND, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_KEYS_MISSING, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_BOARDS_REMOVED, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_CAR_FOUND, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_CAR_SNOWREMOVED, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_NIGHT_TIME, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_SHED_OPENED, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_ENTERED_BATHROOM, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_TORCH_PLACED, true);
+            } else {
             }
         }
 

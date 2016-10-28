@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.kowaisugoi.game.control.flags.FlagId.FLAG_KEYS_FOUND;
-import static com.kowaisugoi.game.control.flags.FlagId.FLAG_KEYS_MISSING;
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_KEYS_APPEARED;
 
 public class RoomMainHall extends StandardRoom {
 
@@ -127,7 +127,7 @@ public class RoomMainHall extends StandardRoom {
 
     @Override
     public void draw(ShapeRenderer renderer) {
-        if (!PlayGame.getFlagManager().getFlag(FLAG_KEYS_MISSING).getState()) {
+        if (!PlayGame.getFlagManager().getFlag(FLAG_KEYS_APPEARED).getState()) {
             _fireAnimation.draw(renderer);
         }
         super.draw(renderer);
@@ -135,7 +135,7 @@ public class RoomMainHall extends StandardRoom {
 
     @Override
     public void flagUpdate() {
-        if (PlayGame.getFlagManager().getFlag(FLAG_KEYS_MISSING).getState()) {
+        if (PlayGame.getFlagManager().getFlag(FLAG_KEYS_APPEARED).getState()) {
             setDescriptionList(_describableList2);
             if (!_carkeys.isPickedUp()) {
                 _pickupableItemList.clear();
@@ -147,7 +147,7 @@ public class RoomMainHall extends StandardRoom {
     public void update(float delta) {
         super.update(delta);
 
-        if (!PlayGame.getFlagManager().getFlag(FLAG_KEYS_MISSING).getState()) {
+        if (!PlayGame.getFlagManager().getFlag(FLAG_KEYS_APPEARED).getState()) {
             _fireAnimation.update(delta);
         }
 

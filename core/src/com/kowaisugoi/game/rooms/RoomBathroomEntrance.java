@@ -28,13 +28,17 @@ public class RoomBathroomEntrance extends StandardRoom {
     private static final String ROOM_URL = "rooms/bathroom/bathroom_entrance_boards.png";
     private static final String ROOM_URL2 = "rooms/bathroom/bathroom_entrance.png";
     private static final String ROOM_URL3 = "rooms/bathroom/bathroom_entrance_2.png";
+    private static final String ROOM_URL4 = "rooms/bathroom/bathroom_entrance_empty.png";
 
     private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
     private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
     private final Sprite _roomSprite3 = new Sprite(new Texture(ROOM_URL3));
+    private final Sprite _roomSprite4 = new Sprite(new Texture(ROOM_URL4));
 
     private Describable _uncle;
 
+    private List<Describable> _descriptionList1;
+    private List<Describable> _descriptionList2;
     private List<Passage> _passageList2;
 
     public RoomBathroomEntrance() {
@@ -56,11 +60,15 @@ public class RoomBathroomEntrance extends StandardRoom {
 
         addPassage(passageBack);
 
+        _descriptionList1 = new LinkedList<Describable>();
+        _descriptionList2 = new LinkedList<Describable>();
+
         _uncle = new GeneralDescribable(Messages.getText("bathroom.uncle.thought.1"),
                 new Rectangle(68, 25, 27, 58));
         _uncle.addDescription(Messages.getText("bathroom.uncle.thought.2"));
 
-        addDescribable(_uncle);
+        _descriptionList1.add(_uncle);
+        setDescriptionList(_descriptionList1);
 
         _passageList2.add(passageForward);
         _passageList2.add(passageBack);
@@ -77,11 +85,48 @@ public class RoomBathroomEntrance extends StandardRoom {
             setSprite(_roomSprite2);
             setPassageList(_passageList2);
         }
+
+        if (PlayGame.getFlagManager().getFlag(FlagId.FLAG_KEYS_MISSING).getState()) {
+            setSprite(_roomSprite4);
+            setDescriptionList(_descriptionList2);
+        }
     }
 
     @Override
     public void enter() {
         super.enter();
+        AudioManager.playMusic(MusicId.DRONE, false);
+
+        if (PlayGame.getFlagManager().getFlag(FlagId.FLAG_KEYS_MISSING).getState()) {
+            // Disable mouse for a *little* bit longer the first time
+            if (!PlayGame.getFlagManager().getFlag(FlagId.FLAG_KEYS_APPEARED).getState()) {
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_KEYS_APPEARED, true);
+                Timer.schedule(new Timer.Task() {
+                                   @Override
+                                   public void run() {
+                                       PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+                                   }
+                               }
+                        , 1.2f // Initial delay
+                        , 0 // Fire every X seconds
+                        , 1 // Number of times to fire
+                );
+            } else {
+                Timer.schedule(new Timer.Task() {
+                                   @Override
+                                   public void run() {
+                                       PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+                                   }
+                               }
+                        , 0.4f // Initial delay TODO: Should make global, or shouldn't set this here
+                        , 0 // Fire every X seconds
+                        , 1 // Number of times to fire
+                );
+            }
+            PlayGame.getFlagManager().setFlag(FlagId.FLAG_KEYS_APPEARED, true);
+            return;
+        }
+
         PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
 
         if (!PlayGame.getFlagManager().getFlag(FlagId.FLAG_BODY_FOUND).getState()) {
@@ -145,7 +190,5 @@ public class RoomBathroomEntrance extends StandardRoom {
 
             PlayGame.getFlagManager().setFlag(FlagId.FLAG_BODY_FOUND, true);
         }
-
-        AudioManager.playMusic(MusicId.DRONE, false);
     }
 }
