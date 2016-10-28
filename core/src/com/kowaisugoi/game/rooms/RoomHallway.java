@@ -25,8 +25,6 @@ public class RoomHallway extends StandardRoom {
     private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
     private final Sprite _hiSprite = new Sprite(new Texture(OH_HI));
 
-    private boolean _spooky = false;
-
     public RoomHallway() {
         super(new Sprite(new Texture(ROOM_URL)));
 
