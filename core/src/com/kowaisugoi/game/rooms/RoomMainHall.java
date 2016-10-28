@@ -23,8 +23,7 @@ import com.kowaisugoi.game.system.GameUtil;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.kowaisugoi.game.control.flags.FlagId.FLAG_KEYS_FOUND;
-import static com.kowaisugoi.game.control.flags.FlagId.FLAG_KEYS_APPEARED;
+import static com.kowaisugoi.game.control.flags.FlagId.*;
 
 public class RoomMainHall extends StandardRoom {
 
@@ -123,6 +122,11 @@ public class RoomMainHall extends StandardRoom {
     public void enter() {
         super.enter();
         AudioManager.playMusic(MusicId.COZY, false);
+
+        if (PlayGame.getFlagManager().getFlag(FLAG_HALLWAY_SCARE).getState()) {
+            PlayGame.getFlagManager().setFlag(FLAG_HALLWAY_SCARE_OVER, true);
+        }
+
     }
 
     @Override
