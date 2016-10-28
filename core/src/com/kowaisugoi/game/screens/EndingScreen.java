@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -22,8 +23,6 @@ import com.kowaisugoi.game.graphics.SnowAnimation;
 import com.kowaisugoi.game.system.GameUtil;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class EndingScreen implements Screen, InputProcessor {
@@ -96,8 +95,8 @@ public class EndingScreen implements Screen, InputProcessor {
 
         _credits = "";
         try {
-            File creditFile = new File("credits.txt");
-            BufferedReader in = new BufferedReader(new FileReader(creditFile));
+            FileHandle fileHandle = Gdx.files.internal("credits.txt");
+            BufferedReader in = new BufferedReader(fileHandle.reader());
             String line;
             while ((line = in.readLine()) != null) {
                 _credits += line + "\n";
@@ -105,7 +104,7 @@ public class EndingScreen implements Screen, InputProcessor {
             in.close();
         } catch (IOException e) {
             _credits = "";
-            Gdx.app.log("ERROR", "Could not load credits");
+            Gdx.app.log("ERROR", "Could not load credits" + e.getMessage());
         }
 
         Gdx.input.setInputProcessor(this);
