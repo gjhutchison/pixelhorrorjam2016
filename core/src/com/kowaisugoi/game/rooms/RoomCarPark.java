@@ -69,6 +69,7 @@ public class RoomCarPark extends StandardRoom {
         BlockedPassage snowCar = new BlockedPassage(RoomId.PARKING_AREA,
                 RoomId.CAR,
                 new Rectangle(31, 11, 45, 34),
+                new Rectangle(0, 0, PlayGame.GAME_WIDTH, PlayGame.GAME_HEIGHT),
                 GameUtil.Direction.UP,
                 ItemId.SHOVEL,
                 Messages.getText("carpark.snow.interact.locked"),
