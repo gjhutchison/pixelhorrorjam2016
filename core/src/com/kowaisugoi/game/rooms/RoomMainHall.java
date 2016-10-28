@@ -111,7 +111,12 @@ public class RoomMainHall extends StandardRoom {
     @Override
     public void enter() {
         super.enter();
-        AudioManager.playMusic(MusicId.COZY, false);
+
+        if (!PlayGame.getFlagManager().getFlag(FLAG_KEYS_APPEARED).getState()) {
+            AudioManager.playMusic(MusicId.COZY, false);
+        } else {
+            AudioManager.playMusic(MusicId.HOWL, false);
+        }
 
         if (PlayGame.getFlagManager().getFlag(FLAG_HALLWAY_SCARE).getState()) {
             PlayGame.getFlagManager().setFlag(FLAG_HALLWAY_SCARE_OVER, true);
