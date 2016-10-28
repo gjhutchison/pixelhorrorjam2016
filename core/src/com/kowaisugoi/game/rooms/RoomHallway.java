@@ -38,9 +38,11 @@ public class RoomHallway extends StandardRoom {
                 GameUtil.Direction.DOWN) {
             @Override
             public boolean click(float curX, float curY) {
-                if (PlayGame.getFlagManager().getFlag(FLAG_KEYS_APPEARED).getState()
-                        && !PlayGame.getFlagManager().getFlag(FLAG_HALLWAY_SCARE).getState()) {
-                    PlayGame.getFlagManager().setFlag(FLAG_HALLWAY_SCARE, true);
+                if (_interactionBox.contains(curX, curY)) {
+                    if (PlayGame.getFlagManager().getFlag(FLAG_KEYS_APPEARED).getState()
+                            && !PlayGame.getFlagManager().getFlag(FLAG_HALLWAY_SCARE).getState()) {
+                        PlayGame.getFlagManager().setFlag(FLAG_HALLWAY_SCARE, true);
+                    }
                 }
                 return super.click(curX, curY);
             }
