@@ -28,30 +28,20 @@ import static com.kowaisugoi.game.control.flags.FlagId.*;
 public class RoomMainHall extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/mainhall/mainhall.png";
+    private static final String ROOM_URL2 = "rooms/mainhall/mainhall_dark.png";
+
+    private static final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
+    private static final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
+
     private FireAnimation _fireAnimation;
-    int _currentSprite = 0;
-    float _deltaBuffer = 0;
 
     private PickupableItem _carkeys;
 
     private List<Describable> _describableList2;
 
-    /*
-    private static final String[] OVERLAY_URLS = {"rooms/mainhall/cozy_overlay_1.png",
-            "rooms/mainhall/cozy_overlay_2.png",
-            "rooms/mainhall/cozy_overlay_3.png"};
-    */
-    //ArrayList<Sprite> _overlays = new ArrayList<Sprite>();
-    //TODO: Fix overlays
     public RoomMainHall() {
         super(new Sprite(new Texture(ROOM_URL)));
-        /*
-        for (String overlayUrl : OVERLAY_URLS) {
-            Sprite overlay = new Sprite(new Texture(overlayUrl));
-            overlay.scale(0.8f);
-            _overlays.add(overlay);
-        }
-        */
+
         _describableList2 = new LinkedList<Describable>();
 
         Passage hallDoor = new DirectionalPassage(RoomId.MAIN_HALL,
@@ -140,6 +130,7 @@ public class RoomMainHall extends StandardRoom {
     @Override
     public void flagUpdate() {
         if (PlayGame.getFlagManager().getFlag(FLAG_KEYS_APPEARED).getState()) {
+            setSprite(_roomSprite2);
             setDescriptionList(_describableList2);
             if (!_carkeys.isPickedUp()) {
                 _pickupableItemList.clear();
