@@ -56,7 +56,7 @@ public class RoomCarPark extends StandardRoom {
 
         Passage enterCar = new DirectionalPassage(RoomId.PARKING_AREA,
                 RoomId.CAR,
-                new Rectangle(31, 11, 45, 34),
+                new Rectangle(49, 12, 37, 37),
                 GameUtil.Direction.UP);
         Passage toPath = new DirectionalPassage(RoomId.PARKING_AREA,
                 RoomId.ROAD,
@@ -81,7 +81,7 @@ public class RoomCarPark extends StandardRoom {
 
         BlockedPassage jammedCar = new BlockedPassage(RoomId.PARKING_AREA,
                 RoomId.CAR,
-                new Rectangle(47, 7, 44, 41),
+                new Rectangle(49, 12, 37, 37),
                 GameUtil.Direction.UP,
                 ItemId.PRYBAR,
                 Messages.getText("carpark.jammeddoor.interact.locked"),

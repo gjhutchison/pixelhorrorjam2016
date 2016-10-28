@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.control.flags.FlagId;
+import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.graphics.SlideTransition;
 import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.interactables.objects.ItemId;
@@ -75,18 +76,33 @@ public class DirectionalPassage implements Passage {
 
     @Override
     public void transitionComplete() {
-        Timer.schedule(new Timer.Task() {
-                           @Override
-                           public void run() {
-                               if (_release) {
-                                   PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+        if (PlayGame.getFlagManager().getFlag(FlagId.FLAG_KEYS_MISSING).getState()) {
+            Timer.schedule(new Timer.Task() {
+                               @Override
+                               public void run() {
+                                   if (_release) {
+                                       PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+                                   }
                                }
                            }
-                       }
-                , 0.4f // Initial delay
-                , 0 // Fire every X seconds
-                , 1 // Number of times to fire
-        );
+                    , 0.8f // Initial delay
+                    , 0 // Fire every X seconds
+                    , 1 // Number of times to fire
+            );
+        } else {
+            Timer.schedule(new Timer.Task() {
+                               @Override
+                               public void run() {
+                                   if (_release) {
+                                       PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
+                                   }
+                               }
+                           }
+                    , 0.4f // Initial delay
+                    , 0 // Fire every X seconds
+                    , 1 // Number of times to fire
+            );
+        }
     }
 
     @Override
