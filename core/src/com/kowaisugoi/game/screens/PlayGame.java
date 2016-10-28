@@ -9,23 +9,18 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.kowaisugoi.game.audio.AudioManager;
-import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.control.flags.FlagManager;
-import com.kowaisugoi.game.graphics.PlacementRectangle;
 import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.player.inventory.PlayerInventory;
-import com.kowaisugoi.game.rooms.Room;
 import com.kowaisugoi.game.rooms.RoomId;
 import com.kowaisugoi.game.rooms.RoomManager;
 
-import static com.kowaisugoi.game.player.Player.InteractionMode.*;
+import static com.kowaisugoi.game.player.Player.InteractionMode.ITEM_INTERACTION;
 
 /**
  * Top level entity responsible for rendering the visible world
@@ -155,7 +150,6 @@ public class PlayGame implements Screen {
         // Draw room sprites
         _batch.begin();
         getPlayer().getCurrentRoom().draw(_batch);
-        getPlayer().getInventory().drawInventory(_batch);
         _batch.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
@@ -179,6 +173,17 @@ public class PlayGame implements Screen {
     }
 
     private void renderInventory() {
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
+        // Draw inventory bag
+        _batch.begin();
+        getPlayer().getInventory().drawInventory(_batch);
+        _batch.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
+    }
+
+    private void renderSelectedItem() {
         _batch.begin();
         getPlayer().getInventory().drawSelectedItemSprite(_batch);
         _batch.end();
@@ -229,11 +234,12 @@ public class PlayGame implements Screen {
     private void renderGame() {
         renderCurrentRoom();
         renderFX();
+        renderInventory();
         renderPlacementHelper();
 
         // Draw inventory, if applicable
         if (getPlayer().getInteractionMode() == ITEM_INTERACTION) {
-            renderInventory();
+            renderSelectedItem();
         }
 
         renderTransitions();
