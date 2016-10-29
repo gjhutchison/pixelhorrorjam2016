@@ -14,7 +14,6 @@ import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.messages.Messages;
-import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
@@ -69,6 +68,7 @@ public class RoomBedroom extends StandardRoom {
         Describable bedDescription = new GeneralDescribable(
                 Messages.getText("bedroom.bed.description"),
                 new Rectangle(9, 16, 46, 21));
+        bedDescription.setItemInteractionMessage(ItemId.STICK, Messages.getText("bedroom.interaction.bed.stick"));
 
 
         BlockedPassage boards_1 = new BlockedPassage(RoomId.PARKING_AREA,

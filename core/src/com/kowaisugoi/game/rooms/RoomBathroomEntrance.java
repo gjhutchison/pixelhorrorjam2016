@@ -56,6 +56,8 @@ public class RoomBathroomEntrance extends StandardRoom {
                 RoomId.BATHROOM_CABINET,
                 new Rectangle(100, 16, 22, 61),
                 GameUtil.Direction.UP);
+        Describable mirror = new GeneralDescribable(Messages.getText("bathroom.cabinet.thought"),
+                new Rectangle(99, 52, 20, 25));
 
         passageBack.setSoundEffect(SoundId.CLICK);
 
@@ -70,7 +72,9 @@ public class RoomBathroomEntrance extends StandardRoom {
         _uncle.setItemInteractionMessage(ItemId.STICK, Messages.getText("bathroom.interaction.stick.uncle"));
 
         _descriptionList1.add(_uncle);
-        setDescriptionList(_descriptionList1);
+
+        addDescribable(mirror);
+        addDescribable(_uncle);
 
         _passageList2.add(passageForward);
         _passageList2.add(passageBack);
@@ -86,6 +90,7 @@ public class RoomBathroomEntrance extends StandardRoom {
         if (PlayGame.getFlagManager().getFlag(FLAG_BOARDS_REMOVED).getState()) {
             setSprite(_roomSprite2);
             setPassageList(_passageList2);
+            setDescriptionList(_descriptionList1);
         }
 
         if (PlayGame.getFlagManager().getFlag(FlagId.FLAG_KEYS_MISSING).getState()) {
