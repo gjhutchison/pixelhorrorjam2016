@@ -71,8 +71,24 @@ public class RoomCrawlspace extends StandardRoom {
         Describable torchDescription = new GeneralDescribable(
                 Messages.getText("crawlspace.torch.thought"),
                 new Rectangle(123, 9, 9, 25));
+        Describable topboxDescription = new GeneralDescribable(
+                Messages.getText("crawlspace.topbox.thought"),
+                new Rectangle(90, 54, 25, 13));
+        Describable botboxDescription = new GeneralDescribable(
+                Messages.getText("crawlspace.botbox.thought"),
+                new Rectangle(92, 37, 19, 16));
+        Describable wtfDescription = new GeneralDescribable(
+                Messages.getText("crawlspace.wtf.thought"),
+                new Rectangle(0, 23, 19, 26));
+        Describable cordDescription = new GeneralDescribable(
+                Messages.getText("crawlspace.cord.thought"),
+                new Rectangle(80, 42, 11, 27));
         _describableList2 = new LinkedList<Describable>();
         _describableList2.add(torchDescription);
+        _describableList2.add(topboxDescription);
+        _describableList2.add(botboxDescription);
+        _describableList2.add(wtfDescription);
+        _describableList2.add(cordDescription);
 
         _passageList2 = new LinkedList<Passage>();
         _passageList2.add(turnAround);
