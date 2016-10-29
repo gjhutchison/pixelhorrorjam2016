@@ -12,6 +12,7 @@ bin/
 
 # Ignore project files #
 *.iml
+.gradle/
 gradlew
 gradlew.bat
 .idea/
