@@ -14,10 +14,14 @@ import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
 import com.kowaisugoi.game.interactables.passages.Passage;
+import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.ItemInteractableScenic;
 import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import static com.kowaisugoi.game.control.flags.FlagId.FLAG_NIGHT_TIME;
 import static com.kowaisugoi.game.control.flags.FlagId.FLAG_SHED_OPENED;
@@ -31,6 +35,9 @@ public class RoomShed extends StandardRoom {
     private final Sprite _roomSprite1 = new Sprite(new Texture(ROOM_URL));
     private final Sprite _roomSprite2 = new Sprite(new Texture(ROOM_URL2));
     private final Sprite _roomSprite3 = new Sprite(new Texture(ROOM_URL3));
+
+    private List<Describable> _describeList1;
+    private List<Describable> _describeList2;
 
     private SnowAnimation _snowAnimation;
 
@@ -69,7 +76,12 @@ public class RoomShed extends StandardRoom {
                 new Rectangle(98, 4, 61, 45),
                 ItemId.GLASS, glassSnow);
 
-        addDescribable(looseSnow);
+        _describeList1 = new LinkedList<Describable>();
+        _describeList1.add(looseSnow);
+
+        _describeList2 = new LinkedList<Describable>();
+
+        setDescriptionList(_describeList1);
     }
 
     @Override
@@ -94,6 +106,7 @@ public class RoomShed extends StandardRoom {
     public void flagUpdate() {
         if (PlayGame.getFlagManager().getFlag(FLAG_SHED_OPENED).getState()) {
             if (PlayGame.getFlagManager().getFlag(FLAG_NIGHT_TIME).getState()) {
+                setDescriptionList(_describeList2);
                 setSprite(_roomSprite3);
             } else {
                 setSprite(_roomSprite2);
