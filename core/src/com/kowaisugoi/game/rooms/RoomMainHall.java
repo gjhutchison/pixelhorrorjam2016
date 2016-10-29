@@ -87,6 +87,7 @@ public class RoomMainHall extends StandardRoom {
                 new Rectangle(70, 28, 21, 13),
                 ItemId.STICK_RAGS_ALCOHOL, torch);
         fireDescription.setItemInteractionMessage(ItemId.STICK, Messages.getText("mainhall.interaction.fireplace.stick"));
+        fireDescription.setItemInteractionMessage(ItemId.STICK_RAGS, Messages.getText("mainhall.interaction.fireplace.stick"));
         fireDescription.setItemInteractionMessage(ItemId.GLASS_SNOW, Messages.getText("mainhall.interaction.fireplace.glasssnow"));
         fireDescription.setItemInteractionMessage(ItemId.GLASS_WATER, Messages.getText("mainhall.interaction.fireplace.glasswater"));
 

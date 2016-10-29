@@ -69,7 +69,15 @@ public class RoomBedroom extends StandardRoom {
                 Messages.getText("bedroom.bed.description"),
                 new Rectangle(9, 16, 46, 21));
         bedDescription.setItemInteractionMessage(ItemId.STICK, Messages.getText("bedroom.interaction.bed.stick"));
-
+        Describable underBedDescription = new GeneralDescribable(
+                Messages.getText("bedroom.underbed.description1"),
+                new Rectangle(13, 8, 21, 7));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description2"));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description3"));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description4"));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description5"));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description6"));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description7"));
 
         BlockedPassage boards_1 = new BlockedPassage(RoomId.PARKING_AREA,
                 RoomId.BATHROOM,
@@ -100,10 +108,12 @@ public class RoomBedroom extends StandardRoom {
         addDescribable(tableDescription);
         addDescribable(artDescription);
         addDescribable(bedDescription);
+        addDescribable(underBedDescription);
 
         _describableList1.add(tableDescription);
         _describableList1.add(artDescription);
         _describableList1.add(bedDescription);
+        _describableList1.add(underBedDescription);
 
         _passageList1.add(passageBathroom);
         _passageList1.add(passageHall);

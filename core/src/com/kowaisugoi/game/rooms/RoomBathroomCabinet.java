@@ -20,12 +20,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.kowaisugoi.game.control.flags.FlagId.FLAG_ENTERED_BATHROOM;
+import static com.kowaisugoi.game.control.flags.FlagId.FLAG_KEYS_APPEARED;
 
 public class RoomBathroomCabinet extends StandardRoom {
 
     private static final String ROOM_URL = "rooms/bathroomCabinet/bathroomCabinet.png";
     private static final String TRANSITION_URL = "rooms/bathroomCabinet/uncle_transition.png";
     private List<Passage> _passageList2;
+    private List<Describable> _descriptionList1;
     private List<Describable> _descriptionList2;
 
     public RoomBathroomCabinet() {
@@ -70,6 +72,10 @@ public class RoomBathroomCabinet extends StandardRoom {
         _descriptionList2.add(towardsBody);
         _descriptionList2.add(bandages);
 
+        _descriptionList1 = new LinkedList<Describable>();
+        _descriptionList1.add(pills);
+        _descriptionList1.add(bandages);
+
         addPassage(passageBackScare);
         addDescribable(pills);
         addDescribable(bandages);
@@ -78,9 +84,13 @@ public class RoomBathroomCabinet extends StandardRoom {
 
     @Override
     public void flagUpdate() {
-        if (PlayGame.getFlagManager().getFlag(FLAG_ENTERED_BATHROOM).getState()) {
+        if (PlayGame.getFlagManager().getFlag(FLAG_ENTERED_BATHROOM).getState() &&
+                !PlayGame.getFlagManager().getFlag(FLAG_KEYS_APPEARED).getState()) {
             setPassageList(_passageList2);
             setDescriptionList(_descriptionList2);
+        } else if (PlayGame.getFlagManager().getFlag(FLAG_KEYS_APPEARED).getState()) {
+            setPassageList(_passageList2);
+            setDescriptionList(_descriptionList1);
         }
     }
 
