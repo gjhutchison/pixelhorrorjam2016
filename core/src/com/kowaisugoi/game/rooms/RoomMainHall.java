@@ -46,7 +46,7 @@ public class RoomMainHall extends StandardRoom {
 
         Passage hallDoor = new DirectionalPassage(RoomId.MAIN_HALL,
                 RoomId.HALLWAY,
-                new Rectangle(5, 25, 30, 40),
+                new Rectangle(0, 3, 29, 75),
                 GameUtil.Direction.LEFT);
         Passage turnAround = new DirectionalPassage(RoomId.MAIN_HALL,
                 RoomId.FRONTYARD,

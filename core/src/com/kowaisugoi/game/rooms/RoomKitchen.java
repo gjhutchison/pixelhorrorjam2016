@@ -72,8 +72,9 @@ public class RoomKitchen extends StandardRoom {
                 new Rectangle(26, 31, 15, 15),
                 ItemId.GLASS_SNOW, glassWater);
 
-        PickupableItem glass = new PickupableItem(new Sprite(new Texture("items/glass.png")),
-                new Rectangle(91, 32, 12, 12), ItemId.GLASS) {
+        PickupableItem glass = new PickupableItem(new Sprite(new Texture("rooms/kitchen/glass.png")),
+                new Sprite(new Texture("items/glass.png")),
+                new Rectangle(91, 33, 6, 8), ItemId.GLASS) {
             @Override
             public boolean click(float curX, float curY) {
                 if (getInteractionBox().contains(curX, curY)) {
