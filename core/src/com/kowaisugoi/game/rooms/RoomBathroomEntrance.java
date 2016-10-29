@@ -107,6 +107,7 @@ public class RoomBathroomEntrance extends StandardRoom {
         if (PlayGame.getFlagManager().getFlag(FlagId.FLAG_KEYS_MISSING).getState()) {
             // Disable mouse for a *little* bit longer the first time
             if (!PlayGame.getFlagManager().getFlag(FlagId.FLAG_KEYS_APPEARED).getState()) {
+                PlayGame.getRoomManager().getRoomFromId(RoomId.ROAD).pushEnterRemark("forestpath.flee.thought");
                 PlayGame.getFlagManager().setFlag(FlagId.FLAG_KEYS_APPEARED, true);
                 Timer.schedule(new Timer.Task() {
                                    @Override
@@ -131,6 +132,7 @@ public class RoomBathroomEntrance extends StandardRoom {
                 );
             }
             PlayGame.getFlagManager().setFlag(FlagId.FLAG_KEYS_APPEARED, true);
+
             return;
         }
 

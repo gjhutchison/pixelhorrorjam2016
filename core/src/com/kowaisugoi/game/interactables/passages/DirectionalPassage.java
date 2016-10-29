@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.Timer;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.SoundId;
 import com.kowaisugoi.game.control.flags.FlagId;
-import com.kowaisugoi.game.control.flags.FlagManager;
 import com.kowaisugoi.game.graphics.SlideTransition;
 import com.kowaisugoi.game.interactables.InteractionListener;
 import com.kowaisugoi.game.interactables.objects.ItemId;
@@ -149,7 +148,7 @@ public class DirectionalPassage implements Passage {
 
             PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NONE);
             PlayGame.playTransition(_transitionSprite == null ?
-                    new SlideTransition(this, _direction, _travelSpeed) :
+                    new SlideTransition(this, _direction) :
                     new SlideTransition(this, _direction, _transitionSprite, _travelSpeed));
 
             AudioManager.playSound(_soundId);

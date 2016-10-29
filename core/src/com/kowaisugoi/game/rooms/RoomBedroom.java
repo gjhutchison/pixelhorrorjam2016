@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.audio.SoundId;
+import com.kowaisugoi.game.graphics.SlideTransition;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
@@ -20,8 +21,7 @@ import com.kowaisugoi.game.system.GameUtil;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BOARDS_REMOVED;
-import static com.kowaisugoi.game.control.flags.FlagId.FLAG_NIGHT_TIME;
+import static com.kowaisugoi.game.control.flags.FlagId.*;
 
 public class RoomBedroom extends StandardRoom {
 
@@ -131,6 +131,10 @@ public class RoomBedroom extends StandardRoom {
             } else {
                 setSprite(_roomSprite1);
             }
+        }
+        // TODO: Not the best place for this to live
+        if (PlayGame.getFlagManager().getFlag(FLAG_KEYS_MISSING).getState()) {
+            SlideTransition.setTransitionSpeed(260f);
         }
     }
 
