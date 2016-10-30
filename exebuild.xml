@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>/home/fluffy/workspace/pixelhorrorjam2016/desktop/build/libs/desktop-1.0.jar</jar>
-  <outfile>/home/fluffy/Desktop/Cozy.exe</outfile>
+  <jar>/home/fluffy/workspace/pixelhorrorjam2016/desktop/build/libs/Cozy.jar</jar>
+  <outfile>/home/fluffy/workspace/pixelhorrorjam2016/desktop/build/libs/Cozy.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
