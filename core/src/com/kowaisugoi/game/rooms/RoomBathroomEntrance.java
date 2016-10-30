@@ -115,7 +115,7 @@ public class RoomBathroomEntrance extends StandardRoom {
                                        PlayGame.getPlayer().setInteractionMode(Player.InteractionMode.NORMAL);
                                    }
                                }
-                        , 3.0f // Initial delay
+                        , 2.8f // Initial delay
                         , 0 // Fire every X seconds
                         , 1 // Number of times to fire
                 );

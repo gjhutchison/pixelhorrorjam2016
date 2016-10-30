@@ -134,7 +134,7 @@ public class RoomBedroom extends StandardRoom {
         }
         // TODO: Not the best place for this to live
         if (PlayGame.getFlagManager().getFlag(FLAG_KEYS_MISSING).getState()) {
-            SlideTransition.setTransitionSpeed(260f);
+            SlideTransition.setTransitionSpeed(240f);
         }
     }
 

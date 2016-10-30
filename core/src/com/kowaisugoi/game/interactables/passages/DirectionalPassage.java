@@ -84,7 +84,7 @@ public class DirectionalPassage implements Passage {
                                    }
                                }
                            }
-                    , 0.8f // Initial delay
+                    , 0.65f // Initial delay
                     , 0 // Fire every X seconds
                     , 1 // Number of times to fire
             );
