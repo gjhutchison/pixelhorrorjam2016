@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.audio.AudioManager;
 import com.kowaisugoi.game.audio.MusicId;
 import com.kowaisugoi.game.audio.SoundId;
+import com.kowaisugoi.game.graphics.SlideTransition;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.passages.BlockedPassage;
 import com.kowaisugoi.game.interactables.passages.DirectionalPassage;
@@ -14,15 +15,13 @@ import com.kowaisugoi.game.interactables.passages.Passage;
 import com.kowaisugoi.game.interactables.scenic.Describable;
 import com.kowaisugoi.game.interactables.scenic.GeneralDescribable;
 import com.kowaisugoi.game.messages.Messages;
-import com.kowaisugoi.game.player.Player;
 import com.kowaisugoi.game.screens.PlayGame;
 import com.kowaisugoi.game.system.GameUtil;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.kowaisugoi.game.control.flags.FlagId.FLAG_BOARDS_REMOVED;
-import static com.kowaisugoi.game.control.flags.FlagId.FLAG_NIGHT_TIME;
+import static com.kowaisugoi.game.control.flags.FlagId.*;
 
 public class RoomBedroom extends StandardRoom {
 
@@ -69,7 +68,16 @@ public class RoomBedroom extends StandardRoom {
         Describable bedDescription = new GeneralDescribable(
                 Messages.getText("bedroom.bed.description"),
                 new Rectangle(9, 16, 46, 21));
-
+        bedDescription.setItemInteractionMessage(ItemId.STICK, Messages.getText("bedroom.interaction.bed.stick"));
+        Describable underBedDescription = new GeneralDescribable(
+                Messages.getText("bedroom.underbed.description1"),
+                new Rectangle(13, 8, 21, 7));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description2"));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description3"));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description4"));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description5"));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description6"));
+        underBedDescription.addDescription(Messages.getText("bedroom.underbed.description7"));
 
         BlockedPassage boards_1 = new BlockedPassage(RoomId.PARKING_AREA,
                 RoomId.BATHROOM,
@@ -100,10 +108,12 @@ public class RoomBedroom extends StandardRoom {
         addDescribable(tableDescription);
         addDescribable(artDescription);
         addDescribable(bedDescription);
+        addDescribable(underBedDescription);
 
         _describableList1.add(tableDescription);
         _describableList1.add(artDescription);
         _describableList1.add(bedDescription);
+        _describableList1.add(underBedDescription);
 
         _passageList1.add(passageBathroom);
         _passageList1.add(passageHall);
@@ -121,6 +131,10 @@ public class RoomBedroom extends StandardRoom {
             } else {
                 setSprite(_roomSprite1);
             }
+        }
+        // TODO: Not the best place for this to live
+        if (PlayGame.getFlagManager().getFlag(FLAG_KEYS_MISSING).getState()) {
+            SlideTransition.setTransitionSpeed(260f);
         }
     }
 

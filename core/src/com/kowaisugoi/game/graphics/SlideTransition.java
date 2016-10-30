@@ -17,9 +17,10 @@ public class SlideTransition implements Transition {
 
     private float _xPosition, _yPosition;
 
-    public static final float DEFAULT_SPEED = 540f;
+    public static final float DEFAULT_SPEED = 500f;
+    private static float _transitionSpeed = DEFAULT_SPEED;
 
-    private float _speedHorizontal = DEFAULT_SPEED;
+    private float _speedHorizontal = _transitionSpeed;
     private float _speedVertical = _speedHorizontal * (PlayGame.GAME_HEIGHT / PlayGame.GAME_WIDTH);
 
     private float _halfTimeHorizontal = (PlayGame.GAME_WIDTH / _speedHorizontal);
@@ -68,11 +69,6 @@ public class SlideTransition implements Transition {
         }
     }
 
-    public SlideTransition(Passage p, Direction direction, Sprite image) {
-        this(p, direction);
-        _sprite = image;
-    }
-
     public SlideTransition(Passage p, Direction direction, float speed) {
         this(p, direction);
         initSpeeds(speed);
@@ -82,6 +78,10 @@ public class SlideTransition implements Transition {
         this(p, direction);
         _sprite = image;
         initSpeeds(speed);
+    }
+
+    public static void setTransitionSpeed(float transitionSpeed) {
+        _transitionSpeed = transitionSpeed;
     }
 
     private void initSpeeds(float horizontalSpeed) {

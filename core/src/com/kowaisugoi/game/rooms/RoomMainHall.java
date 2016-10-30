@@ -83,9 +83,13 @@ public class RoomMainHall extends StandardRoom {
         _carkeys.setPickupText(Messages.getText("mainhall.pickup.carkeys"));
 
         ItemInteractableScenic fireDescription = new ItemInteractableScenic(Messages.getText("mainhall.fireplace.thought"),
-                Messages.getText("shedinterior.interaction.stickdoused.fireplace"),
+                Messages.getText("mainhall.interaction.stickdoused.fireplace"),
                 new Rectangle(70, 28, 21, 13),
                 ItemId.STICK_RAGS_ALCOHOL, torch);
+        fireDescription.setItemInteractionMessage(ItemId.STICK, Messages.getText("mainhall.interaction.fireplace.stick"));
+        fireDescription.setItemInteractionMessage(ItemId.STICK_RAGS, Messages.getText("mainhall.interaction.fireplace.stick"));
+        fireDescription.setItemInteractionMessage(ItemId.GLASS_SNOW, Messages.getText("mainhall.interaction.fireplace.glasssnow"));
+        fireDescription.setItemInteractionMessage(ItemId.GLASS_WATER, Messages.getText("mainhall.interaction.fireplace.glasswater"));
 
         turnAround.setSoundEffect(SoundId.DOOR_CREAK);
         hallDoor.setSoundEffect(SoundId.DOOR_CREAK);

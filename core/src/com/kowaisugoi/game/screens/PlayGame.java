@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kowaisugoi.game.control.flags.FlagManager;
+import com.kowaisugoi.game.graphics.SlideTransition;
 import com.kowaisugoi.game.graphics.Transition;
 import com.kowaisugoi.game.messages.Messages;
 import com.kowaisugoi.game.player.Player;
@@ -60,6 +61,8 @@ public class PlayGame implements Screen {
     public void show() {
         _roomManager = new RoomManager();
         _flagManager = new FlagManager();
+
+        SlideTransition.setTransitionSpeed(SlideTransition.DEFAULT_SPEED);
 
         PlayerInventory inventory = new PlayerInventory();
 

@@ -46,6 +46,8 @@ public class RoomKitchen extends StandardRoom {
         Describable toaster = new GeneralDescribable(Messages.getText("kitchen.toaster.thought"),
                 new Rectangle(76, 34, 13, 14));
         toaster.setItemInteractionMessage(ItemId.GLASS_WATER, Messages.getText("kitchen.interaction.outlet.glasswater"));
+        toaster.setItemInteractionMessage(ItemId.STICK, Messages.getText("kitchen.interaction.toaster.stick"));
+        toaster.setItemInteractionMessage(ItemId.HAMMER, Messages.getText("kitchen.interaction.toaster.hammer"));
 
         Describable outlet = new GeneralDescribable(Messages.getText("kitchen.outlet.thought"),
                 new Rectangle(80, 56, 4, 7));
