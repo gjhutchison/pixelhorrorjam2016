@@ -24,6 +24,7 @@ import com.kowaisugoi.game.system.GameUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class EndingScreen implements Screen, InputProcessor {
 
@@ -41,7 +42,8 @@ public class EndingScreen implements Screen, InputProcessor {
     private Sprite _carInterriorScare;
     private SnowAnimation _snowAnimation;
 
-    private String _credits;
+    private int _creditsState = 0;
+    private ArrayList<String> _credits = new ArrayList<String>();
 
     private float _scareTimer = 0.0f;
     private static final float SCARE_TIME = 4;
@@ -53,7 +55,12 @@ public class EndingScreen implements Screen, InputProcessor {
     private static final float END_TIME = 1.5f;
 
     private float _creditDelayTimer = 0.0f;
-    private static final float CREDIT_DELAY_TIMER = 1.5f;
+    private static final float CREDIT_DELAY_TIMER = 2.0f;
+
+    private float _creditPageTimer = 0.0f;
+    private static final float CREDIT_PAGE_TIMER = 7.0f;
+
+    private static final String[] fileNames = {"credits_1.txt", "credits_2.txt", "credits_3.txt"};
 
     private BitmapFont _creditsFont;
 
@@ -93,18 +100,21 @@ public class EndingScreen implements Screen, InputProcessor {
         _creditsFont.setColor(1, 1, 1, 0);
         _creditsFont.getData().setScale(0.12f);
 
-        _credits = "";
-        try {
-            FileHandle fileHandle = Gdx.files.internal("credits.txt");
-            BufferedReader in = new BufferedReader(fileHandle.reader());
-            String line;
-            while ((line = in.readLine()) != null) {
-                _credits += line + "\n";
+        for (String fileName : fileNames) {
+            String creditPage = "";
+            try {
+                FileHandle fileHandle = Gdx.files.internal(fileName);
+                BufferedReader in = new BufferedReader(fileHandle.reader());
+                String line;
+                while ((line = in.readLine()) != null) {
+                    creditPage += line + "\n";
+                }
+                in.close();
+            } catch (IOException e) {
+                creditPage = "";
+                Gdx.app.log("ERROR", "Could not load credits" + e.getMessage());
             }
-            in.close();
-        } catch (IOException e) {
-            _credits = "";
-            Gdx.app.log("ERROR", "Could not load credits" + e.getMessage());
+            _credits.add(creditPage);
         }
 
         Gdx.input.setInputProcessor(this);
@@ -134,7 +144,9 @@ public class EndingScreen implements Screen, InputProcessor {
             }
 
         } else {
-            _creditsFont.draw(_batch, _credits, 3, 87);
+            _creditsState = (int)(_creditPageTimer / CREDIT_PAGE_TIMER);
+            _creditsState = (_creditsState > _credits.size()-1) ? _credits.size()-1 : _creditsState;
+            _creditsFont.draw(_batch, _credits.get(_creditsState), 3, 87);
         }
         _batch.end();
 
@@ -187,6 +199,7 @@ public class EndingScreen implements Screen, InputProcessor {
                 _creditDelayTimer += delta;
             } else {
                 _creditsFont.setColor(1, 1, 1, _creditsFont.getColor().a + (delta * 0.15f));
+                _creditPageTimer += delta;
             }
         }
     }

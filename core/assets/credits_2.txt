@@ -1,8 +1,6 @@
-Cozy
-A Game by Graham Hutchison and Evan Crothers
-
 Testing Provided By:
-Joshua Eastly, Annie Feng
+Joshua Eastly
+Annie Feng
 
 Creative Commons Audio Assets by:
 Car Ignition - InspectorJ
@@ -15,6 +13,3 @@ Windy Window - PedalingPrince
 OhDearScare - TheGoliath
 
 Music: Better Days - BenSound (www.bensound.com)
-
-Thanks for Playing!
-ESC to exit.

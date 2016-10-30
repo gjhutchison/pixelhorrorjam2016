@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.kowaisugoi.game.control.flags.FlagId;
-import com.kowaisugoi.game.interactables.objects.Item;
 import com.kowaisugoi.game.interactables.objects.ItemId;
 import com.kowaisugoi.game.interactables.objects.PickupableItem;
 import com.kowaisugoi.game.rooms.RoomId;
@@ -27,6 +26,7 @@ public final class GlobalKeyHandler {
     static final int TORCH_KEY = Input.Keys.T;
     static final int CABINET_KEY = Input.Keys.C;
     static final int ENDGAME_KEY = Input.Keys.E;
+    static final int CREDITS_KEY = Input.Keys.X;
 
     public static boolean keyUp(int keycode) {
         if (keycode == FULLSCREEN_KEY) {
@@ -83,7 +83,22 @@ public final class GlobalKeyHandler {
                 PlayGame.getFlagManager().setFlag(FlagId.FLAG_SHED_OPENED, true);
                 PlayGame.getFlagManager().setFlag(FlagId.FLAG_ENTERED_BATHROOM, true);
                 PlayGame.getFlagManager().setFlag(FlagId.FLAG_TORCH_PLACED, true);
-            } else {
+            }
+        }
+
+        if (keycode == CREDITS_KEY) {
+            if (PlayGame.getDebug()) {
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_BODY_FOUND, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_KEYS_MISSING, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_BOARDS_REMOVED, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_CAR_FOUND, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_CAR_SNOWREMOVED, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_NIGHT_TIME, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_SHED_OPENED, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_ENTERED_BATHROOM, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_TORCH_PLACED, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_KEYS_APPEARED, true);
+                PlayGame.getFlagManager().setFlag(FlagId.FLAG_KEYS_FOUND, true);
             }
         }
 
