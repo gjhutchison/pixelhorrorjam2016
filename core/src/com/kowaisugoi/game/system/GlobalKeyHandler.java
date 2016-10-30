@@ -68,7 +68,7 @@ public final class GlobalKeyHandler {
             if (PlayGame.getDebug()) {
                 PlayGame.setDebug(false);
             } else {
-                PlayGame.setDebug(true);
+                //PlayGame.setDebug(true);
             }
         }
 
