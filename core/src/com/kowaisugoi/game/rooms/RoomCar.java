@@ -14,7 +14,10 @@ import com.kowaisugoi.game.system.GameUtil;
 
 public class RoomCar extends StandardRoom {
 
-    private static final String ROOM_URL = "rooms/car_v1.png";
+    private static final String ROOM_URL = "rooms/car/car.png";
+    private static final String ROOM_URL2 = "rooms/car/car_night.png";
+
+    private static final Sprite _roomSpirte2 = new Sprite(new Texture(ROOM_URL2));
 
     public RoomCar() {
         super(new Sprite(new Texture(ROOM_URL)));
@@ -33,6 +36,10 @@ public class RoomCar extends StandardRoom {
     public void flagUpdate() {
         if (PlayGame.getFlagManager().getFlag(FlagId.FLAG_KEYS_MISSING).getState()) {
             pushEnterRemark("car.keysmissing");
+        }
+
+        if (PlayGame.getFlagManager().getFlag(FlagId.FLAG_NIGHT_TIME).getState()) {
+            setSprite(_roomSpirte2);
         }
     }
 }

@@ -78,9 +78,9 @@ public class EndingScreen implements Screen, InputProcessor {
 
         _carPark = new Sprite(new Texture("rooms/parking/damaged_car_night.png"));
         _carPark.setSize(ENDING_WIDTH, ENDING_HEIGHT);
-        _carInterrior = new Sprite(new Texture("rooms/car_v1.png"));
+        _carInterrior = new Sprite(new Texture("rooms/car/car_night.png"));
         _carInterrior.setSize(ENDING_WIDTH, ENDING_HEIGHT);
-        _carInterriorScare = new Sprite(new Texture("rooms/car_scary.png"));
+        _carInterriorScare = new Sprite(new Texture("rooms/car/car_scary.png"));
         _carInterriorScare.setSize(ENDING_WIDTH, ENDING_HEIGHT);
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/raleway/Raleway-Medium.ttf"));
